@@ -2,8 +2,18 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Uno Pizza — Fidélité</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#D85A30">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Uno Pizza">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="description" content="Programme de fidélité Uno Pizza">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
@@ -564,40 +574,117 @@ async function renderModerators() {
 }
 
 // ---- GLOBAL HISTORY ----
-async function renderGlobalHistory() {
-  const { data: clients } = await sb.from('users').select('*').eq('role','client');
-  const { data: txs } = await sb.from('transactions').select('*, client:client_id(prenom,nom,num_carte), by:by_user_id(prenom,nom)').order('created_at', { ascending: false });
-  const totalPts = (txs||[]).filter(t=>t.points>0).reduce((s,t)=>s+t.points,0);
-  const totalRedeem = (txs||[]).filter(t=>t.points<0).length;
-  const grouped = groupByDate(txs||[]);
+let histFilters = { clientId: '', dateFrom: '', dateTo: '', type: '' };
 
+async function renderGlobalHistory() {
+  const { data: clients } = await sb.from('users').select('*').eq('role','client').order('nom');
+  let query = sb.from('transactions').select('*, client:client_id(id,prenom,nom,num_carte), by:by_user_id(prenom,nom)').order('created_at', { ascending: false });
+  if (histFilters.clientId) query = query.eq('client_id', histFilters.clientId);
+  if (histFilters.dateFrom) query = query.gte('created_at', histFilters.dateFrom + 'T00:00:00');
+  if (histFilters.dateTo) query = query.lte('created_at', histFilters.dateTo + 'T23:59:59');
+  if (histFilters.type === 'add') query = query.gt('points', 0);
+  if (histFilters.type === 'redeem') query = query.lt('points', 0);
+  const { data: txs } = await query;
+
+  const allTxs = txs || [];
+  const totalPts = allTxs.filter(t=>t.points>0).reduce((s,t)=>s+t.points,0);
+  const totalRedeem = allTxs.filter(t=>t.points<0).length;
+  const grouped = groupByDate(allTxs);
+
+  // Client options
+  let clientOpts = `<option value="">Tous les clients</option>`;
+  (clients||[]).forEach(c => {
+    const sel = histFilters.clientId === c.id ? 'selected' : '';
+    clientOpts += `<option value="${c.id}" ${sel}>${c.prenom} ${c.nom} (${c.num_carte})</option>`;
+  });
+
+  // Active client name banner
+  let clientBanner = '';
+  if (histFilters.clientId) {
+    const fc = (clients||[]).find(c => c.id === histFilters.clientId);
+    if (fc) clientBanner = `<div style="background:var(--brand-light);border:1px solid #f0997b;border-radius:var(--radius-sm);padding:8px 14px;font-size:13px;font-weight:500;color:var(--brand-dark);margin-bottom:12px;">
+      Filtré : ${fc.prenom} ${fc.nom} — carte <b>${fc.num_carte}</b> — <b>${fc.points} pts</b> actuellement
+    </div>`;
+  }
+
+  // Build history rows grouped by date
   let histHTML = '';
-  for (const [date, rows] of Object.entries(grouped)) {
-    histHTML += `<div class="date-group">${fmtDateKey(date)}</div>`;
+  const dateKeys = Object.keys(grouped).sort((a,b) => b.localeCompare(a));
+  for (const date of dateKeys) {
+    const rows = grouped[date];
+    const dayPts = rows.filter(r=>r.points>0).reduce((s,r)=>s+r.points,0);
+    const dayRedeem = rows.filter(r=>r.points<0).length;
+    histHTML += `<div class="date-group" style="display:flex;align-items:center;justify-content:space-between;">
+      <span>${fmtDateKey(date)}</span>
+      <span style="font-size:11px;font-weight:400;color:#9ca3af;">${rows.length} transaction(s)${dayPts ? ' · +'+dayPts+' pts' : ''}${dayRedeem ? ' · '+dayRedeem+' récompense(s)' : ''}</span>
+    </div>`;
     rows.forEach(h => {
       const clientName = h.client ? `${h.client.prenom} ${h.client.nom}` : '—';
       const clientNum = h.client?.num_carte || '—';
       const byName = h.by ? `${h.by.prenom||''} ${h.by.nom||''}`.trim() : '—';
       histHTML += `<div class="history-row">
-        <span style="font-weight:600;color:var(--brand);min-width:65px;font-size:12px;">${clientNum}</span>
-        <div style="flex:1;">${clientName} — ${h.label}</div>
+        ${!histFilters.clientId ? `<span style="font-weight:600;color:var(--brand);min-width:65px;font-size:12px;">${clientNum}</span>
+        <div style="flex:1;"><span style="color:var(--text);">${clientName}</span> <span style="color:#9ca3af;">— ${h.label}</span></div>` :
+        `<div style="flex:1;">${h.label}</div>`}
         <div style="font-size:12px;color:#9ca3af;margin-right:8px;">${byName}</div>
         <span class="${h.points > 0 ? 'pts-pos' : 'pts-neg'}">${h.points > 0 ? '+' : ''}${h.points} pts</span>
       </div>`;
     });
   }
-  if (!histHTML) histHTML = `<p style="font-size:13px;color:#6b7280;">Aucune transaction.</p>`;
+  if (!histHTML) histHTML = `<div style="text-align:center;padding:2rem;font-size:13px;color:#6b7280;">Aucune transaction pour ces critères.</div>`;
+
+  const hasFilters = histFilters.clientId || histFilters.dateFrom || histFilters.dateTo || histFilters.type;
 
   return `
   <div class="stats-grid">
-    <div class="stat-box"><div class="stat-num">${(clients||[]).length}</div><div class="stat-lbl">Clients</div></div>
-    <div class="stat-box"><div class="stat-num">${totalPts}</div><div class="stat-lbl">Points distribués</div></div>
-    <div class="stat-box"><div class="stat-num">${totalRedeem}</div><div class="stat-lbl">Récompenses utilisées</div></div>
+    <div class="stat-box"><div class="stat-num">${(clients||[]).length}</div><div class="stat-lbl">Clients total</div></div>
+    <div class="stat-box"><div class="stat-num">${totalPts}</div><div class="stat-lbl">Points ${hasFilters?'(filtrés)':'distribués'}</div></div>
+    <div class="stat-box"><div class="stat-num">${totalRedeem}</div><div class="stat-lbl">Récompenses ${hasFilters?'(filtrées)':'utilisées'}</div></div>
   </div>
+
   <div class="card">
-    <div class="section-title">Toutes les transactions</div>
+    <div class="section-title">Filtres</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div class="field" style="margin:0;">
+        <label>Client</label>
+        <select onchange="setHistFilter('clientId',this.value)">${clientOpts}</select>
+      </div>
+      <div class="field" style="margin:0;">
+        <label>Type</label>
+        <select onchange="setHistFilter('type',this.value)">
+          <option value="" ${!histFilters.type?'selected':''}>Tous</option>
+          <option value="add" ${histFilters.type==='add'?'selected':''}>Points ajoutés</option>
+          <option value="redeem" ${histFilters.type==='redeem'?'selected':''}>Récompenses utilisées</option>
+        </select>
+      </div>
+      <div class="field" style="margin:0;">
+        <label>Du</label>
+        <input type="date" value="${histFilters.dateFrom}" onchange="setHistFilter('dateFrom',this.value)" />
+      </div>
+      <div class="field" style="margin:0;">
+        <label>Au</label>
+        <input type="date" value="${histFilters.dateTo}" onchange="setHistFilter('dateTo',this.value)" />
+      </div>
+    </div>
+    ${hasFilters ? `<button class="btn btn-sm" onclick="resetHistFilters()" style="margin-top:4px;">✕ Réinitialiser les filtres</button>` : ''}
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div class="section-title" style="margin:0;">${allTxs.length} transaction(s)</div>
+    </div>
+    ${clientBanner}
     ${histHTML}
   </div>`;
+}
+
+function setHistFilter(key, val) {
+  histFilters[key] = val;
+  showAdmin();
+}
+function resetHistFilters() {
+  histFilters = { clientId: '', dateFrom: '', dateTo: '', type: '' };
+  showAdmin();
 }
 
 // ---- GROUP BY DATE ----
@@ -687,6 +774,13 @@ async function deleteModerator(id) {
 // INIT
 // ============================
 showLogin();
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
