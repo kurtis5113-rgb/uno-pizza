@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Uno Pizza">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Programme de fidélité Uno Pizza">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -107,14 +107,107 @@
   #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 10px 22px; border-radius: 99px; font-size: 13px; font-weight: 500; z-index: 999; transition: opacity .3s; pointer-events: none; white-space: nowrap; }
 
   /* Login */
-  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem; }
-  .login-card { width: 100%; max-width: 380px; background: white; border: var(--border); border-radius: var(--radius); padding: 2rem; }
-  .login-logo { text-align: center; font-size: 26px; font-weight: 700; margin-bottom: 4px; }
-  .login-logo span { color: var(--brand); }
-  .login-sub { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 1.5rem; }
-  .login-tabs { display: flex; border: 1px solid #e5e7eb; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.25rem; }
-  .login-tab { flex: 1; height: 36px; border: none; background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text-muted); transition: all .15s; }
-  .login-tab.active { background: var(--brand); color: white; }
+  .login-wrap {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    background: #0d0d0d;
+    position: relative; overflow: hidden;
+  }
+  .login-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(216,90,48,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .login-wrap::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .login-hero {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%; max-width: 420px;
+  }
+  .login-logo-ring {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 2px solid rgba(216,90,48,0.4);
+    padding: 6px;
+    margin-bottom: 1.25rem;
+    position: relative;
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+  .login-logo-ring::before {
+    content: '';
+    position: absolute; inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(216,90,48,0.15);
+    animation: pulse-ring 3s ease-in-out infinite .5s;
+  }
+  @keyframes pulse-ring {
+    0%,100% { box-shadow: 0 0 0 0 rgba(216,90,48,0.15); }
+    50% { box-shadow: 0 0 0 10px rgba(216,90,48,0); }
+  }
+  .login-logo-ring img {
+    width: 100%; height: 100%;
+    border-radius: 50%; object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.08);
+  }
+  .login-brand {
+    text-align: center; margin-bottom: 0.5rem;
+  }
+  .login-brand h1 {
+    font-size: 36px; font-weight: 900; letter-spacing: -.02em; color: white; line-height: 1;
+  }
+  .login-brand h1 .uno { color: #1D9E75; }
+  .login-brand h1 .pizza { color: #D85A30; }
+  .login-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(216,90,48,0.12); border: 1px solid rgba(216,90,48,0.3);
+    color: #D85A30; font-size: 11px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; padding: 4px 14px; border-radius: 99px;
+    margin: 10px 0 1.75rem;
+  }
+  .login-badge::before { content: '★'; font-size: 10px; }
+  .login-card {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 1.75rem;
+    backdrop-filter: blur(20px);
+  }
+  .login-logo { display: none; }
+  .login-sub { display: none; }
+  .login-tabs {
+    display: flex;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; overflow: hidden; margin-bottom: 1.25rem;
+  }
+  .login-tab {
+    flex: 1; height: 38px; border: none; background: transparent;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    color: rgba(255,255,255,0.4); transition: all .2s;
+    letter-spacing: .02em;
+  }
+  .login-tab:hover { color: rgba(255,255,255,0.7); }
+  .login-tab.active { background: #D85A30; color: white; border-radius: 8px; }
+  .login-card label { color: rgba(255,255,255,0.5); }
+  .login-card input {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    color: white !important;
+  }
+  .login-card input::placeholder { color: rgba(255,255,255,0.25); }
+  .login-card input:focus { border-color: #D85A30 !important; box-shadow: 0 0 0 3px rgba(216,90,48,0.15) !important; }
+  .login-card p { color: rgba(255,255,255,0.4); }
+  .login-card .alert-error { background: rgba(185,28,28,0.2); border-color: rgba(239,68,68,0.3); color: #fca5a5; }
+  .login-card .alert-success { background: rgba(22,101,52,0.2); border-color: rgba(134,239,172,0.3); color: #86efac; }
 
   /* Alert */
   .alert { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 12px; }
@@ -199,15 +292,22 @@ function render(html) {
 function showLogin() {
   render(`
   <div class="login-wrap">
-    <div class="login-card">
-      <div class="login-logo">Uno <span>Pizza</span></div>
-      <div class="login-sub">Programme de fidélité</div>
-      <div class="login-tabs">
-        <button class="login-tab active" id="tab-staff" onclick="switchTab('staff')">Staff / Admin</button>
-        <button class="login-tab" id="tab-client" onclick="switchTab('client')">Espace client</button>
-        <button class="login-tab" id="tab-register" onclick="switchTab('register')">Créer un compte</button>
+    <div class="login-hero">
+      <div class="login-logo-ring">
+        <img src="logo.jpg" alt="Uno Pizza" onerror="this.style.display='none';this.parentElement.style.background='#D85A30'">
       </div>
-      <div id="login-body"></div>
+      <div class="login-brand">
+        <h1><span class="uno">Uno</span> <span class="pizza">Pizza</span></h1>
+      </div>
+      <div class="login-badge">Programme de fidélité · Depuis 2017</div>
+      <div class="login-card">
+        <div class="login-tabs">
+          <button class="login-tab active" id="tab-staff" onclick="switchTab('staff')">Staff</button>
+          <button class="login-tab" id="tab-client" onclick="switchTab('client')">Client</button>
+          <button class="login-tab" id="tab-register" onclick="switchTab('register')">Créer un compte</button>
+        </div>
+        <div id="login-body"></div>
+      </div>
     </div>
   </div>`);
   switchTab('staff');
