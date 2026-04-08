@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uno Pizza — Fidélité</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --brand: #D85A30;
+    --brand-light: #FAECE7;
+    --brand-dark: #993C1D;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --border: 1px solid #e5e7eb;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --bg: #f9fafb;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  a { color: var(--brand); text-decoration: none; }
+
+  /* Layout */
+  .app { max-width: 700px; margin: 0 auto; padding: 1rem; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0 1.5rem; }
+  .logo { font-size: 20px; font-weight: 600; }
+  .logo span { color: var(--brand); }
+
+  /* Cards */
+  .card { background: var(--card); border: var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 12px; }
+
+  /* Forms */
+  label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .04em; }
+  input, select { width: 100%; height: 40px; border: 1px solid #d1d5db; border-radius: var(--radius-sm); padding: 0 12px; font-size: 14px; background: white; color: var(--text); outline: none; transition: border-color .15s, box-shadow .15s; }
+  input:focus, select:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(216,90,48,.12); }
+  .field { margin-bottom: 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 0 18px; border-radius: var(--radius-sm); border: 1px solid #d1d5db; background: white; color: var(--text); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; }
+  .btn:hover { background: #f3f4f6; }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--brand); border-color: var(--brand); color: white; }
+  .btn-primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+  .btn-danger { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
+  .btn-danger:hover { background: #fee2e2; }
+  .btn-sm { height: 32px; padding: 0 12px; font-size: 13px; }
+  .btn-full { width: 100%; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 99px; }
+  .badge-admin { background: var(--brand-light); color: var(--brand-dark); }
+  .badge-mod { background: #eff6ff; color: #1d4ed8; }
+  .badge-client { background: #f0fdf4; color: #166534; }
+
+  /* Nav */
+  .nav { display: flex; gap: 4px; border-bottom: 1px solid #e5e7eb; margin-bottom: 16px; }
+  .nav-btn { height: 36px; padding: 0 14px; border: none; background: transparent; color: var(--text-muted); font-size: 13px; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; }
+  .nav-btn:hover { color: var(--text); }
+  .nav-btn.active { color: var(--brand); border-bottom-color: var(--brand); }
+
+  /* Section title */
+  .section-title { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-weight: 600; font-size: 11px; color: var(--text-muted); padding: 6px 10px; border-bottom: 1px solid #e5e7eb; text-transform: uppercase; letter-spacing: .04em; }
+  td { padding: 10px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafafa; }
+
+  /* Avatar */
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+  .avatar-lg { width: 52px; height: 52px; font-size: 18px; }
+
+  /* Points */
+  .pts-big { font-size: 52px; font-weight: 700; color: var(--brand); line-height: 1; }
+  .progress-wrap { height: 8px; background: #f3f4f6; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+  .progress-fill { height: 100%; background: var(--brand); border-radius: 4px; transition: width .4s ease; }
+
+  /* Reward */
+  .reward-row { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--radius-sm); border: 1px solid #e5e7eb; margin-bottom: 8px; background: #fafafa; }
+  .reward-row.unlocked { background: var(--brand-light); border-color: #f0997b; }
+  .reward-icon { font-size: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: white; border-radius: var(--radius-sm); border: 1px solid #e5e7eb; flex-shrink: 0; }
+
+  /* Stats */
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+  .stat-box { background: white; border: var(--border); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+  .stat-num { font-size: 24px; font-weight: 700; color: var(--brand); }
+  .stat-lbl { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Toast */
+  #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 10px 22px; border-radius: 99px; font-size: 13px; font-weight: 500; z-index: 999; transition: opacity .3s; pointer-events: none; white-space: nowrap; }
+
+  /* Login */
+  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+  .login-card { width: 100%; max-width: 380px; background: white; border: var(--border); border-radius: var(--radius); padding: 2rem; }
+  .login-logo { text-align: center; font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .login-logo span { color: var(--brand); }
+  .login-sub { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 1.5rem; }
+  .login-tabs { display: flex; border: 1px solid #e5e7eb; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.25rem; }
+  .login-tab { flex: 1; height: 36px; border: none; background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text-muted); transition: all .15s; }
+  .login-tab.active { background: var(--brand); color: white; }
+
+  /* Alert */
+  .alert { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 12px; }
+  .alert-error { background: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c; }
+  .alert-success { background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
+
+  /* History date group */
+  .date-group { font-size: 12px; font-weight: 600; color: var(--text-muted); margin: 14px 0 6px; padding-bottom: 4px; border-bottom: 1px solid #f3f4f6; }
+  .history-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #f9fafb; font-size: 13px; }
+  .history-row:last-child { border-bottom: none; }
+  .pts-pos { color: #16a34a; font-weight: 600; }
+  .pts-neg { color: var(--brand); font-weight: 600; }
+
+  /* Divider */
+  .divider { height: 1px; background: #f3f4f6; margin: 14px 0; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 3rem; color: var(--text-muted); font-size: 14px; }
+
+  /* Inline form section */
+  .inline-form { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: var(--radius-sm); padding: 14px; margin-bottom: 14px; }
+
+  @media (max-width: 500px) {
+    .grid2 { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stats-grid .stat-box:last-child { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+<div id="toast" style="opacity:0;"></div>
+
+<script>
+const SUPABASE_URL = 'https://wbdnfjwpcimkjygokkzc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZG5mandwY2lta2p5Z29ra3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1OTg3MzYsImV4cCI6MjA5MTE3NDczNn0.d6_A3R_ko3nfzkvJbSyMS1zi8YQmkkrL4HpbXEiI_d4';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let session = null;
+let view = 'clients';
+let selectedClientId = null;
+let showForm = null;
+
+// ---- TOAST ----
+function toast(msg, dur=2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  setTimeout(() => t.style.opacity = '0', dur);
+}
+
+// ---- UTILS ----
+function initials(p, n) {
+  return ((p||'')[0]||'').toUpperCase() + ((n||'')[0]||'').toUpperCase() || '?';
+}
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric' });
+}
+function fmtDateKey(d) {
+  return new Date(d).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+}
+function avatarColor(role) {
+  if (role === 'admin') return 'background:#FAECE7;color:#993C1D;';
+  if (role === 'moderateur') return 'background:#eff6ff;color:#1d4ed8;';
+  return 'background:#f0fdf4;color:#166534;';
+}
+function nextNum(clients) {
+  const nums = clients.map(c => parseInt((c.num_carte||'UP-000').split('-')[1]||0));
+  const max = nums.length ? Math.max(...nums) : 0;
+  return 'UP-' + (max + 1).toString().padStart(3, '0');
+}
+
+// ---- RENDER ----
+function render(html) {
+  document.getElementById('root').innerHTML = html;
+}
+
+// ============================
+// LOGIN
+// ============================
+function showLogin() {
+  render(`
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">Uno <span>Pizza</span></div>
+      <div class="login-sub">Programme de fidélité</div>
+      <div class="login-tabs">
+        <button class="login-tab active" id="tab-staff" onclick="switchTab('staff')">Staff / Admin</button>
+        <button class="login-tab" id="tab-client" onclick="switchTab('client')">Espace client</button>
+        <button class="login-tab" id="tab-register" onclick="switchTab('register')">Créer un compte</button>
+      </div>
+      <div id="login-body"></div>
+    </div>
+  </div>`);
+  switchTab('staff');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.login-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  const body = document.getElementById('login-body');
+  if (tab === 'staff') {
+    body.innerHTML = `
+      <div id="login-alert"></div>
+      <div class="field"><label>Identifiant</label><input id="li" placeholder="admin" /></div>
+      <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" /></div>
+      <button class="btn btn-primary btn-full" onclick="doLoginStaff()">Se connecter</button>`;
+  } else if (tab === 'client') {
+    body.innerHTML = `
+      <div id="login-alert"></div>
+      <div class="field"><label>Numéro de carte (ex: UP-001)</label><input id="li" placeholder="UP-001" /></div>
+      <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" /></div>
+      <button class="btn btn-primary btn-full" onclick="doLoginClient()">Se connecter</button>`;
+  } else {
+    body.innerHTML = `
+      <div id="login-alert"></div>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:14px;">Votre numéro de carte vous est fourni par le restaurant.</p>
+      <div class="grid2">
+        <div class="field"><label>Prénom</label><input id="reg-prenom" placeholder="Jean" /></div>
+        <div class="field"><label>Nom</label><input id="reg-nom" placeholder="Dupont" /></div>
+      </div>
+      <div class="field"><label>Téléphone</label><input id="reg-tel" placeholder="06 12 34 56 78" /></div>
+      <div class="field"><label>Adresse</label><input id="reg-adr" placeholder="12 rue de la Paix, Lyon" /></div>
+      <div class="field"><label>Numéro de carte fidélité</label><input id="reg-num" placeholder="UP-001" /></div>
+      <div class="field"><label>Choisir un mot de passe</label><input id="reg-pass" type="password" placeholder="••••••" /></div>
+      <button class="btn btn-primary btn-full" onclick="doRegister()">Créer mon compte</button>`;
+  }
+}
+
+async function doLoginStaff() {
+  const login = document.getElementById('li').value.trim();
+  const pass = document.getElementById('lp').value.trim();
+  const { data, error } = await sb.from('users').select('*').eq('login', login).eq('password', pass).in('role', ['admin','moderateur']).single();
+  if (error || !data) { document.getElementById('login-alert').innerHTML = `<div class="alert alert-error">Identifiants incorrects.</div>`; return; }
+  session = data;
+  view = 'clients';
+  showAdmin();
+}
+
+async function doLoginClient() {
+  const num = document.getElementById('li').value.trim().toUpperCase();
+  const pass = document.getElementById('lp').value.trim();
+  const { data, error } = await sb.from('users').select('*').eq('num_carte', num).eq('password', pass).eq('role','client').single();
+  if (error || !data) { document.getElementById('login-alert').innerHTML = `<div class="alert alert-error">Numéro de carte ou mot de passe incorrect.</div>`; return; }
+  session = data;
+  showClientSpace();
+}
+
+async function doRegister() {
+  const prenom = document.getElementById('reg-prenom').value.trim();
+  const nom = document.getElementById('reg-nom').value.trim();
+  const tel = document.getElementById('reg-tel').value.trim();
+  const adr = document.getElementById('reg-adr').value.trim();
+  const num = document.getElementById('reg-num').value.trim().toUpperCase();
+  const pass = document.getElementById('reg-pass').value.trim();
+  const alert = document.getElementById('login-alert');
+  if (!prenom || !nom || !tel || !adr || !num || !pass) { alert.innerHTML = `<div class="alert alert-error">Tous les champs sont requis.</div>`; return; }
+  const { data: existing } = await sb.from('users').select('id').eq('num_carte', num).single();
+  if (existing) { alert.innerHTML = `<div class="alert alert-error">Ce numéro de carte est déjà utilisé ou n'existe pas.</div>`; return; }
+  const { data, error } = await sb.from('users').insert({ role:'client', login: num, password: pass, prenom, nom, telephone: tel, adresse: adr, num_carte: num, points: 0 }).select().single();
+  if (error) { alert.innerHTML = `<div class="alert alert-error">Erreur : ${error.message}</div>`; return; }
+  alert.innerHTML = `<div class="alert alert-success">Compte créé ! Vous pouvez maintenant vous connecter avec votre numéro de carte.</div>`;
+  setTimeout(() => switchTab('client'), 2000);
+}
+
+// ============================
+// CLIENT SPACE
+// ============================
+async function showClientSpace() {
+  render(`<div class="loading">Chargement...</div>`);
+  const { data: c } = await sb.from('users').select('*').eq('id', session.id).single();
+  const { data: txs } = await sb.from('transactions').select('*, by:by_user_id(prenom,nom)').eq('client_id', session.id).order('created_at', { ascending: false });
+  session = c;
+  const p1 = Math.min(c.points, 100), p2 = Math.min(c.points, 200);
+  const grouped = groupByDate(txs || []);
+
+  let histHTML = '';
+  if (!txs || txs.length === 0) {
+    histHTML = `<p style="font-size:13px;color:#6b7280;padding:8px 0;">Aucune transaction pour le moment.</p>`;
+  } else {
+    for (const [date, rows] of Object.entries(grouped)) {
+      histHTML += `<div class="date-group">${fmtDateKey(date)}</div>`;
+      rows.forEach(h => {
+        histHTML += `<div class="history-row">
+          <div style="flex:1;">${h.label}</div>
+          <span class="${h.points > 0 ? 'pts-pos' : 'pts-neg'}">${h.points > 0 ? '+' : ''}${h.points} pts</span>
+        </div>`;
+      });
+    }
+  }
+
+  render(`
+  <div class="app">
+    <div class="topbar">
+      <div class="logo">Uno <span>Pizza</span></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="badge badge-client">Client</span>
+        <button class="btn btn-sm" onclick="showLogin()">Déconnexion</button>
+      </div>
+    </div>
+
+    <div class="card" style="text-align:center;padding:2rem;">
+      <div style="display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:1.5rem;">
+        <div class="avatar avatar-lg" style="background:#f0fdf4;color:#166534;">${initials(c.prenom, c.nom)}</div>
+        <div style="text-align:left;">
+          <div style="font-size:18px;font-weight:600;">${c.prenom} ${c.nom}</div>
+          <div style="font-size:13px;color:#6b7280;">Carte n° <b style="color:var(--brand);">${c.num_carte}</b></div>
+          <div style="font-size:12px;color:#6b7280;">${c.telephone} &nbsp;|&nbsp; ${c.adresse}</div>
+        </div>
+      </div>
+      <div class="pts-big">${c.points}</div>
+      <div style="font-size:14px;color:#6b7280;margin-top:6px;">points cumulés (1€ = 1 point)</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Mes récompenses</div>
+      <div class="reward-row${c.points >= 100 ? ' unlocked' : ''}">
+        <div class="reward-icon">🍾</div>
+        <div style="flex:1;">
+          <div style="font-weight:600;font-size:14px;">Bouteille 1.5L offerte</div>
+          <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/100)*100)}%"></div></div>
+          <div style="font-size:12px;color:#6b7280;">${p1} / 100 points</div>
+        </div>
+        ${c.points >= 100 ? `<span class="badge badge-admin">Disponible !</span>` : ''}
+      </div>
+      <div class="reward-row${c.points >= 200 ? ' unlocked' : ''}">
+        <div class="reward-icon">🍕</div>
+        <div style="flex:1;">
+          <div style="font-weight:600;font-size:14px;">Pizza Junior au choix offerte</div>
+          <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/200)*100)}%"></div></div>
+          <div style="font-size:12px;color:#6b7280;">${p2} / 200 points</div>
+        </div>
+        ${c.points >= 200 ? `<span class="badge badge-admin">Disponible !</span>` : ''}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Mon historique</div>
+      ${histHTML}
+    </div>
+  </div>`);
+}
+
+// ============================
+// ADMIN / MOD
+// ============================
+async function showAdmin() {
+  render(`<div class="loading">Chargement...</div>`);
+  const isAdmin = session.role === 'admin';
+
+  let navHTML = `<div class="nav">
+    <button class="nav-btn${view==='clients'?' active':''}" onclick="setView('clients')">Clients</button>`;
+  if (isAdmin) {
+    navHTML += `<button class="nav-btn${view==='moderateurs'?' active':''}" onclick="setView('moderateurs')">Modérateurs</button>
+    <button class="nav-btn${view==='historique'?' active':''}" onclick="setView('historique')">Historique global</button>`;
+  }
+  navHTML += `<button class="nav-btn" style="margin-left:auto;" onclick="showLogin()">Déconnexion</button></div>`;
+
+  let content = '';
+  if (view === 'clients') content = await renderClients(isAdmin);
+  else if (view === 'moderateurs') content = await renderModerators();
+  else if (view === 'historique') content = await renderGlobalHistory();
+
+  render(`
+  <div class="app">
+    <div class="topbar">
+      <div class="logo">Uno <span>Pizza</span></div>
+      <div><span class="badge ${isAdmin ? 'badge-admin' : 'badge-mod'}">${isAdmin ? 'Administrateur' : 'Modérateur'}</span>
+      <span style="font-size:13px;color:#6b7280;margin-left:8px;">${session.prenom} ${session.nom}</span></div>
+    </div>
+    ${navHTML}
+    ${content}
+  </div>`);
+}
+
+async function setView(v) { view = v; selectedClientId = null; showForm = null; showAdmin(); }
+
+// ---- CLIENTS LIST ----
+async function renderClients(isAdmin) {
+  const { data: clients } = await sb.from('users').select('*').eq('role','client').order('created_at', { ascending: false });
+  let formHTML = '';
+  if (showForm === 'addClient') {
+    const nextN = nextNum(clients || []);
+    formHTML = `
+    <div class="inline-form">
+      <div style="font-weight:600;font-size:14px;margin-bottom:12px;">Nouveau client — carte attribuée : <span style="color:var(--brand);">${nextN}</span></div>
+      <div class="grid2">
+        <div class="field"><label>Prénom</label><input id="ac-prenom" /></div>
+        <div class="field"><label>Nom</label><input id="ac-nom" /></div>
+        <div class="field"><label>Téléphone</label><input id="ac-tel" /></div>
+        <div class="field"><label>Adresse</label><input id="ac-adr" /></div>
+        <div class="field"><label>Mot de passe initial</label><input id="ac-pass" placeholder="Le client pourra le changer" /></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <button class="btn btn-primary btn-sm" onclick="addClient('${nextN}')">Créer le client</button>
+        <button class="btn btn-sm" onclick="closeForm()">Annuler</button>
+      </div>
+    </div>`;
+  }
+  let rows = '';
+  (clients || []).forEach(c => {
+    rows += `<tr>
+      <td style="font-weight:600;color:var(--brand);">${c.num_carte}</td>
+      <td><div style="display:flex;align-items:center;gap:8px;">
+        <div class="avatar" style="${avatarColor('client')}">${initials(c.prenom,c.nom)}</div>
+        ${c.prenom} ${c.nom}
+      </div></td>
+      <td style="color:#6b7280;">${c.telephone||'—'}</td>
+      <td><b>${c.points}</b> pts</td>
+      <td><div style="display:flex;gap:6px;">
+        <button class="btn btn-sm" onclick="openClient('${c.id}')">Voir</button>
+        ${isAdmin ? `<button class="btn btn-sm btn-danger" onclick="deleteClient('${c.id}')">Suppr.</button>` : ''}
+      </div></td>
+    </tr>`;
+  });
+
+  let clientDetail = '';
+  if (selectedClientId) {
+    clientDetail = await renderClientDetail(isAdmin);
+  }
+
+  return `
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="section-title" style="margin:0;">${(clients||[]).length} client(s)</div>
+      ${isAdmin ? `<button class="btn btn-primary btn-sm" onclick="toggleForm('addClient')">+ Ajouter un client</button>` : ''}
+    </div>
+    ${formHTML}
+    <div class="table-wrap">
+      <table>
+        <tr><th>N° carte</th><th>Client</th><th>Téléphone</th><th>Points</th><th></th></tr>
+        ${rows || '<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:1.5rem;">Aucun client</td></tr>'}
+      </table>
+    </div>
+  </div>
+  ${clientDetail}`;
+}
+
+async function renderClientDetail(isAdmin) {
+  const { data: c } = await sb.from('users').select('*').eq('id', selectedClientId).single();
+  const { data: txs } = await sb.from('transactions').select('*, by:by_user_id(prenom,nom)').eq('client_id', selectedClientId).order('created_at', { ascending: false });
+  if (!c) return '';
+  const p1 = Math.min(c.points, 100), p2 = Math.min(c.points, 200);
+  const grouped = groupByDate(txs || []);
+
+  let addPtsHTML = `
+    <div style="display:flex;gap:8px;margin-bottom:14px;">
+      <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;" />
+      <button class="btn btn-primary" onclick="addPoints('${c.id}')">+ Ajouter points</button>
+      ${isAdmin ? `
+      <button class="btn btn-sm btn-danger" ${c.points<100?'disabled':''} onclick="redeemReward('${c.id}',100,'Bouteille 1.5L offerte')">🍾 −100</button>
+      <button class="btn btn-sm btn-danger" ${c.points<200?'disabled':''} onclick="redeemReward('${c.id}',200,'Pizza Junior offerte')">🍕 −200</button>
+      ` : ''}
+    </div>`;
+
+  let histHTML = '';
+  for (const [date, rows] of Object.entries(grouped)) {
+    histHTML += `<div class="date-group">${fmtDateKey(date)}</div>`;
+    rows.forEach(h => {
+      const byName = h.by ? `${h.by.prenom||''} ${h.by.nom||''}`.trim() : '—';
+      histHTML += `<div class="history-row">
+        <div style="flex:1;">${h.label}</div>
+        <div style="font-size:12px;color:#9ca3af;margin-right:8px;">${byName}</div>
+        <span class="${h.points > 0 ? 'pts-pos' : 'pts-neg'}">${h.points > 0 ? '+' : ''}${h.points} pts</span>
+      </div>`;
+    });
+  }
+  if (!histHTML) histHTML = `<p style="font-size:13px;color:#6b7280;">Aucune transaction.</p>`;
+
+  return `
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="avatar avatar-lg" style="${avatarColor('client')}">${initials(c.prenom,c.nom)}</div>
+        <div>
+          <div style="font-size:17px;font-weight:600;">${c.prenom} ${c.nom}</div>
+          <div style="font-size:12px;color:#6b7280;">Carte <b style="color:var(--brand);">${c.num_carte}</b> &nbsp;|&nbsp; ${c.telephone||'—'}</div>
+          <div style="font-size:12px;color:#6b7280;">${c.adresse||'—'}</div>
+        </div>
+      </div>
+      <button class="btn btn-sm" onclick="closeClient()">Fermer</button>
+    </div>
+    <div class="divider"></div>
+    <div style="text-align:center;padding:1rem 0 1.25rem;">
+      <div class="pts-big">${c.points}</div>
+      <div style="font-size:13px;color:#6b7280;margin-top:4px;">points cumulés</div>
+    </div>
+    ${addPtsHTML}
+    <div class="section-title">Récompenses</div>
+    <div class="reward-row${c.points>=100?' unlocked':''}">
+      <div class="reward-icon">🍾</div>
+      <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Bouteille 1.5L offerte</div>
+      <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/100)*100)}%"></div></div>
+      <div style="font-size:11px;color:#6b7280;">${p1}/100 pts</div></div>
+      ${c.points>=100?`<span class="badge badge-admin">Débloqué</span>`:''}
+    </div>
+    <div class="reward-row${c.points>=200?' unlocked':''}">
+      <div class="reward-icon">🍕</div>
+      <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Pizza Junior au choix offerte</div>
+      <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/200)*100)}%"></div></div>
+      <div style="font-size:11px;color:#6b7280;">${p2}/200 pts</div></div>
+      ${c.points>=200?`<span class="badge badge-admin">Débloqué</span>`:''}
+    </div>
+    <div class="divider"></div>
+    <div class="section-title">Historique du client</div>
+    ${histHTML}
+  </div>`;
+}
+
+// ---- MODERATORS ----
+async function renderModerators() {
+  const { data: mods } = await sb.from('users').select('*').eq('role','moderateur').order('created_at', { ascending: false });
+  let formHTML = '';
+  if (showForm === 'addMod') {
+    formHTML = `
+    <div class="inline-form">
+      <div style="font-weight:600;font-size:14px;margin-bottom:12px;">Nouveau modérateur</div>
+      <div class="grid2">
+        <div class="field"><label>Prénom</label><input id="am-prenom" /></div>
+        <div class="field"><label>Nom</label><input id="am-nom" /></div>
+        <div class="field"><label>Identifiant</label><input id="am-login" /></div>
+        <div class="field"><label>Mot de passe</label><input id="am-pass" /></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <button class="btn btn-primary btn-sm" onclick="addModerator()">Créer</button>
+        <button class="btn btn-sm" onclick="closeForm()">Annuler</button>
+      </div>
+    </div>`;
+  }
+  let rows = '';
+  (mods||[]).forEach(m => {
+    rows += `<tr>
+      <td><div style="display:flex;align-items:center;gap:8px;">
+        <div class="avatar" style="${avatarColor('moderateur')}">${initials(m.prenom,m.nom)}</div>
+        ${m.prenom} ${m.nom}
+      </div></td>
+      <td style="font-family:monospace;">${m.login}</td>
+      <td style="font-family:monospace;">${m.password}</td>
+      <td><button class="btn btn-sm btn-danger" onclick="deleteModerator('${m.id}')">Supprimer</button></td>
+    </tr>`;
+  });
+  return `
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="section-title" style="margin:0;">${(mods||[]).length} modérateur(s)</div>
+      <button class="btn btn-primary btn-sm" onclick="toggleForm('addMod')">+ Ajouter</button>
+    </div>
+    ${formHTML}
+    <div class="table-wrap">
+      <table>
+        <tr><th>Modérateur</th><th>Identifiant</th><th>Mot de passe</th><th></th></tr>
+        ${rows || '<tr><td colspan="4" style="text-align:center;color:#6b7280;padding:1.5rem;">Aucun modérateur</td></tr>'}
+      </table>
+    </div>
+  </div>`;
+}
+
+// ---- GLOBAL HISTORY ----
+async function renderGlobalHistory() {
+  const { data: clients } = await sb.from('users').select('*').eq('role','client');
+  const { data: txs } = await sb.from('transactions').select('*, client:client_id(prenom,nom,num_carte), by:by_user_id(prenom,nom)').order('created_at', { ascending: false });
+  const totalPts = (txs||[]).filter(t=>t.points>0).reduce((s,t)=>s+t.points,0);
+  const totalRedeem = (txs||[]).filter(t=>t.points<0).length;
+  const grouped = groupByDate(txs||[]);
+
+  let histHTML = '';
+  for (const [date, rows] of Object.entries(grouped)) {
+    histHTML += `<div class="date-group">${fmtDateKey(date)}</div>`;
+    rows.forEach(h => {
+      const clientName = h.client ? `${h.client.prenom} ${h.client.nom}` : '—';
+      const clientNum = h.client?.num_carte || '—';
+      const byName = h.by ? `${h.by.prenom||''} ${h.by.nom||''}`.trim() : '—';
+      histHTML += `<div class="history-row">
+        <span style="font-weight:600;color:var(--brand);min-width:65px;font-size:12px;">${clientNum}</span>
+        <div style="flex:1;">${clientName} — ${h.label}</div>
+        <div style="font-size:12px;color:#9ca3af;margin-right:8px;">${byName}</div>
+        <span class="${h.points > 0 ? 'pts-pos' : 'pts-neg'}">${h.points > 0 ? '+' : ''}${h.points} pts</span>
+      </div>`;
+    });
+  }
+  if (!histHTML) histHTML = `<p style="font-size:13px;color:#6b7280;">Aucune transaction.</p>`;
+
+  return `
+  <div class="stats-grid">
+    <div class="stat-box"><div class="stat-num">${(clients||[]).length}</div><div class="stat-lbl">Clients</div></div>
+    <div class="stat-box"><div class="stat-num">${totalPts}</div><div class="stat-lbl">Points distribués</div></div>
+    <div class="stat-box"><div class="stat-num">${totalRedeem}</div><div class="stat-lbl">Récompenses utilisées</div></div>
+  </div>
+  <div class="card">
+    <div class="section-title">Toutes les transactions</div>
+    ${histHTML}
+  </div>`;
+}
+
+// ---- GROUP BY DATE ----
+function groupByDate(txs) {
+  const grouped = {};
+  txs.forEach(t => {
+    const key = t.created_at.split('T')[0];
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(t);
+  });
+  return grouped;
+}
+
+// ============================
+// ACTIONS
+// ============================
+function toggleForm(name) { showForm = showForm === name ? null : name; showAdmin(); }
+function closeForm() { showForm = null; showAdmin(); }
+function openClient(id) { selectedClientId = id; showAdmin(); }
+function closeClient() { selectedClientId = null; showAdmin(); }
+
+async function addClient(num) {
+  const prenom = document.getElementById('ac-prenom').value.trim();
+  const nom = document.getElementById('ac-nom').value.trim();
+  const tel = document.getElementById('ac-tel').value.trim();
+  const adr = document.getElementById('ac-adr').value.trim();
+  const pass = document.getElementById('ac-pass').value.trim();
+  if (!prenom || !nom) { toast('Prénom et nom requis'); return; }
+  const { error } = await sb.from('users').insert({ role:'client', login: num, password: pass||num, prenom, nom, telephone: tel, adresse: adr, num_carte: num, points: 0 });
+  if (error) { toast('Erreur : ' + error.message); return; }
+  toast(`Client ${prenom} ${nom} créé — carte ${num}`);
+  showForm = null;
+  showAdmin();
+}
+
+async function deleteClient(id) {
+  if (!confirm('Supprimer ce client ?')) return;
+  await sb.from('transactions').delete().eq('client_id', id);
+  await sb.from('users').delete().eq('id', id);
+  if (selectedClientId === id) selectedClientId = null;
+  toast('Client supprimé');
+  showAdmin();
+}
+
+async function addPoints(clientId) {
+  const val = parseInt(document.getElementById('pts-in').value);
+  if (!val || val < 1) { toast('Montant invalide'); return; }
+  const { data: c } = await sb.from('users').select('points').eq('id', clientId).single();
+  const newPts = (c.points || 0) + val;
+  await sb.from('users').update({ points: newPts }).eq('id', clientId);
+  await sb.from('transactions').insert({ client_id: clientId, by_user_id: session.id, label: `Commande ${val}€`, points: val });
+  toast(`+${val} points ajoutés !`);
+  showAdmin();
+}
+
+async function redeemReward(clientId, cost, label) {
+  if (!confirm(`Utiliser "${label}" pour ce client ?`)) return;
+  const { data: c } = await sb.from('users').select('points').eq('id', clientId).single();
+  if (c.points < cost) { toast('Points insuffisants'); return; }
+  await sb.from('users').update({ points: c.points - cost }).eq('id', clientId);
+  await sb.from('transactions').insert({ client_id: clientId, by_user_id: session.id, label, points: -cost });
+  toast(`${label} utilisé !`);
+  showAdmin();
+}
+
+async function addModerator() {
+  const prenom = document.getElementById('am-prenom').value.trim();
+  const nom = document.getElementById('am-nom').value.trim();
+  const login = document.getElementById('am-login').value.trim();
+  const pass = document.getElementById('am-pass').value.trim();
+  if (!prenom || !nom || !login || !pass) { toast('Tous les champs sont requis'); return; }
+  const { error } = await sb.from('users').insert({ role:'moderateur', login, password: pass, prenom, nom });
+  if (error) { toast('Erreur : ' + error.message); return; }
+  toast(`Modérateur ${prenom} ${nom} créé`);
+  showForm = null;
+  showAdmin();
+}
+
+async function deleteModerator(id) {
+  if (!confirm('Supprimer ce modérateur ?')) return;
+  await sb.from('users').delete().eq('id', id);
+  toast('Modérateur supprimé');
+  showAdmin();
+}
+
+// ============================
+// INIT
+// ============================
+showLogin();
+</script>
+</body>
+</html>
