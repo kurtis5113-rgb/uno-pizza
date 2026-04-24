@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_2.html -->
+<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_3.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -313,6 +313,10 @@ function render(html) {
 // LOGIN
 // ============================
 function showLogin() {
+  session = null;
+  selectedClientId = null;
+  showForm = null;
+  stopTimers();
   render(`
   <div class="login-wrap">
     <div class="login-hero">
@@ -375,6 +379,7 @@ async function doLoginStaff() {
   if (error || !data) { document.getElementById('login-alert').innerHTML = `<div class="alert alert-error">Identifiants incorrects.</div>`; return; }
   session = data;
   view = 'clients';
+  resetTimers();
   showAdmin();
 }
 
@@ -384,6 +389,7 @@ async function doLoginClient() {
   const { data, error } = await sb.from('users').select('*').eq('num_carte', num).eq('password', pass).eq('role','client').single();
   if (error || !data) { document.getElementById('login-alert').innerHTML = `<div class="alert alert-error">Numéro de carte ou mot de passe incorrect.</div>`; return; }
   session = data;
+  resetTimers();
   showClientSpace();
 }
 
@@ -937,6 +943,46 @@ async function deleteModerator(id) {
   toast('Modérateur supprimé');
   showAdmin();
 }
+
+// ============================
+// AUTO-DÉCONNEXION 30 MIN
+// ============================
+const TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
+const WARNING_MS = 2 * 60 * 1000;  // avertissement 2 min avant
+let logoutTimer = null;
+let warningTimer = null;
+
+function resetTimers() {
+  if (!session) return;
+  clearTimeout(logoutTimer);
+  clearTimeout(warningTimer);
+
+  // Avertissement 2 min avant
+  warningTimer = setTimeout(() => {
+    if (!session) return;
+    toast('⚠️ Déconnexion automatique dans 2 minutes...', 6000);
+  }, TIMEOUT_MS - WARNING_MS);
+
+  // Déconnexion automatique
+  logoutTimer = setTimeout(() => {
+    if (!session) return;
+    session = null;
+    selectedClientId = null;
+    showForm = null;
+    showLogin();
+    setTimeout(() => toast('🔒 Déconnecté automatiquement après 30 min d\'inactivité.'), 300);
+  }, TIMEOUT_MS);
+}
+
+function stopTimers() {
+  clearTimeout(logoutTimer);
+  clearTimeout(warningTimer);
+}
+
+// Réinitialiser le timer à chaque interaction
+['click','keydown','touchstart','scroll'].forEach(evt => {
+  document.addEventListener(evt, () => { if (session) resetTimers(); }, { passive: true });
+});
 
 // ============================
 // INIT
