@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_5.html -->
+<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_6.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -379,6 +379,7 @@ async function doLoginStaff() {
   if (error || !data) { document.getElementById('login-alert').innerHTML = `<div class="alert alert-error">Identifiants incorrects.</div>`; return; }
   session = data;
   view = 'clients';
+  window._showQuickModal = true;
   resetTimers();
   showAdmin();
 }
@@ -502,7 +503,8 @@ async function showAdmin() {
   const isAdmin = session.role === 'admin';
 
   let navHTML = `<div class="nav">
-    <button class="nav-btn${view==='clients'?' active':''}" onclick="setView('clients')">Clients</button>`;
+    <button class="nav-btn${view==='clients'?' active':''}" onclick="setView('clients')">Clients</button>
+    <button class="nav-btn" onclick="openQuickModal()" style="background:var(--brand);color:white;border-radius:var(--border-radius-md);font-weight:600;">🔍 Recherche rapide</button>`;
   if (isAdmin) {
     navHTML += `<button class="nav-btn${view==='moderateurs'?' active':''}" onclick="setView('moderateurs')">Modérateurs</button>
     <button class="nav-btn${view==='historique'?' active':''}" onclick="setView('historique')">Historique global</button>`;
@@ -523,7 +525,80 @@ async function showAdmin() {
     </div>
     ${navHTML}
     ${content}
+  </div>
+  <!-- MODAL RECHERCHE RAPIDE -->
+  <div id="quick-modal-bg" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;">
+    <div style="background:white;border-radius:var(--radius);padding:1.5rem;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">🔍 Recherche client</div>
+      <div style="font-size:13px;color:#6b7280;margin-bottom:16px;">Entrez le nom, prénom ou numéro de carte</div>
+      <input id="quick-search-input" placeholder="Ex: Jean, Dupont, UP-001..." 
+        style="width:100%;height:44px;border:1.5px solid #e5e7eb;border-radius:var(--radius-sm);padding:0 14px;font-size:15px;outline:none;margin-bottom:12px;"
+        oninput="quickSearchResults()" onkeydown="if(event.key==='Escape')closeQuickModal()" />
+      <div id="quick-search-results" style="max-height:260px;overflow-y:auto;"></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:13px;color:#9ca3af;">Client pas encore inscrit ?</span>
+        <button class="btn btn-primary btn-sm" onclick="closeQuickModal();showForm='addClient';showAdmin();">+ Créer un client</button>
+      </div>
+    </div>
   </div>`);
+
+  // Afficher le modal automatiquement à la connexion
+  if (window._showQuickModal) {
+    window._showQuickModal = false;
+    openQuickModal();
+  }
+}
+
+async function openQuickModal() {
+  const bg = document.getElementById('quick-modal-bg');
+  if (!bg) return;
+  bg.style.display = 'flex';
+  setTimeout(() => {
+    const inp = document.getElementById('quick-search-input');
+    if (inp) { inp.focus(); quickSearchResults(); }
+  }, 100);
+}
+
+function closeQuickModal() {
+  const bg = document.getElementById('quick-modal-bg');
+  if (bg) bg.style.display = 'none';
+}
+
+async function quickSearchResults() {
+  const q = (document.getElementById('quick-search-input')?.value || '').toLowerCase().trim();
+  const { data: clients } = await sb.from('users').select('*').eq('role','client').order('nom');
+  const res = q 
+    ? (clients||[]).filter(c => (c.prenom+' '+c.nom+' '+c.num_carte+' '+c.telephone).toLowerCase().includes(q))
+    : (clients||[]).slice(0, 6);
+  
+  const container = document.getElementById('quick-search-results');
+  if (!container) return;
+
+  if (res.length === 0) {
+    container.innerHTML = `<div style="text-align:center;padding:1.5rem;color:#9ca3af;font-size:13px;">
+      Aucun client trouvé pour "<b>${q}</b>"
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = res.map(c => `
+    <div onclick="selectQuickClient('${c.id}')" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s;" 
+         onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">
+      <div class="avatar" style="${avatarColor('client')}">${initials(c.prenom,c.nom)}</div>
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:14px;">${c.prenom} ${c.nom}</div>
+        <div style="font-size:12px;color:#9ca3af;">${c.num_carte} · ${c.telephone||'—'} · <b style="color:var(--brand);">${c.points} pts</b></div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+  `).join('');
+}
+
+async function selectQuickClient(id) {
+  closeQuickModal();
+  selectedClientId = id;
+  view = 'clients';
+  await showAdmin();
 }
 
 async function setView(v) { view = v; selectedClientId = null; showForm = null; showAdmin(); }
