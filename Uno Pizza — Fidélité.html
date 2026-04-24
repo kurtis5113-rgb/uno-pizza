@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_3.html -->
+<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_5.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -903,9 +903,37 @@ async function deleteClient(id) {
   showAdmin();
 }
 
+// Vérification des horaires d'ouverture
+function isRestaurantOpen() {
+  const now = new Date();
+  const day = now.getDay(); // 0=dim, 1=lun, 2=mar...
+  const hour = now.getHours() + now.getMinutes() / 60;
+
+  const horaires = {
+    0: [[11, 14], [18, 22.5]],  // Dimanche
+    1: null,                     // Lundi fermé
+    2: [[11, 14], [18, 22]],    // Mardi
+    3: [[11, 14], [18, 22]],    // Mercredi
+    4: [[11, 14], [18, 22]],    // Jeudi
+    5: [[11, 14], [18, 22.5]],  // Vendredi
+    6: [[11, 14], [18, 22.5]],  // Samedi
+  };
+
+  const plages = horaires[day];
+  if (!plages) return false;
+  return plages.some(([debut, fin]) => hour >= debut && hour < fin);
+}
+
 async function addPoints(clientId) {
   const val = parseInt(document.getElementById('pts-in').value);
   if (!val || val < 1) { toast('Montant invalide'); return; }
+
+  // Bloquer les modérateurs en dehors des heures d'ouverture
+  if (session.role === 'moderateur' && !isRestaurantOpen()) {
+    toast('❌ Ajout de points impossible — restaurant fermé actuellement.', 4000);
+    return;
+  }
+
   const { data: c } = await sb.from('users').select('points').eq('id', clientId).single();
   const newPts = (c.points || 0) + val;
   await sb.from('users').update({ points: newPts }).eq('id', clientId);
