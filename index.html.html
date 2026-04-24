@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_8.html -->
-<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Uno Pizza — Fidélité</title>
-<link rel="manifest" href="file:///C:/Users/kurti/Downloads/manifest.json">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#D85A30">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Uno Pizza">
-<link rel="apple-touch-icon" href="file:///C:/Users/kurti/Downloads/apple-touch-icon.png">
-<script src="./Uno Pizza — Fidélité_files/supabase-js@2"></script>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
 :root{--brand:#D85A30;--brand-light:#FAECE7;--brand-dark:#993C1D;--radius:12px;--radius-sm:8px;--border:1px solid #e5e7eb;--text:#111827;--text-muted:#6b7280;--bg:#f9fafb;--card:#ffffff;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -115,22 +115,7 @@ tr:hover td{background:#fafafa;}
 </head>
 <body>
 
-<div id="root">
-  <div class="login-wrap">
-    <div class="login-hero">
-      <div class="login-logo-ring"><img src="file:///C:/Users/kurti/Downloads/logo.jpg" alt="Uno Pizza" onerror="this.style.display=&#39;none&#39;" style="display: none;"></div>
-      <div class="login-brand"><h1><span class="uno">Uno</span> <span class="pizza">Pizza</span></h1></div>
-      <div class="login-badge">★ Programme de fidélité · Depuis 2017</div>
-      <div class="login-card">
-        <div class="login-tabs">
-          <button class="login-tab active" id="tab-staff" onclick="switchTab(&#39;staff&#39;)">Staff</button>
-          <button class="login-tab" id="tab-client" onclick="switchTab(&#39;client&#39;)">Client</button>
-          <button class="login-tab" id="tab-register" onclick="switchTab(&#39;register&#39;)">Créer un compte</button>
-        </div>
-        <div id="login-body"><div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" onkeydown="if(event.key===&#39;Enter&#39;)loginStaff()"></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key===&#39;Enter&#39;)loginStaff()"></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button></div>
-      </div>
-    </div>
-  </div></div>
+<div id="root"></div>
 <div id="toast" style="opacity:0;"></div>
 
 <!-- MODAL RECHERCHE CLIENT -->
@@ -142,7 +127,8 @@ tr:hover td{background:#fafafa;}
     </div>
     <div class="field">
       <label>Nom, prénom, téléphone ou numéro de carte</label>
-      <input type="text" id="search-input" placeholder="Ex: Jean, UP-001, 06 12 34..." autocomplete="off" oninput="doSearch(this.value)" onkeydown="if(event.key===&#39;Escape&#39;)closeSearch()">
+      <input type="text" id="search-input" placeholder="Ex: Jean, UP-001, 06 12 34..." autocomplete="off"
+        oninput="doSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()" />
     </div>
     <div id="search-results"></div>
     <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
@@ -187,7 +173,7 @@ function showLogin(){
   render(`
   <div class="login-wrap">
     <div class="login-hero">
-      <div class="login-logo-ring"><img src="logo.jpg" alt="Uno Pizza" onerror="this.style.display='none'"></div>
+      <div class="login-logo-ring"><img src="logo.jpg" alt="Uno Pizza" onerror="this.outerHTML='<div style=&quot;width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;&quot;>U</div>'"></div>
       <div class="login-brand"><h1><span class="uno">Uno</span> <span class="pizza">Pizza</span></h1></div>
       <div class="login-badge">★ Programme de fidélité · Depuis 2017</div>
       <div class="login-card">
@@ -207,9 +193,9 @@ function switchTab(tab){
   document.querySelectorAll('.login-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
   const body=document.getElementById('login-body');
-  if(tab==='staff'){body.innerHTML=`<div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" onkeydown="if(event.key==='Enter')loginStaff()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')loginStaff()"/></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button>`;}
-  else if(tab==='client'){body.innerHTML=`<div id="la"></div><div class="field"><label>Numéro de carte (ex: UP-001)</label><input id="li" placeholder="UP-001" onkeydown="if(event.key==='Enter')loginClient()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')loginClient()"/></div><button class="btn btn-primary btn-full" onclick="loginClient()">Se connecter</button>`;}
-  else{body.innerHTML=`<div id="la"></div><p>Votre numéro de carte vous est fourni par le restaurant.</p><div class="grid2"><div class="field"><label>Prénom</label><input id="rp"/></div><div class="field"><label>Nom</label><input id="rn"/></div></div><div class="field"><label>Téléphone</label><input id="rt" placeholder="06 12 34 56 78"/></div><div class="field"><label>Adresse</label><input id="ra"/></div><div class="field"><label>Numéro de carte fidélité</label><input id="rc" placeholder="UP-001"/></div><div class="field"><label>Mot de passe</label><input id="rpw" type="password" placeholder="••••••"/></div><button class="btn btn-primary btn-full" onclick="doRegister()">Créer mon compte</button>`;}
+  if(tab==='staff'){body.innerHTML=`<div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" autocomplete="username" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==='Enter')loginStaff()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginStaff()"/></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button>`;}
+  else if(tab==='client'){body.innerHTML=`<div id="la"></div><div class="field"><label>Numéro de carte (ex: UP-001)</label><input id="li" placeholder="UP-001" autocorrect="off" autocapitalize="characters" spellcheck="false" onkeydown="if(event.key==='Enter')loginClient()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginClient()"/></div><button class="btn btn-primary btn-full" onclick="loginClient()">Se connecter</button>`;}
+  else{body.innerHTML=`<div id="la"></div><p>Votre numéro de carte vous est fourni par le restaurant.</p><div class="grid2"><div class="field"><label>Prénom</label><input id="rp"/></div><div class="field"><label>Nom</label><input id="rn"/></div></div><div class="field"><label>Téléphone</label><input id="rt" placeholder="06 12 34 56 78"/></div><div class="field"><label>Adresse</label><input id="ra"/></div><div class="field"><label>Numéro de carte (chiffres uniquement)</label><div style="display:flex;align-items:center;"><span style="height:40px;display:flex;align-items:center;padding:0 10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-size:14px;font-weight:700;color:#D85A30;">UP-</span><input id="rc" type="number" min="1" max="9999" placeholder="001" style="border-radius:0 var(--radius-sm) var(--radius-sm) 0;"/></div></div><div class="field"><label>Mot de passe</label><input id="rpw" type="password" placeholder="••••••"/></div><button class="btn btn-primary btn-full" onclick="doRegister()">Créer mon compte</button>`;}
 }
 
 async function loginStaff(){
@@ -227,7 +213,7 @@ async function loginClient(){
 }
 
 async function doRegister(){
-  const p=document.getElementById('rp').value.trim(),n=document.getElementById('rn').value.trim(),t=document.getElementById('rt').value.trim(),a=document.getElementById('ra').value.trim(),c=document.getElementById('rc').value.trim().toUpperCase(),pw=document.getElementById('rpw').value.trim();
+  const p=document.getElementById('rp').value.trim(),n=document.getElementById('rn').value.trim(),t=document.getElementById('rt').value.trim(),a=document.getElementById('ra').value.trim(),rcVal=document.getElementById('rc').value.trim(),pw=document.getElementById('rpw').value.trim();const c=rcVal?'UP-'+String(parseInt(rcVal)).padStart(3,'0'):'';
   const al=document.getElementById('la');
   if(!p||!n||!t||!a||!c||!pw){al.innerHTML=`<div class="alert alert-error">Tous les champs sont requis.</div>`;return;}
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',c).maybeSingle();
@@ -390,15 +376,42 @@ async function renderDetail(isAdmin){
           <div style="font-size:12px;color:#6b7280;">${c.adresse||'—'}</div>
         </div>
       </div>
-      <button class="btn btn-sm" onclick="selectedClientId=null;showStaff()">✕ Fermer</button>
+      <div style="display:flex;gap:6px;">
+        ${isAdmin?`<button class="btn btn-sm" onclick="toggleEditClient('${c.id}')">✏️ Modifier</button>`:''}
+        <button class="btn btn-sm" onclick="selectedClientId=null;showStaff()">✕ Fermer</button>
+      </div>
     </div>
+
+    ${isAdmin?`<div id="edit-form-${c.id}" style="display:none;">
+      <div class="inline-form">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px;">✏️ Modifier les informations</div>
+        <div class="grid2">
+          <div class="field"><label>Prénom</label><input id="ef-prenom" value="${c.prenom||''}"/></div>
+          <div class="field"><label>Nom</label><input id="ef-nom" value="${c.nom||''}"/></div>
+          <div class="field"><label>Téléphone</label><input id="ef-tel" value="${c.telephone||''}"/></div>
+          <div class="field"><label>Adresse</label><input id="ef-adr" value="${c.adresse||''}"/></div>
+          <div class="field"><label>N° carte (chiffres)</label>
+            <div style="display:flex;align-items:center;">
+              <span style="height:40px;display:flex;align-items:center;padding:0 10px;background:#f3f4f6;border:1px solid #d1d5db;border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-size:14px;font-weight:700;color:var(--brand);">UP-</span>
+              <input id="ef-num" type="number" min="1" max="9999" value="${(c.num_carte||'UP-000').split('-')[1]||''}" style="border-radius:0 var(--radius-sm) var(--radius-sm) 0;"/>
+            </div>
+          </div>
+          <div class="field"><label>Nouveau mot de passe</label><input id="ef-pass" type="password" placeholder="Laisser vide = inchangé"/></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="btn btn-primary btn-sm" onclick="saveClient('${c.id}')">💾 Enregistrer</button>
+          <button class="btn btn-sm" onclick="toggleEditClient('${c.id}')">Annuler</button>
+        </div>
+      </div>
+    </div>`:''}
+
     <div class="divider"></div>
     <div style="text-align:center;padding:1rem 0 1.25rem;">
       <div class="pts-big">${c.points}</div>
       <div style="font-size:13px;color:#6b7280;margin-top:4px;">points cumulés</div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-      <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;min-width:150px;"/>
+      <input id="pts-in" type="number" placeholder="Montant (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
       <button class="btn btn-primary" onclick="addPoints('${c.id}')">+ Ajouter points</button>
       ${isAdmin?`<button class="btn btn-sm btn-danger" ${c.points<100?'disabled':''} onclick="redeemReward('${c.id}',100,'Bouteille 1.5L offerte')">🍾 −100</button><button class="btn btn-sm btn-danger" ${c.points<200?'disabled':''} onclick="redeemReward('${c.id}',200,'Pizza Junior offerte')">🍕 −200</button>`:''}
     </div>
@@ -578,6 +591,31 @@ async function showClientSpace(){
 // ========================
 // ACTIONS
 // ========================
+function toggleEditClient(id){
+  const form=document.getElementById('edit-form-'+id);
+  if(form)form.style.display=form.style.display==='none'?'block':'none';
+}
+
+async function saveClient(id){
+  const prenom=document.getElementById('ef-prenom').value.trim();
+  const nom=document.getElementById('ef-nom').value.trim();
+  const tel=document.getElementById('ef-tel').value.trim();
+  const adr=document.getElementById('ef-adr').value.trim();
+  const numVal=document.getElementById('ef-num').value.trim();
+  const pass=document.getElementById('ef-pass').value.trim();
+  if(!prenom||!nom){toast('Prénom et nom requis');return;}
+  const num_carte=numVal?'UP-'+String(parseInt(numVal)).padStart(3,'0'):null;
+  const updates={prenom,nom,telephone:tel,adresse:adr};
+  if(num_carte)updates.num_carte=num_carte;
+  if(num_carte)updates.login=num_carte;
+  if(pass)updates.password=pass;
+  const{error}=await sb.from('users').update(updates).eq('id',id);
+  if(error){toast('Erreur : '+error.message);return;}
+  toast('✅ Client mis à jour !');
+  await loadClients();
+  showStaff();
+}
+
 async function createClient(num){
   const p=document.getElementById('ac-p').value.trim(),n=document.getElementById('ac-n').value.trim();
   const t=document.getElementById('ac-t').value.trim(),a=document.getElementById('ac-a').value.trim();
@@ -636,6 +674,5 @@ async function deleteMod(id){
 showLogin();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
 </script>
-
-
-</body></html>
+</body>
+</html>
