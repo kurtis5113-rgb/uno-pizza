@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_10.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_11.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -209,7 +209,7 @@ function switchTab(tab){
   const body=document.getElementById('login-body');
   if(tab==='staff'){body.innerHTML=`<div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" onkeydown="if(event.key==='Enter')loginStaff()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')loginStaff()"/></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button>`;}
   else if(tab==='client'){body.innerHTML=`<div id="la"></div><div class="field"><label>Numéro de carte (ex: UP-001)</label><input id="li" placeholder="UP-001" onkeydown="if(event.key==='Enter')loginClient()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')loginClient()"/></div><button class="btn btn-primary btn-full" onclick="loginClient()">Se connecter</button>`;}
-  else{body.innerHTML=`<div id="la"></div><p>Votre numéro de carte vous est fourni par le restaurant.</p><div class="grid2"><div class="field"><label>Prénom</label><input id="rp"/></div><div class="field"><label>Nom</label><input id="rn"/></div></div><div class="field"><label>Téléphone</label><input id="rt" placeholder="06 12 34 56 78"/></div><div class="field"><label>Adresse</label><input id="ra"/></div><div class="field"><label>Numéro de carte fidélité</label><input id="rc" placeholder="UP-001"/></div><div class="field"><label>Mot de passe</label><input id="rpw" type="password" placeholder="••••••"/></div><button class="btn btn-primary btn-full" onclick="doRegister()">Créer mon compte</button>`;}
+  else{body.innerHTML=`<div id="la"></div><p>Votre numéro de carte vous est fourni par le restaurant.</p><div class="grid2"><div class="field"><label>Prénom</label><input id="rp"/></div><div class="field"><label>Nom</label><input id="rn"/></div></div><div class="field"><label>Téléphone</label><input id="rt" placeholder="06 12 34 56 78"/></div><div class="field"><label>Adresse</label><input id="ra"/></div><div class="field"><label>Numéro de carte (chiffres uniquement)</label><div style="display:flex;align-items:center;"><span style="height:40px;display:flex;align-items:center;padding:0 10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-size:14px;font-weight:700;color:#D85A30;">UP-</span><input id="rc" type="number" min="1" max="9999" placeholder="001" style="border-radius:0 var(--radius-sm) var(--radius-sm) 0;"/></div></div><div class="field"><label>Mot de passe</label><input id="rpw" type="password" placeholder="••••••"/></div><button class="btn btn-primary btn-full" onclick="doRegister()">Créer mon compte</button>`;}
 }
 
 async function loginStaff(){
@@ -227,7 +227,7 @@ async function loginClient(){
 }
 
 async function doRegister(){
-  const p=document.getElementById('rp').value.trim(),n=document.getElementById('rn').value.trim(),t=document.getElementById('rt').value.trim(),a=document.getElementById('ra').value.trim(),c=document.getElementById('rc').value.trim().toUpperCase(),pw=document.getElementById('rpw').value.trim();
+  const p=document.getElementById('rp').value.trim(),n=document.getElementById('rn').value.trim(),t=document.getElementById('rt').value.trim(),a=document.getElementById('ra').value.trim(),rcVal=document.getElementById('rc').value.trim(),pw=document.getElementById('rpw').value.trim();const c=rcVal?'UP-'+String(parseInt(rcVal)).padStart(3,'0'):'';
   const al=document.getElementById('la');
   if(!p||!n||!t||!a||!c||!pw){al.innerHTML=`<div class="alert alert-error">Tous les champs sont requis.</div>`;return;}
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',c).maybeSingle();
