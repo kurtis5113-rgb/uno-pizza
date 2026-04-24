@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_13.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_14.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -425,7 +425,7 @@ async function renderDetail(isAdmin){
       <div style="font-size:13px;color:#6b7280;margin-top:4px;">points cumulés</div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-      <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;min-width:150px;"/>
+      <input id="pts-in" type="number" placeholder="Montant (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
       <button class="btn btn-primary" onclick="addPoints('${c.id}')">+ Ajouter points</button>
       ${isAdmin?`<button class="btn btn-sm btn-danger" ${c.points<100?'disabled':''} onclick="redeemReward('${c.id}',100,'Bouteille 1.5L offerte')">🍾 −100</button><button class="btn btn-sm btn-danger" ${c.points<200?'disabled':''} onclick="redeemReward('${c.id}',200,'Pizza Junior offerte')">🍕 −200</button>`:''}
     </div>
