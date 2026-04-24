@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_6.html -->
+<!-- saved from url=(0048)file:///C:/Users/kurti/Downloads/fidelite_7.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -527,15 +527,18 @@ async function showAdmin() {
     ${content}
   </div>
   <!-- MODAL RECHERCHE RAPIDE -->
-  <div id="quick-modal-bg" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;">
-    <div style="background:white;border-radius:var(--radius);padding:1.5rem;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">🔍 Recherche client</div>
-      <div style="font-size:13px;color:#6b7280;margin-bottom:16px;">Entrez le nom, prénom ou numéro de carte</div>
-      <input id="quick-search-input" placeholder="Ex: Jean, Dupont, UP-001..." 
-        style="width:100%;height:44px;border:1.5px solid #e5e7eb;border-radius:var(--radius-sm);padding:0 14px;font-size:15px;outline:none;margin-bottom:12px;"
+  <div id="quick-modal-bg" style="position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;align-items:center;justify-content:center;padding:1rem;display:none;">
+    <div style="background:white;border-radius:var(--radius);padding:1.5rem;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div style="font-size:17px;font-weight:700;">🔍 Recherche client</div>
+        <button onclick="closeQuickModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#9ca3af;">✕</button>
+      </div>
+      <div style="font-size:13px;color:#6b7280;margin-bottom:14px;">Par nom, prénom, téléphone ou numéro de carte</div>
+      <input id="quick-search-input" placeholder="Ex: Jean, Dupont, UP-001, 06..." 
+        style="width:100%;height:44px;border:1.5px solid #e5e7eb;border-radius:var(--radius-sm);padding:0 14px;font-size:15px;outline:none;margin-bottom:12px;box-sizing:border-box;"
         oninput="quickSearchResults()" onkeydown="if(event.key==='Escape')closeQuickModal()" />
-      <div id="quick-search-results" style="max-height:260px;overflow-y:auto;"></div>
-      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;">
+      <div id="quick-search-results" style="max-height:280px;overflow-y:auto;"></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
         <span style="font-size:13px;color:#9ca3af;">Client pas encore inscrit ?</span>
         <button class="btn btn-primary btn-sm" onclick="closeQuickModal();showForm='addClient';showAdmin();">+ Créer un client</button>
       </div>
@@ -545,7 +548,7 @@ async function showAdmin() {
   // Afficher le modal automatiquement à la connexion
   if (window._showQuickModal) {
     window._showQuickModal = false;
-    openQuickModal();
+    setTimeout(() => openQuickModal(), 150);
   }
 }
 
@@ -553,10 +556,11 @@ async function openQuickModal() {
   const bg = document.getElementById('quick-modal-bg');
   if (!bg) return;
   bg.style.display = 'flex';
+  await quickSearchResults();
   setTimeout(() => {
     const inp = document.getElementById('quick-search-input');
-    if (inp) { inp.focus(); quickSearchResults(); }
-  }, 100);
+    if (inp) inp.focus();
+  }, 50);
 }
 
 function closeQuickModal() {
