@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_11.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_12.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -390,8 +390,35 @@ async function renderDetail(isAdmin){
           <div style="font-size:12px;color:#6b7280;">${c.adresse||'—'}</div>
         </div>
       </div>
-      <button class="btn btn-sm" onclick="selectedClientId=null;showStaff()">✕ Fermer</button>
+      <div style="display:flex;gap:6px;">
+        ${isAdmin?`<button class="btn btn-sm" onclick="toggleEditClient('${c.id}')">✏️ Modifier</button>`:''}
+        <button class="btn btn-sm" onclick="selectedClientId=null;showStaff()">✕ Fermer</button>
+      </div>
     </div>
+
+    ${isAdmin?`<div id="edit-form-${c.id}" style="display:none;">
+      <div class="inline-form">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px;">✏️ Modifier les informations</div>
+        <div class="grid2">
+          <div class="field"><label>Prénom</label><input id="ef-prenom" value="${c.prenom||''}"/></div>
+          <div class="field"><label>Nom</label><input id="ef-nom" value="${c.nom||''}"/></div>
+          <div class="field"><label>Téléphone</label><input id="ef-tel" value="${c.telephone||''}"/></div>
+          <div class="field"><label>Adresse</label><input id="ef-adr" value="${c.adresse||''}"/></div>
+          <div class="field"><label>N° carte (chiffres)</label>
+            <div style="display:flex;align-items:center;">
+              <span style="height:40px;display:flex;align-items:center;padding:0 10px;background:#f3f4f6;border:1px solid #d1d5db;border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-size:14px;font-weight:700;color:var(--brand);">UP-</span>
+              <input id="ef-num" type="number" min="1" max="9999" value="${(c.num_carte||'UP-000').split('-')[1]||''}" style="border-radius:0 var(--radius-sm) var(--radius-sm) 0;"/>
+            </div>
+          </div>
+          <div class="field"><label>Nouveau mot de passe</label><input id="ef-pass" type="password" placeholder="Laisser vide = inchangé"/></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="btn btn-primary btn-sm" onclick="saveClient('${c.id}')">💾 Enregistrer</button>
+          <button class="btn btn-sm" onclick="toggleEditClient('${c.id}')">Annuler</button>
+        </div>
+      </div>
+    </div>`:''}
+
     <div class="divider"></div>
     <div style="text-align:center;padding:1rem 0 1.25rem;">
       <div class="pts-big">${c.points}</div>
@@ -578,6 +605,31 @@ async function showClientSpace(){
 // ========================
 // ACTIONS
 // ========================
+function toggleEditClient(id){
+  const form=document.getElementById('edit-form-'+id);
+  if(form)form.style.display=form.style.display==='none'?'block':'none';
+}
+
+async function saveClient(id){
+  const prenom=document.getElementById('ef-prenom').value.trim();
+  const nom=document.getElementById('ef-nom').value.trim();
+  const tel=document.getElementById('ef-tel').value.trim();
+  const adr=document.getElementById('ef-adr').value.trim();
+  const numVal=document.getElementById('ef-num').value.trim();
+  const pass=document.getElementById('ef-pass').value.trim();
+  if(!prenom||!nom){toast('Prénom et nom requis');return;}
+  const num_carte=numVal?'UP-'+String(parseInt(numVal)).padStart(3,'0'):null;
+  const updates={prenom,nom,telephone:tel,adresse:adr};
+  if(num_carte)updates.num_carte=num_carte;
+  if(num_carte)updates.login=num_carte;
+  if(pass)updates.password=pass;
+  const{error}=await sb.from('users').update(updates).eq('id',id);
+  if(error){toast('Erreur : '+error.message);return;}
+  toast('✅ Client mis à jour !');
+  await loadClients();
+  showStaff();
+}
+
 async function createClient(num){
   const p=document.getElementById('ac-p').value.trim(),n=document.getElementById('ac-n').value.trim();
   const t=document.getElementById('ac-t').value.trim(),a=document.getElementById('ac-a').value.trim();
