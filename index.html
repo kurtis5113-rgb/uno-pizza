@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_20.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_22.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,7 +10,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Uno Pizza">
 <link rel="apple-touch-icon" href="file:///C:/Users/kurti/Downloads/apple-touch-icon.png">
-<script src="./index_files/supabase.js.téléchargement"></script>
 
 <style>
 :root{--brand:#D85A30;--brand-light:#FAECE7;--brand-dark:#993C1D;--radius:12px;--radius-sm:8px;--border:1px solid #e5e7eb;--text:#111827;--text-muted:#6b7280;--bg:#f9fafb;--card:#ffffff;}
@@ -139,20 +138,21 @@ tr:hover td{background:#fafafa;}
   <div class="modal-box">
     <div class="modal-header">
       <h3>🔍 Recherche client</h3>
-      <button class="modal-close" onclick="closeSearch()">✕</button>
+      <button class="modal-close" onclick="if(typeof closeSearch!==&#39;undefined&#39;)closeSearch()">✕</button>
     </div>
     <div class="field">
       <label>Nom, prénom, téléphone ou numéro de carte</label>
-      <input type="text" id="search-input" placeholder="Ex: Jean, UP-001, 06 12 34..." autocomplete="off" oninput="doSearch(this.value)" onkeydown="if(event.key===&#39;Escape&#39;)closeSearch()">
+      <input type="text" id="search-input" placeholder="Ex: Jean, UP-001, 06 12 34..." autocomplete="off" oninput="doSearch(this.value)" onkeydown="if(event.key===&#39;Escape&#39;&amp;&amp;typeof closeSearch!==&#39;undefined&#39;)closeSearch()">
     </div>
     <div id="search-results"></div>
     <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
       <span style="font-size:13px;color:#9ca3af;">Nouveau client ?</span>
-      <button class="btn btn-primary btn-sm" onclick="closeSearch();triggerCreateClient()">+ Créer un client</button>
+      <button class="btn btn-primary btn-sm" onclick="if(typeof closeSearch!==&#39;undefined&#39;){closeSearch();triggerCreateClient();}">+ Créer un client</button>
     </div>
   </div>
 </div>
 
+<script src="./index_files/supabase.js.téléchargement"></script>
 <script>
 const SUPABASE_URL='https://wbdnfjwpcimkjygokkzc.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZG5mandwY2lta2p5Z29ra3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1OTg3MzYsImV4cCI6MjA5MTE3NDczNn0.d6_A3R_ko3nfzkvJbSyMS1zi8YQmkkrL4HpbXEiI_d4';
@@ -710,7 +710,6 @@ async function deleteMod(id){
 // ========================
 showLogin();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
-
 </script>
 
 
