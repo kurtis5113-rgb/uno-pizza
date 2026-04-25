@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_14.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_18.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -118,7 +118,7 @@ tr:hover td{background:#fafafa;}
 <div id="root">
   <div class="login-wrap">
     <div class="login-hero">
-      <div class="login-logo-ring"><img src="file:///C:/Users/kurti/Downloads/logo.jpg" alt="Uno Pizza" onerror="this.style.display=&#39;none&#39;" style="display: none;"></div>
+      <div class="login-logo-ring"><div style="width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;">U</div></div>
       <div class="login-brand"><h1><span class="uno">Uno</span> <span class="pizza">Pizza</span></h1></div>
       <div class="login-badge">★ Programme de fidélité · Depuis 2017</div>
       <div class="login-card">
@@ -127,7 +127,7 @@ tr:hover td{background:#fafafa;}
           <button class="login-tab" id="tab-client" onclick="switchTab(&#39;client&#39;)">Client</button>
           <button class="login-tab" id="tab-register" onclick="switchTab(&#39;register&#39;)">Créer un compte</button>
         </div>
-        <div id="login-body"><div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" onkeydown="if(event.key===&#39;Enter&#39;)loginStaff()"></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key===&#39;Enter&#39;)loginStaff()"></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button></div>
+        <div id="login-body"><div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" autocomplete="username" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key===&#39;Enter&#39;)loginStaff()"></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key===&#39;Enter&#39;)loginStaff()"></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button></div>
       </div>
     </div>
   </div></div>
@@ -187,7 +187,7 @@ function showLogin(){
   render(`
   <div class="login-wrap">
     <div class="login-hero">
-      <div class="login-logo-ring"><img src="logo.jpg" alt="Uno Pizza" onerror="this.style.display='none'"></div>
+      <div class="login-logo-ring"><img src="logo.jpg" alt="Uno Pizza" onerror="this.outerHTML='<div style=&quot;width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;&quot;>U</div>'"></div>
       <div class="login-brand"><h1><span class="uno">Uno</span> <span class="pizza">Pizza</span></h1></div>
       <div class="login-badge">★ Programme de fidélité · Depuis 2017</div>
       <div class="login-card">
@@ -207,23 +207,45 @@ function switchTab(tab){
   document.querySelectorAll('.login-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
   const body=document.getElementById('login-body');
-  if(tab==='staff'){body.innerHTML=`<div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" onkeydown="if(event.key==='Enter')loginStaff()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')loginStaff()"/></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button>`;}
-  else if(tab==='client'){body.innerHTML=`<div id="la"></div><div class="field"><label>Numéro de carte (ex: UP-001)</label><input id="li" placeholder="UP-001" onkeydown="if(event.key==='Enter')loginClient()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')loginClient()"/></div><button class="btn btn-primary btn-full" onclick="loginClient()">Se connecter</button>`;}
+  if(tab==='staff'){body.innerHTML=`<div id="la"></div><div class="field"><label>Identifiant</label><input id="li" placeholder="admin" autocomplete="username" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==='Enter')loginStaff()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginStaff()"/></div><button class="btn btn-primary btn-full" onclick="loginStaff()">Se connecter</button>`;}
+  else if(tab==='client'){body.innerHTML=`<div id="la"></div><div class="field"><label>Numéro de carte (ex: UP-001)</label><input id="li" placeholder="UP-001" autocorrect="off" autocapitalize="characters" spellcheck="false" onkeydown="if(event.key==='Enter')loginClient()"/></div><div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginClient()"/></div><button class="btn btn-primary btn-full" onclick="loginClient()">Se connecter</button>`;}
   else{body.innerHTML=`<div id="la"></div><p>Votre numéro de carte vous est fourni par le restaurant.</p><div class="grid2"><div class="field"><label>Prénom</label><input id="rp"/></div><div class="field"><label>Nom</label><input id="rn"/></div></div><div class="field"><label>Téléphone</label><input id="rt" placeholder="06 12 34 56 78"/></div><div class="field"><label>Adresse</label><input id="ra"/></div><div class="field"><label>Numéro de carte (chiffres uniquement)</label><div style="display:flex;align-items:center;"><span style="height:40px;display:flex;align-items:center;padding:0 10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-size:14px;font-weight:700;color:#D85A30;">UP-</span><input id="rc" type="number" min="1" max="9999" placeholder="001" style="border-radius:0 var(--radius-sm) var(--radius-sm) 0;"/></div></div><div class="field"><label>Mot de passe</label><input id="rpw" type="password" placeholder="••••••"/></div><button class="btn btn-primary btn-full" onclick="doRegister()">Créer mon compte</button>`;}
 }
 
 async function loginStaff(){
-  const l=document.getElementById('li').value.trim(),p=document.getElementById('lp').value.trim();
-  const{data,error}=await sb.from('users').select('*').eq('login',l).eq('password',p).in('role',['admin','moderateur']).single();
-  if(error||!data){document.getElementById('la').innerHTML=`<div class="alert alert-error">Identifiants incorrects.</div>`;return;}
-  session=data;resetTimers();await loadClients();showStaff();openSearch();
+  const l=document.getElementById('li').value.trim();
+  const p=document.getElementById('lp').value.trim();
+  const al=document.getElementById('la');
+  if(!l||!p){al.innerHTML=`<div class="alert alert-error">Veuillez remplir tous les champs.</div>`;return;}
+  al.innerHTML=`<div class="alert" style="background:rgba(255,255,255,0.05);color:#aaa;">⏳ Connexion en cours...</div>`;
+  try {
+    const{data,error}=await sb.from('users').select('*').eq('login',l).in('role',['admin','moderateur']);
+    if(error)throw error;
+    if(!data||data.length===0){al.innerHTML=`<div class="alert alert-error">❌ Identifiant introuvable.</div>`;return;}
+    const user=data.find(u=>u.password===p);
+    if(!user){al.innerHTML=`<div class="alert alert-error">❌ Mot de passe incorrect.</div>`;return;}
+    session=user;resetTimers();await loadClients();showStaff();openSearch();
+  } catch(e){
+    al.innerHTML=`<div class="alert alert-error">❌ Erreur : ${e.message||'Vérifiez votre connexion.'}</div>`;
+  }
 }
 
 async function loginClient(){
-  const n=document.getElementById('li').value.trim().toUpperCase(),p=document.getElementById('lp').value.trim();
-  const{data,error}=await sb.from('users').select('*').eq('num_carte',n).eq('password',p).eq('role','client').single();
-  if(error||!data){document.getElementById('la').innerHTML=`<div class="alert alert-error">Numéro de carte ou mot de passe incorrect.</div>`;return;}
-  session=data;resetTimers();showClientSpace();
+  const n=document.getElementById('li').value.trim().toUpperCase();
+  const p=document.getElementById('lp').value.trim();
+  const al=document.getElementById('la');
+  if(!n||!p){al.innerHTML=`<div class="alert alert-error">Veuillez remplir tous les champs.</div>`;return;}
+  al.innerHTML=`<div class="alert" style="background:rgba(255,255,255,0.05);color:#aaa;">⏳ Connexion en cours...</div>`;
+  try {
+    const{data,error}=await sb.from('users').select('*').eq('num_carte',n).eq('role','client');
+    if(error)throw error;
+    if(!data||data.length===0){al.innerHTML=`<div class="alert alert-error">❌ Numéro de carte introuvable.</div>`;return;}
+    const user=data.find(u=>u.password===p);
+    if(!user){al.innerHTML=`<div class="alert alert-error">❌ Mot de passe incorrect.</div>`;return;}
+    session=user;resetTimers();showClientSpace();
+  } catch(e){
+    al.innerHTML=`<div class="alert alert-error">❌ Erreur : ${e.message||'Vérifiez votre connexion.'}</div>`;
+  }
 }
 
 async function doRegister(){
@@ -358,7 +380,7 @@ async function renderDetail(isAdmin){
   const{data:c}=await sb.from('users').select('*').eq('id',selectedClientId).single();
   if(!c)return'';
   const{data:txs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom,role)').eq('client_id',selectedClientId).order('created_at',{ascending:false});
-  const p1=Math.min(c.points,100),p2=Math.min(c.points,200);
+  const p1=Math.min(c.points,125),p2=Math.min(c.points,250);
   const grouped=groupDate(txs||[]);
   let histHTML='';
   Object.keys(grouped).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
@@ -427,22 +449,22 @@ async function renderDetail(isAdmin){
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
       <input id="pts-in" type="number" placeholder="Montant (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
       <button class="btn btn-primary" onclick="addPoints('${c.id}')">+ Ajouter points</button>
-      ${isAdmin?`<button class="btn btn-sm btn-danger" ${c.points<100?'disabled':''} onclick="redeemReward('${c.id}',100,'Bouteille 1.5L offerte')">🍾 −100</button><button class="btn btn-sm btn-danger" ${c.points<200?'disabled':''} onclick="redeemReward('${c.id}',200,'Pizza Junior offerte')">🍕 −200</button>`:''}
+      ${isAdmin?`<button class="btn btn-sm btn-danger" ${c.points<125?'disabled':''} onclick="redeemReward('${c.id}',125,'Bouteille 1.5L offerte')">🍾 −100</button><button class="btn btn-sm btn-danger" ${c.points<250?'disabled':''} onclick="redeemReward('${c.id}',250,'Pizza Junior offerte')">🍕 −200</button>`:''}
     </div>
     <div class="section-title">Récompenses</div>
-    <div class="reward-row${c.points>=100?' unlocked':''}">
+    <div class="reward-row${c.points>=125?' unlocked':''}">
       <div class="reward-icon">🍾</div>
       <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Bouteille 1.5L offerte</div>
-      <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/100)*100)}%"></div></div>
-      <div style="font-size:11px;color:#6b7280;">${p1}/100 pts</div></div>
-      ${c.points>=100?`<span class="badge badge-admin">Débloqué !</span>`:''}
+      <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
+      <div style="font-size:11px;color:#6b7280;">${p1}/125 pts</div></div>
+      ${c.points>=125?`<span class="badge badge-admin">Débloqué !</span>`:''}
     </div>
-    <div class="reward-row${c.points>=200?' unlocked':''}">
+    <div class="reward-row${c.points>=250?' unlocked':''}">
       <div class="reward-icon">🍕</div>
       <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Pizza Junior au choix offerte</div>
-      <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/200)*100)}%"></div></div>
-      <div style="font-size:11px;color:#6b7280;">${p2}/200 pts</div></div>
-      ${c.points>=200?`<span class="badge badge-admin">Débloqué !</span>`:''}
+      <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
+      <div style="font-size:11px;color:#6b7280;">${p2}/250 pts</div></div>
+      ${c.points>=250?`<span class="badge badge-admin">Débloqué !</span>`:''}
     </div>
     <div class="divider"></div>
     <div class="section-title">Historique de ${c.prenom} ${c.nom}</div>
@@ -554,7 +576,7 @@ async function showClientSpace(){
   const{data:c}=await sb.from('users').select('*').eq('id',session.id).single();
   const{data:txs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom)').eq('client_id',session.id).order('created_at',{ascending:false});
   session=c;
-  const p1=Math.min(c.points,100),p2=Math.min(c.points,200);
+  const p1=Math.min(c.points,125),p2=Math.min(c.points,250);
   const grouped=groupDate(txs||[]);
   let histHTML='';
   Object.keys(grouped).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
@@ -583,19 +605,19 @@ async function showClientSpace(){
     </div>
     <div class="card">
       <div class="section-title">Mes récompenses</div>
-      <div class="reward-row${c.points>=100?' unlocked':''}">
+      <div class="reward-row${c.points>=125?' unlocked':''}">
         <div class="reward-icon">🍾</div>
         <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Bouteille 1.5L offerte</div>
-        <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/100)*100)}%"></div></div>
-        <div style="font-size:12px;color:#6b7280;">${p1}/100 pts</div></div>
-        ${c.points>=100?`<span class="badge badge-admin">Disponible !</span>`:''}
+        <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
+        <div style="font-size:12px;color:#6b7280;">${p1}/125 pts</div></div>
+        ${c.points>=125?`<span class="badge badge-admin">Disponible !</span>`:''}
       </div>
-      <div class="reward-row${c.points>=200?' unlocked':''}">
+      <div class="reward-row${c.points>=250?' unlocked':''}">
         <div class="reward-icon">🍕</div>
         <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Pizza Junior au choix offerte</div>
-        <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/200)*100)}%"></div></div>
-        <div style="font-size:12px;color:#6b7280;">${p2}/200 pts</div></div>
-        ${c.points>=200?`<span class="badge badge-admin">Disponible !</span>`:''}
+        <div class="progress-wrap"><div class="progress-fill" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
+        <div style="font-size:12px;color:#6b7280;">${p2}/250 pts</div></div>
+        ${c.points>=250?`<span class="badge badge-admin">Disponible !</span>`:''}
       </div>
     </div>
     <div class="card"><div class="section-title">Mon historique</div>${histHTML}</div>
