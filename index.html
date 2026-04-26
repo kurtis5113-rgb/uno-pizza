@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_40.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_41.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -309,18 +309,29 @@ async function doLC(){
   const p=document.getElementById('lp').value.trim();
   const al=document.getElementById('la');
   if(!raw||!p){al.innerHTML=`<div class="al ae">Veuillez remplir tous les champs.</div>`;return;}
-  // Accepte "4" ou "UP-004" ou "004"
-  const n = raw.replace(/^UP-/i,'').trim();
   al.innerHTML=`<div class="al ai">⏳ Connexion en cours...</div>`;
   try{
-    const{data,error}=await sb.from('users').select('*').eq('num_carte',n).eq('role','client');
-    if(error)throw error;
-    if(!data||data.length===0){al.innerHTML=`<div class="al ae">❌ Numéro de carte introuvable.</div>`;return;}
-    // Mdp = chiffre simple (ex: 4) ou mdp complet
-    const rawPass = p;
-    const formattedPass = 'UP-'+String(parseInt(p)).padStart(3,'0');
-    const user=data.find(u=>u.password===rawPass||u.password===formattedPass||u.password===n);
-    if(!user){al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;return;}
+    // Chercher par num_carte en essayant tous les formats possibles
+    const formats = [
+      raw,                                          // ex: 2820
+      'UP-'+raw,                                    // ex: UP-2820
+      'UP-'+String(parseInt(raw)).padStart(3,'0'),  // ex: UP-001
+      parseInt(raw).toString()                       // ex: 4 → 4
+    ];
+    let user = null;
+    for(const fmt of formats){
+      const{data}=await sb.from('users').select('*').eq('num_carte',fmt).eq('role','client');
+      if(data&&data.length>0){
+        // Tester le mdp dans tous les formats aussi
+        const pwFormats = [p, 'UP-'+p, 'UP-'+String(parseInt(p)).padStart(3,'0'), parseInt(p).toString(), fmt];
+        user = data.find(u=>pwFormats.includes(u.password));
+        if(user) break;
+        // Numéro trouvé mais mdp incorrect
+        al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;
+        return;
+      }
+    }
+    if(!user){al.innerHTML=`<div class="al ae">❌ Numéro de carte introuvable.</div>`;return;}
     session=user; resetT(); showCS();
   }catch(e){al.innerHTML=`<div class="al ae">❌ Erreur : ${e.message}</div>`;}
 }
