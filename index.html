@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_33.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_34.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -823,7 +823,10 @@ window.saveCl = saveCl;
 window.createMod = createMod;
 window.delMod = delMod;
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+// Service worker désactivé pour éviter les problèmes de cache
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.getRegistrations().then(regs=>regs.forEach(r=>r.unregister()));
+}
 } // end initApp
 </script>
 
