@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_23.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uno Pizza — Fidélité</title>
+<meta name="theme-color" content="#D85A30">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Uno Pizza">
+<link rel="apple-touch-icon" href="file:///C:/Users/kurti/Downloads/apple-touch-icon.png">
+<link rel="manifest" href="file:///C:/Users/kurti/Downloads/manifest.json">
+<style>
+:root{--brand:#D85A30;--bl:#FAECE7;--bd:#993C1D;--r:12px;--rs:8px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;color:#111827;min-height:100vh;}
+.app{max-width:700px;margin:0 auto;padding:1rem;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 0 1.5rem;}
+.logo{font-size:20px;font-weight:700;}.logo span{color:var(--brand);}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--r);padding:1.25rem;margin-bottom:12px;}
+label{display:block;font-size:12px;font-weight:600;color:#6b7280;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
+input,select{width:100%;height:40px;border:1px solid #d1d5db;border-radius:var(--rs);padding:0 12px;font-size:14px;background:white;color:#111827;outline:none;box-sizing:border-box;}
+input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(216,90,48,.12);}
+.field{margin-bottom:12px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:var(--rs);border:1px solid #d1d5db;background:white;color:#111827;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;}
+.btn:active{transform:scale(.98);}
+.bp{background:var(--brand);border-color:var(--brand);color:white;}
+.bp:hover{background:var(--bd);}
+.bd2{background:#fef2f2;border-color:#fca5a5;color:#b91c1c;}
+.bs{height:32px;padding:0 12px;font-size:13px;}
+.bf{width:100%;height:44px;font-size:15px;font-weight:600;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;}
+.ba{background:var(--bl);color:var(--bd);}
+.bm{background:#eff6ff;color:#1d4ed8;}
+.bc{background:#f0fdf4;color:#166534;}
+.nav{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid #e5e7eb;margin-bottom:16px;padding-bottom:8px;align-items:center;}
+.nb{height:34px;padding:0 12px;border:none;background:transparent;color:#6b7280;font-size:13px;font-weight:500;cursor:pointer;border-radius:var(--rs);}
+.nb:hover{background:#f3f4f6;}
+.nb.active{background:var(--bl);color:var(--bd);font-weight:600;}
+.nb.ns{background:var(--brand);color:white;font-weight:600;}
+.nb.nl{margin-left:auto;}
+.st{font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+.tw{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;font-weight:600;font-size:11px;color:#6b7280;padding:6px 10px;border-bottom:1px solid #e5e7eb;text-transform:uppercase;}
+td{padding:10px;border-bottom:1px solid #f3f4f6;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+.av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.avl{width:52px;height:52px;font-size:18px;}
+.pts{font-size:52px;font-weight:700;color:var(--brand);line-height:1;}
+.pw{height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden;margin:6px 0;}
+.pf{height:100%;background:var(--brand);border-radius:4px;}
+.pp{color:#16a34a;font-weight:600;}.pn{color:var(--brand);font-weight:600;}
+.rr{display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--rs);border:1px solid #e5e7eb;margin-bottom:8px;background:#fafafa;}
+.rr.ul{background:var(--bl);border-color:#f0997b;}
+.ri{font-size:24px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:white;border-radius:var(--rs);border:1px solid #e5e7eb;flex-shrink:0;}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+.sb2{background:white;border:1px solid #e5e7eb;border-radius:var(--rs);padding:14px;text-align:center;}
+.sn{font-size:24px;font-weight:700;color:var(--brand);}
+.sl{font-size:11px;color:#6b7280;margin-top:2px;}
+.if2{background:#f9fafb;border:1px solid #e5e7eb;border-radius:var(--rs);padding:14px;margin-bottom:14px;}
+.dg{font-size:12px;font-weight:600;color:#6b7280;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;}
+.hr2{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid #f9fafb;font-size:13px;}
+.hr2:last-child{border-bottom:none;}
+.div{height:1px;background:#f3f4f6;margin:14px 0;}
+.al{padding:10px 14px;border-radius:var(--rs);font-size:13px;margin-bottom:12px;}
+.ae{background:#fef2f2;border:1px solid #fca5a5;color:#b91c1c;}
+.as{background:#f0fdf4;border:1px solid #86efac;color:#166534;}
+.ai{background:rgba(0,0,0,0.04);border:1px solid #e5e7eb;color:#6b7280;}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2937;color:white;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:500;z-index:9999;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.ld{text-align:center;padding:3rem;color:#6b7280;font-size:14px;}
+
+/* LOGIN */
+.lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;background:#0d0d0d;position:relative;overflow:hidden;}
+.lw::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(216,90,48,0.18) 0%,transparent 65%);}
+.lw::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);background-size:32px 32px;}
+.lh{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;max-width:420px;}
+.lr{width:120px;height:120px;border-radius:50%;border:2px solid rgba(216,90,48,0.4);padding:6px;margin-bottom:1.25rem;animation:pr 3s ease-in-out infinite;}
+@keyframes pr{0%,100%{box-shadow:0 0 0 0 rgba(216,90,48,0.15);}50%{box-shadow:0 0 0 10px rgba(216,90,48,0);}}
+.lr img{width:100%;height:100%;border-radius:50%;object-fit:cover;}
+.lb h1{font-size:36px;font-weight:900;color:white;line-height:1;text-align:center;}
+.lb h1 .u{color:#1D9E75;}.lb h1 .p{color:#D85A30;}
+.lg2{display:inline-flex;align-items:center;gap:6px;background:rgba(216,90,48,0.12);border:1px solid rgba(216,90,48,0.3);color:#D85A30;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:99px;margin:10px 0 1.75rem;}
+.lc{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.75rem;backdrop-filter:blur(20px);}
+.lt{display:flex;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:1.25rem;}
+.lta{flex:1;height:38px;border:none;background:transparent;font-size:12px;font-weight:600;cursor:pointer;color:rgba(255,255,255,0.4);}
+.lta.active{background:var(--brand);color:white;border-radius:8px;}
+.lc label{color:rgba(255,255,255,0.5);}
+.lc input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:white;}
+.lc input::placeholder{color:rgba(255,255,255,0.25);}
+.lc input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(216,90,48,0.15);}
+.lc p{color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:14px;}
+.lc .ae{background:rgba(185,28,28,0.2);border-color:rgba(239,68,68,0.3);color:#fca5a5;}
+.lc .as{background:rgba(22,101,52,0.2);border-color:rgba(134,239,172,0.3);color:#86efac;}
+.lc .ai{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);}
+
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:500;display:none;align-items:flex-start;justify-content:center;padding:80px 1rem 1rem;}
+.mo.open{display:flex;}
+.mb{background:white;border-radius:var(--r);padding:1.5rem;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,0.25);max-height:80vh;overflow-y:auto;}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.mh h3{font-size:17px;font-weight:700;}
+.mc{background:none;border:none;font-size:22px;cursor:pointer;color:#9ca3af;}
+.si{display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--rs);cursor:pointer;margin-bottom:4px;border:1px solid transparent;}
+.si:hover{background:#f9fafb;border-color:#f3f4f6;}
+
+@media(max-width:500px){.g2{grid-template-columns:1fr;}.sg{grid-template-columns:1fr 1fr;}.nb{padding:0 8px;font-size:12px;}}
+</style>
+</head>
+<body>
+
+<div id="root">
+  <div class="lw">
+    <div class="lh">
+      <div class="lr"><div style="width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;">U</div></div>
+      <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
+      <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
+      <div class="lc">
+        <div class="lt">
+          <button class="lta active" id="tab-s" onclick="switchTab(&#39;s&#39;)">Staff</button>
+          <button class="lta" id="tab-c" onclick="switchTab(&#39;c&#39;)">Client</button>
+          <button class="lta" id="tab-r" onclick="switchTab(&#39;r&#39;)">Créer un compte</button>
+        </div>
+        <div id="lbody"><div id="la"></div>
+    <div class="field"><label>Identifiant</label><input id="li" autocorrect="off" autocapitalize="off" placeholder="admin"></div>
+    <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••"></div>
+    <button class="btn bp bf" onclick="doLS()">Se connecter</button></div>
+      </div>
+    </div>
+  </div></div>
+<div id="toast" style="opacity:0;"></div>
+<div class="mo" id="sm">
+  <div class="mb">
+    <div class="mh">
+      <h3>🔍 Recherche client</h3>
+      <button class="mc" id="btn-close-search">✕</button>
+    </div>
+    <div class="field">
+      <label>Nom, prénom, téléphone ou numéro de carte</label>
+      <input type="text" id="search-input" placeholder="Ex: Jean, UP-001, 06 12..." autocomplete="off" autocorrect="off" autocapitalize="off">
+    </div>
+    <div id="search-results"></div>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <span style="font-size:13px;color:#9ca3af;">Nouveau client ?</span>
+      <button class="btn bp bs" id="btn-create-from-search">+ Créer un client</button>
+    </div>
+  </div>
+</div>
+
+<!-- Supabase DOIT être chargé avant notre script -->
+<script src="./index_files/supabase.js.téléchargement"></script>
+<script>
+
+// Vérification que Supabase est bien chargé
+if (typeof supabase === 'undefined') {
+  document.getElementById('root').innerHTML = '<div style="padding:2rem;text-align:center;color:red;">Erreur de chargement. Rechargez la page.</div>';
+  throw new Error('Supabase not loaded');
+}
+
+const SURL = 'https://wbdnfjwpcimkjygokkzc.supabase.co';
+const SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZG5mandwY2lta2p5Z29ra3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1OTg3MzYsImV4cCI6MjA5MTE3NDczNn0.d6_A3R_ko3nfzkvJbSyMS1zi8YQmkkrL4HpbXEiI_d4';
+const sb = supabase.createClient(SURL, SKEY);
+
+let session = null, view = 'clients', selId = null, showCC = false, showCM = false;
+let hf = {cid:'', df:'', dt:'', type:''};
+let clients = [];
+
+// UTILS
+function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=m;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',d);}
+function ini(p,n){return((p||'')[0]||'').toUpperCase()+((n||'')[0]||'').toUpperCase()||'?';}
+function fmtL(d){return new Date(d).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+function fmtT(d){return new Date(d).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+function avS(r){if(r==='admin')return'background:#FAECE7;color:#993C1D;';if(r==='moderateur')return'background:#eff6ff;color:#1d4ed8;';return'background:#f0fdf4;color:#166534;';}
+function nxt(cl){const ns=cl.map(c=>parseInt((c.num_carte||'UP-000').split('-')[1]||0));return'UP-'+((ns.length?Math.max(...ns):0)+1).toString().padStart(3,'0');}
+function grp(txs){const g={};(txs||[]).forEach(t=>{const k=t.created_at.split('T')[0];if(!g[k])g[k]=[];g[k].push(t);});return g;}
+function isOpen(){const n=new Date(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60;const s={0:[[11,14],[18,22.5]],1:null,2:[[11,14],[18,22]],3:[[11,14],[18,22]],4:[[11,14],[18,22]],5:[[11,14],[18,22.5]],6:[[11,14],[18,22.5]]};const p=s[d];if(!p)return false;return p.some(([a,b])=>h>=a&&h<b);}
+function render(h){document.getElementById('root').innerHTML=h;}
+async function loadCl(){const{data}=await sb.from('users').select('*').eq('role','client').order('nom');clients=data||[];}
+
+// AUTO LOGOUT
+const TM=30*60*1000;let lt,wt;
+function resetT(){if(!session)return;clearTimeout(lt);clearTimeout(wt);wt=setTimeout(()=>{if(session)toast('⚠️ Déconnexion dans 2 min...',6000);},TM-120000);lt=setTimeout(()=>{if(session){session=null;stopT();showLogin();setTimeout(()=>toast('🔒 Déconnecté après 30 min.'),300);}},TM);}
+function stopT(){clearTimeout(lt);clearTimeout(wt);}
+['click','keydown','touchstart','scroll'].forEach(e=>document.addEventListener(e,()=>{if(session)resetT();},{passive:true}));
+
+// SEARCH MODAL — event listeners après chargement DOM
+document.getElementById('btn-close-search').onclick = () => closeSM();
+document.getElementById('btn-create-from-search').onclick = () => { closeSM(); showCC=true; view='clients'; showStaff(); };
+document.getElementById('search-input').oninput = function(){ doSearch(this.value); };
+
+function openSM(){
+  document.getElementById('sm').classList.add('open');
+  const inp = document.getElementById('search-input');
+  inp.value = '';
+  doSearch('');
+  setTimeout(()=>inp.focus(), 150);
+}
+function closeSM(){ document.getElementById('sm').classList.remove('open'); }
+
+async function doSearch(q){
+  const query = q.toLowerCase().trim();
+  const res = query ? clients.filter(c=>(c.prenom+' '+c.nom+' '+(c.num_carte||'')+' '+(c.telephone||'')).toLowerCase().includes(query)) : clients.slice(0,8);
+  const cont = document.getElementById('search-results');
+  if(!cont) return;
+  if(res.length===0){cont.innerHTML=`<div style="text-align:center;padding:1.5rem;color:#9ca3af;font-size:13px;">Aucun client trouvé.</div>`;return;}
+  cont.innerHTML = res.map(c=>`
+    <div class="si" onclick="pickClient('${c.id}')">
+      <div class="av" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:14px;">${c.prenom} ${c.nom}</div>
+        <div style="font-size:12px;color:#9ca3af;">${c.num_carte||'—'} · ${c.telephone||'—'} · <b style="color:var(--brand);">${c.points} pts</b></div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+    </div>`).join('');
+}
+
+async function pickClient(id){ closeSM(); selId=id; view='clients'; await showStaff(); }
+
+// LOGIN
+function showLogin(){
+  stopT(); session=null; selId=null; showCC=false; showCM=false;
+  render(`
+  <div class="lw">
+    <div class="lh">
+      <div class="lr"><img src="logo.jpg" alt="Uno Pizza" onerror="this.parentElement.innerHTML='<div style=&quot;width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;&quot;>U</div>'"></div>
+      <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
+      <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
+      <div class="lc">
+        <div class="lt">
+          <button class="lta active" id="tab-s" onclick="switchTab('s')">Staff</button>
+          <button class="lta" id="tab-c" onclick="switchTab('c')">Client</button>
+          <button class="lta" id="tab-r" onclick="switchTab('r')">Créer un compte</button>
+        </div>
+        <div id="lbody"></div>
+      </div>
+    </div>
+  </div>`);
+  switchTab('s');
+}
+
+function switchTab(tab){
+  document.querySelectorAll('.lta').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  const b = document.getElementById('lbody');
+  if(tab==='s'){
+    b.innerHTML=`<div id="la"></div>
+    <div class="field"><label>Identifiant</label><input id="li" autocorrect="off" autocapitalize="off" placeholder="admin"/></div>
+    <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••"/></div>
+    <button class="btn bp bf" onclick="doLS()">Se connecter</button>`;
+    document.getElementById('li').addEventListener('keydown',e=>{if(e.key==='Enter')doLS();});
+    document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLS();});
+  } else if(tab==='c'){
+    b.innerHTML=`<div id="la"></div>
+    <div class="field"><label>Numéro de carte (ex: UP-001)</label><input id="li" autocorrect="off" autocapitalize="characters" placeholder="UP-001"/></div>
+    <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••"/></div>
+    <button class="btn bp bf" onclick="doLC()">Se connecter</button>`;
+    document.getElementById('li').addEventListener('keydown',e=>{if(e.key==='Enter')doLC();});
+    document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLC();});
+  } else {
+    b.innerHTML=`<div id="la"></div>
+    <p>Votre numéro de carte vous est fourni par le restaurant.</p>
+    <div class="g2">
+      <div class="field"><label>Prénom</label><input id="rp"/></div>
+      <div class="field"><label>Nom</label><input id="rn"/></div>
+    </div>
+    <div class="field"><label>Téléphone</label><input id="rt" placeholder="06 12 34 56 78"/></div>
+    <div class="field"><label>Adresse</label><input id="ra"/></div>
+    <div class="field"><label>Numéro de carte (chiffres uniquement)</label>
+      <div style="display:flex;">
+        <span style="height:40px;display:flex;align-items:center;padding:0 10px;background:#f3f4f6;border:1px solid #d1d5db;border-right:none;border-radius:var(--rs) 0 0 var(--rs);font-size:14px;font-weight:700;color:var(--brand);">UP-</span>
+        <input id="rc" type="number" min="1" max="9999" placeholder="001" style="border-radius:0 var(--rs) var(--rs) 0;"/>
+      </div>
+    </div>
+    <div class="field"><label>Mot de passe</label><input id="rpw" type="password" placeholder="••••••"/></div>
+    <button class="btn bp bf" onclick="doReg()">Créer mon compte</button>`;
+  }
+}
+
+async function doLS(){
+  const l=document.getElementById('li').value.trim();
+  const p=document.getElementById('lp').value.trim();
+  const al=document.getElementById('la');
+  if(!l||!p){al.innerHTML=`<div class="al ae">Veuillez remplir tous les champs.</div>`;return;}
+  al.innerHTML=`<div class="al ai">⏳ Connexion en cours...</div>`;
+  try{
+    const{data,error}=await sb.from('users').select('*').eq('login',l).in('role',['admin','moderateur']);
+    if(error)throw error;
+    if(!data||data.length===0){al.innerHTML=`<div class="al ae">❌ Identifiant introuvable.</div>`;return;}
+    const user=data.find(u=>u.password===p);
+    if(!user){al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;return;}
+    session=user; resetT(); await loadCl(); showStaff(); openSM();
+  }catch(e){al.innerHTML=`<div class="al ae">❌ Erreur : ${e.message}</div>`;}
+}
+
+async function doLC(){
+  const n=document.getElementById('li').value.trim().toUpperCase();
+  const p=document.getElementById('lp').value.trim();
+  const al=document.getElementById('la');
+  if(!n||!p){al.innerHTML=`<div class="al ae">Veuillez remplir tous les champs.</div>`;return;}
+  al.innerHTML=`<div class="al ai">⏳ Connexion en cours...</div>`;
+  try{
+    const{data,error}=await sb.from('users').select('*').eq('num_carte',n).eq('role','client');
+    if(error)throw error;
+    if(!data||data.length===0){al.innerHTML=`<div class="al ae">❌ Numéro de carte introuvable.</div>`;return;}
+    const user=data.find(u=>u.password===p);
+    if(!user){al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;return;}
+    session=user; resetT(); showCS();
+  }catch(e){al.innerHTML=`<div class="al ae">❌ Erreur : ${e.message}</div>`;}
+}
+
+async function doReg(){
+  const p=document.getElementById('rp').value.trim(),n=document.getElementById('rn').value.trim();
+  const t=document.getElementById('rt').value.trim(),a=document.getElementById('ra').value.trim();
+  const cv=document.getElementById('rc').value.trim(),pw=document.getElementById('rpw').value.trim();
+  const al=document.getElementById('la');
+  if(!p||!n||!t||!a||!cv||!pw){al.innerHTML=`<div class="al ae">Tous les champs sont requis.</div>`;return;}
+  const nc='UP-'+String(parseInt(cv)).padStart(3,'0');
+  const{data:ex}=await sb.from('users').select('id').eq('num_carte',nc).maybeSingle();
+  if(ex){al.innerHTML=`<div class="al ae">Ce numéro de carte est déjà utilisé.</div>`;return;}
+  const{error}=await sb.from('users').insert({role:'client',login:nc,password:pw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:nc,points:0});
+  if(error){al.innerHTML=`<div class="al ae">Erreur : ${error.message}</div>`;return;}
+  al.innerHTML=`<div class="al as">✅ Compte créé ! Connectez-vous avec votre numéro de carte.</div>`;
+  setTimeout(()=>switchTab('c'),2000);
+}
+
+// STAFF
+async function showStaff(){
+  render(`<div class="ld">Chargement...</div>`);
+  const isA=session.role==='admin';
+  await loadCl();
+  let content='';
+  if(view==='clients')content=await rCl(isA);
+  else if(view==='mods')content=await rMods();
+  else if(view==='hist')content=await rHist();
+  render(`
+  <div class="app">
+    <div class="topbar">
+      <div class="logo">Uno <span>Pizza</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="badge ${isA?'ba':'bm'}">${isA?'Admin':'Modérateur'}</span>
+        <span style="font-size:13px;color:#6b7280;">${session.prenom} ${session.nom}</span>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nb ns" onclick="openSM()">🔍 Recherche client</button>
+      <button class="nb${view==='clients'?' active':''}" onclick="setV('clients')">Tous les clients</button>
+      ${isA?`<button class="nb${view==='mods'?' active':''}" onclick="setV('mods')">Modérateurs</button><button class="nb${view==='hist'?' active':''}" onclick="setV('hist')">Historique</button>`:''}
+      <button class="nb nl" onclick="showLogin()">Déconnexion</button>
+    </div>
+    ${content}
+  </div>`);
+}
+
+async function setV(v){view=v;selId=null;showCC=false;showCM=false;showStaff();}
+
+// CLIENTS LIST
+async function rCl(isA){
+  let fH='';
+  if(showCC){
+    const nn=nxt(clients);
+    fH=`<div class="if2">
+      <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Nouveau client — carte : <span style="color:var(--brand);">${nn}</span></div>
+      <div class="g2">
+        <div class="field"><label>Prénom</label><input id="acp"/></div>
+        <div class="field"><label>Nom</label><input id="acn"/></div>
+        <div class="field"><label>Téléphone</label><input id="act"/></div>
+        <div class="field"><label>Adresse</label><input id="aca"/></div>
+        <div class="field"><label>Mot de passe</label><input id="acpw" placeholder="${nn}"/></div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn bp bs" onclick="createCl('${nn}')">Créer</button>
+        <button class="btn bs" onclick="showCC=false;showStaff()">Annuler</button>
+      </div>
+    </div>`;
+  }
+  const rows=clients.map(c=>`
+    <tr>
+      <td style="font-weight:700;color:var(--brand);">${c.num_carte||'—'}</td>
+      <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>${c.prenom} ${c.nom}</div></td>
+      <td style="color:#6b7280;">${c.telephone||'—'}</td>
+      <td><b>${c.points}</b> pts</td>
+      <td><div style="display:flex;gap:6px;">
+        <button class="btn bs" onclick="selId='${c.id}';view='clients';showStaff()">Voir</button>
+        ${isA?`<button class="btn bs bd2" onclick="delCl('${c.id}')">Suppr.</button>`:''}
+      </div></td>
+    </tr>`).join('');
+  let det='';
+  if(selId) det=await rDet(isA);
+  return `
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="st" style="margin:0;">${clients.length} client(s)</div>
+      ${isA?`<button class="btn bp bs" onclick="showCC=!showCC;showStaff()">+ Ajouter</button>`:''}
+    </div>
+    ${fH}
+    <div class="tw"><table>
+      <tr><th>N° carte</th><th>Client</th><th>Téléphone</th><th>Points</th><th></th></tr>
+      ${rows||'<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:1.5rem;">Aucun client</td></tr>'}
+    </table></div>
+  </div>${det}`;
+}
+
+// CLIENT DETAIL
+async function rDet(isA){
+  const{data:c}=await sb.from('users').select('*').eq('id',selId).single();
+  if(!c)return'';
+  const{data:txs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom,role)').eq('client_id',selId).order('created_at',{ascending:false});
+  const p1=Math.min(c.points,125),p2=Math.min(c.points,250);
+  const gd=grp(txs||[]);
+  let hH='';
+  Object.keys(gd).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
+    const rows=gd[date],dp=rows.filter(r=>r.points>0).reduce((s,r)=>s+r.points,0);
+    hH+=`<div class="dg"><span>${fmtL(date)}</span><span style="font-size:11px;font-weight:400;">${rows.length} tx${dp?' · +'+dp+' pts':''}</span></div>`;
+    rows.forEach(h=>{
+      const by=h.by?`${h.by.prenom||''} ${h.by.nom||''}`.trim():'Équipe Uno Pizza';
+      const rl=h.by?.role==='admin'?' (Admin)':h.by?.role==='moderateur'?' (Modérateur)':'';
+      const ia=h.points>0;
+      hH+=`<div class="hr2">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:500;">${ia?`<b style="color:#166534;">+${h.points} pts</b> — commande de ${h.points}€`:`Récompense : <b style="color:var(--brand);">${h.label}</b> (${Math.abs(h.points)} pts)`}</div>
+          <div style="font-size:11px;color:#9ca3af;margin-top:2px;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div>
+        </div>
+        <span class="${ia?'pp':'pn'}" style="font-size:15px;font-weight:700;">${ia?'+':''}${h.points}</span>
+      </div>`;
+    });
+  });
+  if(!hH)hH=`<p style="font-size:13px;color:#6b7280;padding:8px 0;">Aucune transaction.</p>`;
+  return `
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="av avl" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
+        <div>
+          <div style="font-size:17px;font-weight:700;">${c.prenom} ${c.nom}</div>
+          <div style="font-size:12px;color:#6b7280;">Carte <b style="color:var(--brand);">${c.num_carte}</b> · ${c.telephone||'—'}</div>
+          <div style="font-size:12px;color:#6b7280;">${c.adresse||'—'}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;">
+        ${isA?`<button class="btn bs" onclick="toggleEdit('${c.id}')">✏️ Modifier</button>`:''}
+        <button class="btn bs" onclick="selId=null;showStaff()">✕</button>
+      </div>
+    </div>
+
+    <div id="edit-${c.id}" style="display:none;">
+      <div class="if2">
+        <div style="font-weight:700;margin-bottom:12px;">✏️ Modifier</div>
+        <div class="g2">
+          <div class="field"><label>Prénom</label><input id="ep" value="${c.prenom||''}"/></div>
+          <div class="field"><label>Nom</label><input id="en" value="${c.nom||''}"/></div>
+          <div class="field"><label>Téléphone</label><input id="et" value="${c.telephone||''}"/></div>
+          <div class="field"><label>Adresse</label><input id="ea" value="${c.adresse||''}"/></div>
+          <div class="field"><label>N° carte (chiffres)</label>
+            <div style="display:flex;">
+              <span style="height:40px;display:flex;align-items:center;padding:0 10px;background:#f3f4f6;border:1px solid #d1d5db;border-right:none;border-radius:var(--rs) 0 0 var(--rs);font-size:14px;font-weight:700;color:var(--brand);">UP-</span>
+              <input id="enum" type="number" value="${(c.num_carte||'').split('-')[1]||''}" style="border-radius:0 var(--rs) var(--rs) 0;"/>
+            </div>
+          </div>
+          <div class="field"><label>Nouveau mot de passe</label><input id="epw" type="password" placeholder="Laisser vide = inchangé"/></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn bp bs" onclick="saveCl('${c.id}')">💾 Enregistrer</button>
+          <button class="btn bs" onclick="toggleEdit('${c.id}')">Annuler</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div style="text-align:center;padding:1rem 0 1.25rem;">
+      <div class="pts">${c.points}</div>
+      <div style="font-size:13px;color:#6b7280;margin-top:4px;">points cumulés</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+      <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
+      <button class="btn bp" onclick="addPts('${c.id}')">+ Points</button>
+      ${isA?`<button class="btn bs bd2" ${c.points<125?'disabled':''} onclick="redeem('${c.id}',125,'Bouteille 1.5L offerte')">🍾 −125</button><button class="btn bs bd2" ${c.points<250?'disabled':''} onclick="redeem('${c.id}',250,'Pizza Junior offerte')">🍕 −250</button>`:''}
+    </div>
+    <div class="st">Récompenses</div>
+    <div class="rr${c.points>=125?' ul':''}">
+      <div class="ri">🍾</div>
+      <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Bouteille 1.5L offerte</div>
+      <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
+      <div style="font-size:11px;color:#6b7280;">${p1}/125 pts</div></div>
+      ${c.points>=125?`<span class="badge ba">Débloqué !</span>`:''}
+    </div>
+    <div class="rr${c.points>=250?' ul':''}">
+      <div class="ri">🍕</div>
+      <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Pizza Junior au choix offerte</div>
+      <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
+      <div style="font-size:11px;color:#6b7280;">${p2}/250 pts</div></div>
+      ${c.points>=250?`<span class="badge ba">Débloqué !</span>`:''}
+    </div>
+    <div class="div"></div>
+    <div class="st">Historique de ${c.prenom} ${c.nom}</div>
+    ${hH}
+  </div>`;
+}
+
+function toggleEdit(id){const f=document.getElementById('edit-'+id);if(f)f.style.display=f.style.display==='none'?'block':'none';}
+
+// MODERATORS
+async function rMods(){
+  const{data:mods}=await sb.from('users').select('*').eq('role','moderateur').order('created_at',{ascending:false});
+  let fH='';
+  if(showCM){fH=`<div class="if2">
+    <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Nouveau modérateur</div>
+    <div class="g2">
+      <div class="field"><label>Prénom</label><input id="amp"/></div>
+      <div class="field"><label>Nom</label><input id="amn"/></div>
+      <div class="field"><label>Identifiant</label><input id="aml"/></div>
+      <div class="field"><label>Mot de passe</label><input id="ampw"/></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn bp bs" onclick="createMod()">Créer</button>
+      <button class="btn bs" onclick="showCM=false;showStaff()">Annuler</button>
+    </div>
+  </div>`;}
+  const rows=(mods||[]).map(m=>`<tr>
+    <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="${avS('moderateur')}">${ini(m.prenom,m.nom)}</div>${m.prenom} ${m.nom}</div></td>
+    <td style="font-family:monospace;">${m.login}</td>
+    <td style="font-family:monospace;">${m.password}</td>
+    <td><button class="btn bs bd2" onclick="delMod('${m.id}')">Supprimer</button></td>
+  </tr>`).join('');
+  return `<div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="st" style="margin:0;">${(mods||[]).length} modérateur(s)</div>
+      <button class="btn bp bs" onclick="showCM=!showCM;showStaff()">+ Ajouter</button>
+    </div>
+    ${fH}
+    <div class="tw"><table>
+      <tr><th>Modérateur</th><th>Identifiant</th><th>Mot de passe</th><th></th></tr>
+      ${rows||'<tr><td colspan="4" style="text-align:center;color:#6b7280;padding:1.5rem;">Aucun</td></tr>'}
+    </table></div>
+  </div>`;
+}
+
+// HISTORY
+async function rHist(){
+  const{data:cl2}=await sb.from('users').select('*').eq('role','client');
+  let q=sb.from('transactions').select('*,client:client_id(id,prenom,nom,num_carte),by:by_user_id(prenom,nom,role)').order('created_at',{ascending:false});
+  if(hf.cid)q=q.eq('client_id',hf.cid);
+  if(hf.df)q=q.gte('created_at',hf.df+'T00:00:00');
+  if(hf.dt)q=q.lte('created_at',hf.dt+'T23:59:59');
+  if(hf.type==='add')q=q.gt('points',0);
+  if(hf.type==='redeem')q=q.lt('points',0);
+  const{data:txs}=await q;
+  const all=txs||[],tp=all.filter(t=>t.points>0).reduce((s,t)=>s+t.points,0),tr=all.filter(t=>t.points<0).length;
+  const gd=grp(all),hasF=hf.cid||hf.df||hf.dt||hf.type;
+  let cO=`<option value="">Tous les clients</option>`;
+  (cl2||[]).forEach(c=>cO+=`<option value="${c.id}" ${hf.cid===c.id?'selected':''}>${c.prenom} ${c.nom} (${c.num_carte})</option>`);
+  let hH='';
+  Object.keys(gd).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
+    const rows=gd[date],dp=rows.filter(r=>r.points>0).reduce((s,r)=>s+r.points,0);
+    hH+=`<div class="dg"><span>${fmtL(date)}</span><span style="font-size:11px;font-weight:400;">${rows.length} tx${dp?' · +'+dp+' pts':''}</span></div>`;
+    rows.forEach(h=>{
+      const cn=h.client?`${h.client.prenom} ${h.client.nom}`:'—',cnum=h.client?.num_carte||'—';
+      const by=h.by?`${h.by.prenom||''} ${h.by.nom||''}`.trim():'—';
+      const rl=h.by?.role==='admin'?' (Admin)':h.by?.role==='moderateur'?' (Modérateur)':'';
+      const ia=h.points>0;
+      hH+=`<div class="hr2">
+        ${!hf.cid?`<span style="font-weight:700;color:var(--brand);min-width:65px;font-size:12px;">${cnum}</span><div style="flex:1;"><span style="font-weight:500;">${cn}</span> — ${h.label}<div style="font-size:11px;color:#9ca3af;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div></div>`:`<div style="flex:1;">${h.label}<div style="font-size:11px;color:#9ca3af;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div></div>`}
+        <span class="${ia?'pp':'pn'}" style="font-weight:700;">${ia?'+':''}${h.points}</span>
+      </div>`;
+    });
+  });
+  if(!hH)hH=`<div style="text-align:center;padding:2rem;font-size:13px;color:#6b7280;">Aucune transaction.</div>`;
+  return `
+  <div class="sg">
+    <div class="sb2"><div class="sn">${(cl2||[]).length}</div><div class="sl">Clients</div></div>
+    <div class="sb2"><div class="sn">${tp}</div><div class="sl">Points${hasF?' (filtrés)':''}</div></div>
+    <div class="sb2"><div class="sn">${tr}</div><div class="sl">Récompenses</div></div>
+  </div>
+  <div class="card">
+    <div class="st">Filtres</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div class="field" style="margin:0;"><label>Client</label><select onchange="hf.cid=this.value;showStaff()">${cO}</select></div>
+      <div class="field" style="margin:0;"><label>Type</label><select onchange="hf.type=this.value;showStaff()"><option value="" ${!hf.type?'selected':''}>Tous</option><option value="add" ${hf.type==='add'?'selected':''}>Points ajoutés</option><option value="redeem" ${hf.type==='redeem'?'selected':''}>Récompenses</option></select></div>
+      <div class="field" style="margin:0;"><label>Du</label><input type="date" value="${hf.df}" onchange="hf.df=this.value;showStaff()"/></div>
+      <div class="field" style="margin:0;"><label>Au</label><input type="date" value="${hf.dt}" onchange="hf.dt=this.value;showStaff()"/></div>
+    </div>
+    ${hasF?`<button class="btn bs" onclick="hf={cid:'',df:'',dt:'',type:''};showStaff()">✕ Réinitialiser</button>`:''}
+  </div>
+  <div class="card"><div class="st">${all.length} transaction(s)</div>${hH}</div>`;
+}
+
+// CLIENT SPACE
+async function showCS(){
+  render(`<div class="ld">Chargement...</div>`);
+  const{data:c}=await sb.from('users').select('*').eq('id',session.id).single();
+  const{data:txs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom)').eq('client_id',session.id).order('created_at',{ascending:false});
+  session=c;
+  const p1=Math.min(c.points,125),p2=Math.min(c.points,250);
+  const gd=grp(txs||[]);
+  let hH='';
+  Object.keys(gd).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
+    hH+=`<div class="dg"><span>${fmtL(date)}</span></div>`;
+    gd[date].forEach(h=>{
+      const by=h.by?`${h.by.prenom||''} ${h.by.nom||''}`.trim():'Équipe Uno Pizza';
+      const ia=h.points>0;
+      hH+=`<div class="hr2">
+        <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${h.label}</div>
+        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">${fmtT(h.created_at)} · par <b>${by}</b></div></div>
+        <span class="${ia?'pp':'pn'}" style="font-size:15px;font-weight:700;">${ia?'+':''}${h.points} pts</span>
+      </div>`;
+    });
+  });
+  if(!hH)hH=`<p style="font-size:13px;color:#6b7280;padding:8px 0;">Aucune transaction pour le moment.</p>`;
+  render(`
+  <div class="app">
+    <div class="topbar">
+      <div class="logo">Uno <span>Pizza</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="badge bc">Client</span>
+        <button class="btn bs" onclick="showLogin()">Déconnexion</button>
+      </div>
+    </div>
+    <div class="card" style="text-align:center;padding:2rem;">
+      <div style="display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:1.5rem;">
+        <div class="av avl" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
+        <div style="text-align:left;">
+          <div style="font-size:18px;font-weight:700;">${c.prenom} ${c.nom}</div>
+          <div style="font-size:13px;color:#6b7280;">Carte <b style="color:var(--brand);">${c.num_carte}</b></div>
+          <div style="font-size:12px;color:#6b7280;">${c.telephone||''}</div>
+        </div>
+      </div>
+      <div class="pts">${c.points}</div>
+      <div style="font-size:14px;color:#6b7280;margin-top:6px;">points cumulés · 1€ = 1 point</div>
+    </div>
+    <div class="card">
+      <div class="st">Mes récompenses</div>
+      <div class="rr${c.points>=125?' ul':''}">
+        <div class="ri">🍾</div>
+        <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Bouteille 1.5L offerte</div>
+        <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
+        <div style="font-size:12px;color:#6b7280;">${p1}/125 pts</div></div>
+        ${c.points>=125?`<span class="badge ba">Disponible !</span>`:''}
+      </div>
+      <div class="rr${c.points>=250?' ul':''}">
+        <div class="ri">🍕</div>
+        <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Pizza Junior au choix offerte</div>
+        <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
+        <div style="font-size:12px;color:#6b7280;">${p2}/250 pts</div></div>
+        ${c.points>=250?`<span class="badge ba">Disponible !</span>`:''}
+      </div>
+    </div>
+    <div class="card"><div class="st">Mon historique</div>${hH}</div>
+  </div>`);
+}
+
+// ACTIONS
+async function createCl(num){
+  const p=document.getElementById('acp').value.trim(),n=document.getElementById('acn').value.trim();
+  const t=document.getElementById('act').value.trim(),a=document.getElementById('aca').value.trim();
+  const pw=document.getElementById('acpw').value.trim()||num;
+  if(!p||!n){toast('Prénom et nom requis');return;}
+  const{error}=await sb.from('users').insert({role:'client',login:num,password:pw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:num,points:0});
+  if(error){toast('Erreur : '+error.message);return;}
+  toast('✅ '+p+' '+n+' créé — carte '+num);showCC=false;await loadCl();showStaff();
+}
+
+async function delCl(id){
+  if(!confirm('Supprimer ce client ?'))return;
+  await sb.from('transactions').delete().eq('client_id',id);
+  await sb.from('users').delete().eq('id',id);
+  if(selId===id)selId=null;
+  toast('Client supprimé');await loadCl();showStaff();
+}
+
+async function addPts(cid){
+  const val=parseInt(document.getElementById('pts-in').value);
+  if(!val||val<1){toast('Montant invalide');return;}
+  if(session.role==='moderateur'&&!isOpen()){toast('❌ Restaurant fermé — ajout impossible.',4000);return;}
+  const{data:c}=await sb.from('users').select('points').eq('id',cid).single();
+  await sb.from('users').update({points:(c.points||0)+val}).eq('id',cid);
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:'Commande '+val+'€',points:val});
+  toast('+'+val+' points ajoutés !');await loadCl();showStaff();
+}
+
+async function redeem(cid,cost,label){
+  if(!confirm('Utiliser "'+label+'" ?'))return;
+  const{data:c}=await sb.from('users').select('points').eq('id',cid).single();
+  if(c.points<cost){toast('Points insuffisants');return;}
+  await sb.from('users').update({points:c.points-cost}).eq('id',cid);
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:-cost});
+  toast(label+' utilisé !');await loadCl();showStaff();
+}
+
+async function saveCl(id){
+  const p=document.getElementById('ep').value.trim(),n=document.getElementById('en').value.trim();
+  const t=document.getElementById('et').value.trim(),a=document.getElementById('ea').value.trim();
+  const nv=document.getElementById('enum').value.trim(),pw=document.getElementById('epw').value.trim();
+  if(!p||!n){toast('Prénom et nom requis');return;}
+  const nc=nv?'UP-'+String(parseInt(nv)).padStart(3,'0'):null;
+  const upd={prenom:p,nom:n,telephone:t,adresse:a};
+  if(nc){upd.num_carte=nc;upd.login=nc;}
+  if(pw)upd.password=pw;
+  const{error}=await sb.from('users').update(upd).eq('id',id);
+  if(error){toast('Erreur : '+error.message);return;}
+  toast('✅ Client mis à jour !');await loadCl();showStaff();
+}
+
+async function createMod(){
+  const p=document.getElementById('amp').value.trim(),n=document.getElementById('amn').value.trim();
+  const l=document.getElementById('aml').value.trim(),pw=document.getElementById('ampw').value.trim();
+  if(!p||!n||!l||!pw){toast('Tous les champs requis');return;}
+  const{error}=await sb.from('users').insert({role:'moderateur',login:l,password:pw,prenom:p,nom:n});
+  if(error){toast('Erreur : '+error.message);return;}
+  toast('Modérateur '+p+' '+n+' créé');showCM=false;showStaff();
+}
+
+async function delMod(id){
+  if(!confirm('Supprimer ce modérateur ?'))return;
+  await sb.from('users').delete().eq('id',id);
+  toast('Modérateur supprimé');showStaff();
+}
+
+// INIT
+showLogin();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+</script>
+
+
+</body></html>
