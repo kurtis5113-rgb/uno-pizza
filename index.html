@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_28.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_29.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -383,7 +383,7 @@ async function rCl(isA){
       </div>
       <div style="display:flex;gap:8px;">
         <button class="btn bp bs" onclick="createCl('${nn}')">Créer</button>
-        <button class="btn bs" onclick="showCC=false;showStaff()">Annuler</button>
+        <button class="btn bs" onclick="cancelCC()">Annuler</button>
       </div>
     </div>`;
   }
@@ -394,7 +394,7 @@ async function rCl(isA){
       <td style="color:#6b7280;">${c.telephone||'—'}</td>
       <td><b>${c.points}</b> pts</td>
       <td><div style="display:flex;gap:6px;">
-        <button class="btn bs" onclick="selId='${c.id}';view='clients';showStaff()">Voir</button>
+        <button class="btn bs" onclick="setSelId('${c.id}')">Voir</button>
         ${isA?`<button class="btn bs bd2" onclick="delCl('${c.id}')">Suppr.</button>`:''}
       </div></td>
     </tr>`).join('');
@@ -404,7 +404,7 @@ async function rCl(isA){
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <div class="st" style="margin:0;">${clients.length} client(s)</div>
-      ${isA?`<button class="btn bp bs" onclick="showCC=!showCC;showStaff()">+ Ajouter</button>`:''}
+      ${isA?`<button class="btn bp bs" onclick="toggleCC()">+ Ajouter</button>`:''}
     </div>
     ${fH}
     <div class="tw"><table>
@@ -526,7 +526,7 @@ async function rMods(){
     </div>
     <div style="display:flex;gap:8px;">
       <button class="btn bp bs" onclick="createMod()">Créer</button>
-      <button class="btn bs" onclick="showCM=false;showStaff()">Annuler</button>
+      <button class="btn bs" onclick="cancelCM()">Annuler</button>
     </div>
   </div>`;}
   const rows=(mods||[]).map(m=>`<tr>
@@ -538,7 +538,7 @@ async function rMods(){
   return `<div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <div class="st" style="margin:0;">${(mods||[]).length} modérateur(s)</div>
-      <button class="btn bp bs" onclick="showCM=!showCM;showStaff()">+ Ajouter</button>
+      <button class="btn bp bs" onclick="toggleCM()">+ Ajouter</button>
     </div>
     ${fH}
     <div class="tw"><table>
@@ -731,7 +731,19 @@ async function delMod(id){
 // INIT
 showLogin();
 
+// Toggle functions pour les boutons HTML
+function toggleCC(){ showCC=!showCC; showStaff(); }
+function toggleCM(){ showCM=!showCM; showStaff(); }
+function cancelCC(){ showCC=false; showStaff(); }
+function cancelCM(){ showCM=false; showStaff(); }
+function setSelId(id){ selId=id; view='clients'; showStaff(); }
+
 // Expose all functions globally
+window.toggleCC = toggleCC;
+window.toggleCM = toggleCM;
+window.cancelCC = cancelCC;
+window.cancelCM = cancelCM;
+window.setSelId = setSelId;
 window.toast = toast;
 window.ini = ini;
 window.fmtL = fmtL;
