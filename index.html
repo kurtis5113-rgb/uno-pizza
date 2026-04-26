@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_30.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_31.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -487,7 +487,7 @@ async function rDet(isA){
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
       <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
       <button class="btn bp" onclick="addPts('${c.id}')">+ Points</button>
-      ${isA?`<button class="btn bs bd2" ${c.points<125?'disabled':''} onclick="redeem('${c.id}',125,'Bouteille 1.5L offerte')">🍾 −125</button><button class="btn bs bd2" ${c.points<250?'disabled':''} onclick="redeem('${c.id}',250,'Pizza Junior offerte')">🍕 −250</button>`:''}
+      ${isA?`<button class="btn bs bd2" ${c.points<125||c.reward1_used?'disabled':''} onclick="redeem('${c.id}',125,'Bouteille 1.5L offerte')">${c.reward1_used?'🍾 Utilisée':'🍾 −125'}</button><button class="btn bs bd2" ${c.points<250||c.reward2_used?'disabled':''} onclick="redeem('${c.id}',250,'Pizza Junior offerte')">${c.reward2_used?'🍕 Utilisée':'🍕 −250'}</button>`:''}
     </div>
     <div class="st">Récompenses</div>
     <div class="rr${c.points>=125?' ul':''}">
@@ -495,15 +495,14 @@ async function rDet(isA){
       <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Bouteille 1.5L offerte</div>
       <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
       <div style="font-size:11px;color:#6b7280;">${p1}/125 pts</div></div>
-      ${c.points>=125?`<span class="badge ba">Débloqué !</span>`:''}
+      ${c.reward1_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Utilisée</span>`:c.points>=125?`<span class="badge ba">Débloqué !</span>`:''}
     </div>
     <div class="rr${c.points>=250?' ul':''}">
       <div class="ri">🍕</div>
       <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Pizza Junior au choix offerte</div>
       <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
       <div style="font-size:11px;color:#6b7280;">${p2}/250 pts</div></div>
-      ${c.points>=250?`<span class="badge ba">Débloqué !</span>`:''}
-    </div>
+      ${c.reward2_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Utilisée</span>`:c.points>=250?`<span class="badge ba">Débloqué !</span>`:''}
     <div class="div"></div>
     <div class="st">Historique de ${c.prenom} ${c.nom}</div>
     ${hH}
@@ -600,7 +599,7 @@ async function rHist(){
 // CLIENT SPACE
 async function showCS(){
   render(`<div class="ld">Chargement...</div>`);
-  const{data:c}=await sb.from('users').select('*').eq('id',session.id).single();
+  const{data:c}=await sb.from('users').select('*,reward1_used,reward2_used').eq('id',session.id).single();
   const{data:txs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom)').eq('client_id',session.id).order('created_at',{ascending:false});
   session=c;
   const p1=Math.min(c.points,125),p2=Math.min(c.points,250);
@@ -647,14 +646,14 @@ async function showCS(){
         <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Bouteille 1.5L offerte</div>
         <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
         <div style="font-size:12px;color:#6b7280;">${p1}/125 pts</div></div>
-        ${c.points>=125?`<span class="badge ba">Disponible !</span>`:''}
+        ${c.reward1_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Réclamée</span>`:c.points>=125?`<span class="badge ba">Disponible !</span>`:''}
       </div>
       <div class="rr${c.points>=250?' ul':''}">
         <div class="ri">🍕</div>
         <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Pizza Junior au choix offerte</div>
         <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
         <div style="font-size:12px;color:#6b7280;">${p2}/250 pts</div></div>
-        ${c.points>=250?`<span class="badge ba">Disponible !</span>`:''}
+        ${c.reward2_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Réclamée</span>`:c.points>=250?`<span class="badge ba">Disponible !</span>`:''}
       </div>
     </div>
     <div class="card"><div class="st">Mon historique</div>${hH}</div>
@@ -692,11 +691,29 @@ async function addPts(cid){
 
 async function redeem(cid,cost,label){
   if(!confirm('Utiliser "'+label+'" ?'))return;
-  const{data:c}=await sb.from('users').select('points').eq('id',cid).single();
-  if(c.points<cost){toast('Points insuffisants');return;}
-  await sb.from('users').update({points:c.points-cost}).eq('id',cid);
-  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:-cost});
-  toast(label+' utilisé !');await loadCl();showStaff();
+  const{data:c}=await sb.from('users').select('points,reward1_used,reward2_used').eq('id',cid).single();
+  
+  // Vérifier quelle récompense on utilise
+  const isReward1 = cost === 125;
+  const isReward2 = cost === 250;
+  
+  if(isReward1 && c.reward1_used){ toast('🍾 Bouteille déjà utilisée !'); return; }
+  if(isReward2 && c.reward2_used){ toast('🍕 Pizza déjà utilisée !'); return; }
+  if(c.points < cost){ toast('Points insuffisants'); return; }
+  
+  // Marquer la récompense comme utilisée sans déduire les points
+  const upd = isReward1 ? {reward1_used: true} : {reward2_used: true};
+  
+  // Si les deux récompenses sont utilisées → reset à zéro
+  const bothUsed = (isReward1 && c.reward2_used) || (isReward2 && c.reward1_used);
+  if(bothUsed){ upd.points = 0; upd.reward1_used = false; upd.reward2_used = false; }
+  
+  await sb.from('users').update(upd).eq('id',cid);
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:0});
+  
+  if(bothUsed){ toast('🎉 Les deux récompenses utilisées ! Points remis à zéro.', 4000); }
+  else { toast(label+' utilisé !'); }
+  await loadCl(); showStaff();
 }
 
 async function saveCl(id){
