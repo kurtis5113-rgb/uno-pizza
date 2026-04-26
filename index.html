@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_26.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_27.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,10 +107,28 @@ tr:last-child td{border-bottom:none;}
 
 @media(max-width:500px){.g2{grid-template-columns:1fr;}.sg{grid-template-columns:1fr 1fr;}.nb{padding:0 8px;font-size:12px;}}
 </style>
-</head>
+<script src="./index_files/supabase.min.js.téléchargement"></script><script src="./index_files/supabase.js.téléchargement"></script></head>
 <body>
 
-<div id="root"></div>
+<div id="root">
+  <div class="lw">
+    <div class="lh">
+      <div class="lr"><div style="width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;">U</div></div>
+      <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
+      <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
+      <div class="lc">
+        <div class="lt">
+          <button class="lta active" id="tab-s" onclick="switchTab(&#39;s&#39;)">Staff</button>
+          <button class="lta" id="tab-c" onclick="switchTab(&#39;c&#39;)">Client</button>
+          <button class="lta" id="tab-r" onclick="switchTab(&#39;r&#39;)">Créer un compte</button>
+        </div>
+        <div id="lbody"><div id="la"></div>
+    <div class="field"><label>Identifiant</label><input id="li" autocorrect="off" autocapitalize="off" placeholder="admin"></div>
+    <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••"></div>
+    <button class="btn bp bf" onclick="doLS()">Se connecter</button></div>
+      </div>
+    </div>
+  </div></div>
 <div id="toast" style="opacity:0;"></div>
 <div class="mo" id="sm">
   <div class="mb">
@@ -130,9 +148,26 @@ tr:last-child td{border-bottom:none;}
   </div>
 </div>
 
-<!-- Supabase DOIT être chargé avant notre script -->
-<script src="./index_files/supabase.min.js.téléchargement"></script>
 <script>
+(function(){
+  var cdns = [
+    'https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.3/umd/supabase.min.js',
+    'https://unpkg.com/@supabase/supabase-js@2.39.3/dist/umd/supabase.js',
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js'
+  ];
+  var i = 0;
+  function tryLoad(){
+    if(i >= cdns.length){ document.getElementById('root').innerHTML='<div style="padding:3rem;text-align:center;color:#666;">Vérifiez votre connexion internet et rechargez la page.</div>'; return; }
+    var s = document.createElement('script');
+    s.src = cdns[i++];
+    s.onload = function(){ initApp(); };
+    s.onerror = function(){ tryLoad(); };
+    document.head.appendChild(s);
+  }
+  tryLoad();
+})();
+
+function initApp(){
 
 
 
@@ -696,6 +731,7 @@ async function delMod(id){
 // INIT
 showLogin();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+} // end initApp
 </script>
 
 
