@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_37.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_38.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -285,7 +285,6 @@ function switchTab(tab){
         <input id="rc" type="number" min="1" max="9999" placeholder="001" style="border-radius:0 var(--rs) var(--rs) 0;"/>
       </div>
     </div>
-    <div class="field"><label>Mot de passe</label><input id="rpw" type="password" placeholder="••••••"/></div>
     <button class="btn bp bf" onclick="doReg()">Créer mon compte</button>`;
   }
 }
@@ -330,13 +329,14 @@ async function doLC(){
 async function doReg(){
   const p=document.getElementById('rp').value.trim(),n=document.getElementById('rn').value.trim();
   const t=document.getElementById('rt').value.trim(),a=document.getElementById('ra').value.trim();
-  const cv=document.getElementById('rc').value.trim(),pw=document.getElementById('rpw').value.trim();
+  const cv=document.getElementById('rc').value.trim();
   const al=document.getElementById('la');
-  if(!p||!n||!t||!a||!cv||!pw){al.innerHTML=`<div class="al ae">Tous les champs sont requis.</div>`;return;}
+  if(!p||!n||!t||!a||!cv){al.innerHTML=`<div class="al ae">Tous les champs sont requis.</div>`;return;}
   const nc='UP-'+String(parseInt(cv)).padStart(3,'0');
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',nc).maybeSingle();
   if(ex){al.innerHTML=`<div class="al ae">Ce numéro de carte est déjà utilisé.</div>`;return;}
-  const{error}=await sb.from('users').insert({role:'client',login:nc,password:pw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:nc,points:0});
+  const finalPw=cv; // mdp = numéro de carte
+  const{error}=await sb.from('users').insert({role:'client',login:nc,password:finalPw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:nc,points:0});
   if(error){al.innerHTML=`<div class="al ae">Erreur : ${error.message}</div>`;return;}
   al.innerHTML=`<div class="al as">✅ Compte créé ! Connectez-vous avec votre numéro de carte.</div>`;
   setTimeout(()=>switchTab('c'),2000);
@@ -376,15 +376,20 @@ async function setV(v){view=v;selId=null;showCC=false;showCM=false;showStaff();}
 async function rCl(isA){
   let fH='';
   if(showCC){
-    const nn=nxt(clients);
     fH=`<div class="if2">
-      <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Nouveau client — carte : <span style="color:var(--brand);">${nn}</span></div>
+      <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Nouveau client</div>
       <div class="g2">
         <div class="field"><label>Prénom</label><input id="acp"/></div>
         <div class="field"><label>Nom</label><input id="acn"/></div>
         <div class="field"><label>Téléphone</label><input id="act"/></div>
         <div class="field"><label>Adresse</label><input id="aca"/></div>
-        <div class="field"><label>Mot de passe</label><input id="acpw" placeholder="${nn}"/></div>
+        <div class="field"><label>N° carte (libre)</label>
+          <div style="display:flex;">
+            <span style="height:40px;display:flex;align-items:center;padding:0 10px;background:#f3f4f6;border:1px solid #d1d5db;border-right:none;border-radius:var(--rs) 0 0 var(--rs);font-size:14px;font-weight:700;color:var(--brand);">UP-</span>
+            <input id="acnum" type="number" min="1" placeholder="Ex: 2820" style="border-radius:0 var(--rs) var(--rs) 0;"/>
+          </div>
+        </div>
+
       </div>
       <div style="display:flex;gap:8px;">
         <button class="btn bp bs" onclick="createCl()">Créer</button>
@@ -672,14 +677,12 @@ async function createCl(){
   const p=document.getElementById('acp').value.trim(),n=document.getElementById('acn').value.trim();
   const t=document.getElementById('act').value.trim(),a=document.getElementById('aca').value.trim();
   const numVal=document.getElementById('acnum').value.trim();
-  const pw=document.getElementById('acpw').value.trim();
   if(!p||!n){toast('Prénom et nom requis');return;}
   if(!numVal){toast('Numéro de carte requis');return;}
   const num='UP-'+String(parseInt(numVal)).padStart(3,'0');
-  // Vérifier que le numéro n'existe pas déjà
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',num).maybeSingle();
   if(ex){toast('❌ Ce numéro de carte existe déjà !');return;}
-  const finalPw=pw||numVal; // mdp = chiffre entré si pas de mdp
+  const finalPw=numVal; // mdp = toujours le numéro entré, non modifiable
   const{error}=await sb.from('users').insert({role:'client',login:num,password:finalPw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:num,points:0});
   if(error){toast('Erreur : '+error.message);return;}
   toast('✅ '+p+' '+n+' créé — carte '+num);showCC=false;await loadCl();showStaff();
