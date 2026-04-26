@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_34.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_35.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -668,12 +668,19 @@ async function showCS(){
 }
 
 // ACTIONS
-async function createCl(num){
+async function createCl(){
   const p=document.getElementById('acp').value.trim(),n=document.getElementById('acn').value.trim();
   const t=document.getElementById('act').value.trim(),a=document.getElementById('aca').value.trim();
-  const pw=document.getElementById('acpw').value.trim()||num;
+  const numVal=document.getElementById('acnum').value.trim();
+  const pw=document.getElementById('acpw').value.trim();
   if(!p||!n){toast('Prénom et nom requis');return;}
-  const{error}=await sb.from('users').insert({role:'client',login:num,password:pw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:num,points:0});
+  if(!numVal){toast('Numéro de carte requis');return;}
+  const num='UP-'+String(parseInt(numVal)).padStart(3,'0');
+  // Vérifier que le numéro n'existe pas déjà
+  const{data:ex}=await sb.from('users').select('id').eq('num_carte',num).maybeSingle();
+  if(ex){toast('❌ Ce numéro de carte existe déjà !');return;}
+  const finalPw=pw||numVal; // mdp = chiffre entré si pas de mdp
+  const{error}=await sb.from('users').insert({role:'client',login:num,password:finalPw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:num,points:0});
   if(error){toast('Erreur : '+error.message);return;}
   toast('✅ '+p+' '+n+' créé — carte '+num);showCC=false;await loadCl();showStaff();
 }
