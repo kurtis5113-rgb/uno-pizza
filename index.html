@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_27.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_28.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -730,6 +730,45 @@ async function delMod(id){
 
 // INIT
 showLogin();
+
+// Expose all functions globally
+window.toast = toast;
+window.ini = ini;
+window.fmtL = fmtL;
+window.fmtT = fmtT;
+window.avS = avS;
+window.nxt = nxt;
+window.grp = grp;
+window.isOpen = isOpen;
+window.render = render;
+window.loadCl = loadCl;
+window.resetT = resetT;
+window.stopT = stopT;
+window.openSM = openSM;
+window.closeSM = closeSM;
+window.doSearch = doSearch;
+window.pickClient = pickClient;
+window.showLogin = showLogin;
+window.switchTab = switchTab;
+window.doLS = doLS;
+window.doLC = doLC;
+window.doReg = doReg;
+window.showStaff = showStaff;
+window.setV = setV;
+window.rCl = rCl;
+window.rDet = rDet;
+window.toggleEdit = toggleEdit;
+window.rMods = rMods;
+window.rHist = rHist;
+window.showCS = showCS;
+window.createCl = createCl;
+window.delCl = delCl;
+window.addPts = addPts;
+window.redeem = redeem;
+window.saveCl = saveCl;
+window.createMod = createMod;
+window.delMod = delMod;
+
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
 } // end initApp
 </script>
