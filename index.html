@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_38.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_39.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -311,7 +311,7 @@ async function doLC(){
   const al=document.getElementById('la');
   if(!raw||!p){al.innerHTML=`<div class="al ae">Veuillez remplir tous les champs.</div>`;return;}
   // Accepte "4" ou "UP-004" ou "004"
-  const n = raw.toUpperCase().startsWith('UP-') ? raw.toUpperCase() : 'UP-'+String(parseInt(raw)).padStart(3,'0');
+  const n = raw.toUpperCase().startsWith('UP-') ? raw.toUpperCase() : 'UP-'+parseInt(raw);
   al.innerHTML=`<div class="al ai">⏳ Connexion en cours...</div>`;
   try{
     const{data,error}=await sb.from('users').select('*').eq('num_carte',n).eq('role','client');
@@ -332,7 +332,7 @@ async function doReg(){
   const cv=document.getElementById('rc').value.trim();
   const al=document.getElementById('la');
   if(!p||!n||!t||!a||!cv){al.innerHTML=`<div class="al ae">Tous les champs sont requis.</div>`;return;}
-  const nc='UP-'+String(parseInt(cv)).padStart(3,'0');
+  const nc='UP-'+parseInt(cv);
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',nc).maybeSingle();
   if(ex){al.innerHTML=`<div class="al ae">Ce numéro de carte est déjà utilisé.</div>`;return;}
   const finalPw=cv; // mdp = numéro de carte
@@ -679,7 +679,7 @@ async function createCl(){
   const numVal=document.getElementById('acnum').value.trim();
   if(!p||!n){toast('Prénom et nom requis');return;}
   if(!numVal){toast('Numéro de carte requis');return;}
-  const num='UP-'+String(parseInt(numVal)).padStart(3,'0');
+  const num='UP-'+parseInt(numVal);
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',num).maybeSingle();
   if(ex){toast('❌ Ce numéro de carte existe déjà !');return;}
   const finalPw=numVal; // mdp = toujours le numéro entré, non modifiable
