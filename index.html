@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_43.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_44.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -272,6 +272,20 @@ function grp(txs){const g={};(txs||[]).forEach(t=>{const k=t.created_at.split('T
 function isOpen(){const n=new Date(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60;const s={0:[[11,14],[18,22.5]],1:null,2:[[11,14],[18,22]],3:[[11,14],[18,22]],4:[[11,14],[18,22]],5:[[11,14],[18,22.5]],6:[[11,14],[18,22.5]]};const p=s[d];if(!p)return false;return p.some(([a,b])=>h>=a&&h<b);}
 function render(h){document.getElementById('root').innerHTML=h;}
 function maskPhone(p){if(!p||p.length<4)return p;const d=p.replace(/ /g,'');if(d.length>=10)return d.slice(0,2)+'** *** **'+d.slice(-2);return p.slice(0,2)+'***'+p.slice(-2);}
+function maskAddress(a){
+  if(!a)return'';
+  // Garde le numéro de rue masqué + ville seulement
+  const parts=a.split(',');
+  if(parts.length>=2){
+    const street=parts[0].trim();
+    const city=parts[parts.length-1].trim().replace(/^\d{5}\s*/,'');
+    // Masque le nom de la rue, garde juste les premiers caractères
+    const streetMasked=street.slice(0,3)+'*** '+street.split(' ').slice(-1)[0];
+    return streetMasked+' · '+city;
+  }
+  // Pas de virgule : masque le milieu
+  return a.slice(0,4)+'***'+' '+a.split(' ').slice(-1)[0];
+}
 function extractCity(a){if(!a)return'';const parts=a.split(',');const last=parts[parts.length-1].trim();return last.replace(/^\d{5}\s*/,'');}
 function monthsAgo(d){const diff=new Date()-new Date(d);return Math.floor(diff/(1000*60*60*24*30));}
 function showPtsAnim(pts,name){
@@ -860,7 +874,7 @@ async function showCS(){
         <div style="text-align:left;">
           <div style="font-size:18px;font-weight:700;">${c.prenom} ${c.nom}</div>
           <div style="font-size:12px;color:#888;">Carte <b style="color:var(--brand);">${c.num_carte}</b></div>
-          <div style="font-size:12px;color:#888;">${maskPhone(c.telephone||'')} · ${extractCity(c.adresse||'')}</div>
+          <div style="font-size:12px;color:#888;">${maskPhone(c.telephone||'')} · ${maskAddress(c.adresse||'')}</div>
           <div style="font-size:11px;color:#aaa;margin-top:2px;">Client depuis ${mois} mois</div>
         </div>
       </div>
