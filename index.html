@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_41.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_42.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,6 +70,51 @@ tr:last-child td{border-bottom:none;}
 .ai{background:rgba(0,0,0,0.04);border:1px solid #e5e7eb;color:#6b7280;}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2937;color:white;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:500;z-index:9999;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .ld{text-align:center;padding:3rem;color:#6b7280;font-size:14px;}
+
+/* STAFF DARK GOLD THEME */
+body.staff-mode{background:#0f0f0f;color:#e8e8e8;}
+body.staff-mode .card{background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);}
+body.staff-mode .nav{border-bottom:1px solid rgba(201,168,76,0.15);}
+body.staff-mode .nb{color:#888;}
+body.staff-mode .nb:hover{background:rgba(255,255,255,0.05);color:#e8e8e8;}
+body.staff-mode .nb.active{background:rgba(201,168,76,0.12);color:#C9A84C;font-weight:600;}
+body.staff-mode .nb.ns{background:#C9A84C;color:#111;}
+body.staff-mode .nb.ns:hover{background:#E8C96A;}
+body.staff-mode .logo{color:#e8e8e8;}
+body.staff-mode .logo span{color:#C9A84C;}
+body.staff-mode label{color:#888;}
+body.staff-mode input,body.staff-mode select{background:#2a2a2a;border:1px solid rgba(255,255,255,0.1);color:#e8e8e8;}
+body.staff-mode input::placeholder{color:#555;}
+body.staff-mode input:focus,body.staff-mode select:focus{border-color:#C9A84C;box-shadow:0 0 0 3px rgba(201,168,76,0.12);}
+body.staff-mode .btn{background:#222;border:1px solid rgba(255,255,255,0.1);color:#e8e8e8;}
+body.staff-mode .btn:hover{background:#2a2a2a;}
+body.staff-mode .bp{background:#C9A84C;border-color:#C9A84C;color:#111;font-weight:700;}
+body.staff-mode .bp:hover{background:#E8C96A;border-color:#E8C96A;}
+body.staff-mode .bd2{background:rgba(185,28,28,0.15);border-color:rgba(239,68,68,0.2);color:#f87171;}
+body.staff-mode th{color:#666;border-bottom:1px solid rgba(255,255,255,0.06);}
+body.staff-mode td{border-bottom:1px solid rgba(255,255,255,0.04);}
+body.staff-mode tr:hover td{background:rgba(255,255,255,0.02);}
+body.staff-mode .st{color:#666;}
+body.staff-mode .pts{color:#C9A84C;}
+body.staff-mode .pw{background:#2a2a2a;}
+body.staff-mode .pf{background:#C9A84C;}
+body.staff-mode .rr{background:#1e1e1e;border:1px solid rgba(201,168,76,0.12);}
+body.staff-mode .rr.ul{background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.3);}
+body.staff-mode .ri{background:#2a2a2a;border:1px solid rgba(255,255,255,0.08);}
+body.staff-mode .ba{background:rgba(201,168,76,0.15);color:#C9A84C;}
+body.staff-mode .if2{background:#1e1e1e;border:1px solid rgba(201,168,76,0.15);}
+body.staff-mode .dg{border-bottom:1px solid rgba(255,255,255,0.06);color:#666;}
+body.staff-mode .hr2{border-bottom:1px solid rgba(255,255,255,0.04);}
+body.staff-mode .div{background:rgba(255,255,255,0.06);}
+body.staff-mode .sb2{background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);}
+body.staff-mode .sn{color:#C9A84C;}
+body.staff-mode .sl{color:#666;}
+body.staff-mode .mo .mb{background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);}
+body.staff-mode .mo .mh h3{color:#e8e8e8;}
+body.staff-mode .mo label{color:#888;}
+body.staff-mode .mo input{background:#2a2a2a;border:1px solid rgba(255,255,255,0.1);color:#e8e8e8;}
+body.staff-mode .mo .si:hover{background:rgba(255,255,255,0.04);}
+body.staff-mode #toast{background:#C9A84C;color:#111;font-weight:700;}
 
 /* LOGIN */
 .lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;background:#0d0d0d;position:relative;overflow:hidden;}
@@ -232,6 +277,7 @@ async function pickClient(id){ closeSM(); selId=id; view='clients'; await showSt
 
 // LOGIN
 function showLogin(){
+  document.body.classList.remove("staff-mode");
   stopT(); session=null; selId=null; showCC=false; showCM=false;
   render(`
   <div class="lw">
@@ -300,7 +346,7 @@ async function doLS(){
     if(!data||data.length===0){al.innerHTML=`<div class="al ae">❌ Identifiant introuvable.</div>`;return;}
     const user=data.find(u=>u.password===p);
     if(!user){al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;return;}
-    session=user; resetT(); await loadCl(); showStaff(); openSM();
+    session=user; resetT(); document.body.classList.add("staff-mode"); await loadCl(); showStaff(); openSM();
   }catch(e){al.innerHTML=`<div class="al ae">❌ Erreur : ${e.message}</div>`;}
 }
 
@@ -332,7 +378,7 @@ async function doLC(){
       }
     }
     if(!user){al.innerHTML=`<div class="al ae">❌ Numéro de carte introuvable.</div>`;return;}
-    session=user; resetT(); showCS();
+    session=user; resetT(); document.body.classList.remove("staff-mode"); showCS();
   }catch(e){al.innerHTML=`<div class="al ae">❌ Erreur : ${e.message}</div>`;}
 }
 
@@ -384,6 +430,9 @@ async function setV(v){view=v;selId=null;showCC=false;showCM=false;showStaff();}
 
 // CLIENTS LIST
 async function rCl(isA){
+  // Si un client est sélectionné, afficher UNIQUEMENT sa fiche
+  if(selId) return await rDet(isA);
+
   let fH='';
   if(showCC){
     fH=`<div class="if2">
@@ -398,7 +447,6 @@ async function rCl(isA){
             <input id="acnum" type="number" min="1" placeholder="Ex: 2820"/>
           </div>
         </div>
-
       </div>
       <div style="display:flex;gap:8px;">
         <button class="btn bp bs" onclick="createCl()">Créer</button>
@@ -417,8 +465,6 @@ async function rCl(isA){
         ${isA?`<button class="btn bs bd2" onclick="delCl('${c.id}')">Suppr.</button>`:''}
       </div></td>
     </tr>`).join('');
-  let det='';
-  if(selId) det=await rDet(isA);
   return `
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
@@ -430,7 +476,7 @@ async function rCl(isA){
       <tr><th>N° carte</th><th>Client</th><th>Téléphone</th><th>Points</th><th></th></tr>
       ${rows||'<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:1.5rem;">Aucun client</td></tr>'}
     </table></div>
-  </div>${det}`;
+  </div>`;
 }
 
 // CLIENT DETAIL
