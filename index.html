@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_42.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_43.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,19 +10,22 @@
 <link rel="apple-touch-icon" href="file:///C:/Users/kurti/Downloads/apple-touch-icon.png">
 <link rel="manifest" href="file:///C:/Users/kurti/Downloads/manifest.json">
 <style>
-:root{--brand:#D85A30;--bl:#FAECE7;--bd:#993C1D;--r:12px;--rs:8px;}
+:root{--brand:#D85A30;--bl:#FAECE7;--bd:#993C1D;--r:12px;--rs:8px;
+--gold:#C9A84C;--gold2:#E8C96A;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#222;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;color:#111827;min-height:100vh;}
-.app{max-width:700px;margin:0 auto;padding:1rem;}
+
+/* BASE */
+.app{max-width:720px;margin:0 auto;padding:1rem;}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 0 1.5rem;}
 .logo{font-size:20px;font-weight:700;}.logo span{color:var(--brand);}
 .card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--r);padding:1.25rem;margin-bottom:12px;}
 label{display:block;font-size:12px;font-weight:600;color:#6b7280;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
-input,select{width:100%;height:40px;border:1px solid #d1d5db;border-radius:var(--rs);padding:0 12px;font-size:14px;background:white;color:#111827;outline:none;box-sizing:border-box;}
+input,select{width:100%;height:40px;border:1px solid #d1d5db;border-radius:var(--rs);padding:0 12px;font-size:14px;background:white;color:#111827;outline:none;box-sizing:border-box;transition:border-color .15s;}
 input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(216,90,48,.12);}
 .field{margin-bottom:12px;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:var(--rs);border:1px solid #d1d5db;background:white;color:#111827;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 18px;border-radius:var(--rs);border:1px solid #d1d5db;background:white;color:#111827;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s;}
 .btn:active{transform:scale(.98);}
 .bp{background:var(--brand);border-color:var(--brand);color:white;}
 .bp:hover{background:var(--bd);}
@@ -35,7 +38,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(216
 .bm{background:#eff6ff;color:#1d4ed8;}
 .bc{background:#f0fdf4;color:#166534;}
 .nav{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid #e5e7eb;margin-bottom:16px;padding-bottom:8px;align-items:center;}
-.nb{height:34px;padding:0 12px;border:none;background:transparent;color:#6b7280;font-size:13px;font-weight:500;cursor:pointer;border-radius:var(--rs);}
+.nb{height:34px;padding:0 12px;border:none;background:transparent;color:#6b7280;font-size:13px;font-weight:500;cursor:pointer;border-radius:var(--rs);transition:all .15s;}
 .nb:hover{background:#f3f4f6;}
 .nb.active{background:var(--bl);color:var(--bd);font-weight:600;}
 .nb.ns{background:var(--brand);color:white;font-weight:600;}
@@ -46,13 +49,14 @@ table{width:100%;border-collapse:collapse;font-size:13px;}
 th{text-align:left;font-weight:600;font-size:11px;color:#6b7280;padding:6px 10px;border-bottom:1px solid #e5e7eb;text-transform:uppercase;}
 td{padding:10px;border-bottom:1px solid #f3f4f6;vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fafafa;}
 .av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
 .avl{width:52px;height:52px;font-size:18px;}
 .pts{font-size:52px;font-weight:700;color:var(--brand);line-height:1;}
-.pw{height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden;margin:6px 0;}
-.pf{height:100%;background:var(--brand);border-radius:4px;}
+.pw{height:10px;background:#f3f4f6;border-radius:5px;overflow:hidden;margin:6px 0;}
+.pf{height:100%;border-radius:5px;transition:width .6s ease;}
 .pp{color:#16a34a;font-weight:600;}.pn{color:var(--brand);font-weight:600;}
-.rr{display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--rs);border:1px solid #e5e7eb;margin-bottom:8px;background:#fafafa;}
+.rr{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--rs);border:1px solid #e5e7eb;margin-bottom:8px;background:#fafafa;transition:all .2s;}
 .rr.ul{background:var(--bl);border-color:#f0997b;}
 .ri{font-size:24px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:white;border-radius:var(--rs);border:1px solid #e5e7eb;flex-shrink:0;}
 .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
@@ -66,55 +70,87 @@ tr:last-child td{border-bottom:none;}
 .div{height:1px;background:#f3f4f6;margin:14px 0;}
 .al{padding:10px 14px;border-radius:var(--rs);font-size:13px;margin-bottom:12px;}
 .ae{background:#fef2f2;border:1px solid #fca5a5;color:#b91c1c;}
-.as{background:#f0fdf4;border:1px solid #86efac;color:#166534;}
+.as2{background:#f0fdf4;border:1px solid #86efac;color:#166534;}
 .ai{background:rgba(0,0,0,0.04);border:1px solid #e5e7eb;color:#6b7280;}
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2937;color:white;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:500;z-index:9999;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .ld{text-align:center;padding:3rem;color:#6b7280;font-size:14px;}
 
-/* STAFF DARK GOLD THEME */
-body.staff-mode{background:#0f0f0f;color:#e8e8e8;}
-body.staff-mode .card{background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);}
-body.staff-mode .nav{border-bottom:1px solid rgba(201,168,76,0.15);}
-body.staff-mode .nb{color:#888;}
-body.staff-mode .nb:hover{background:rgba(255,255,255,0.05);color:#e8e8e8;}
-body.staff-mode .nb.active{background:rgba(201,168,76,0.12);color:#C9A84C;font-weight:600;}
-body.staff-mode .nb.ns{background:#C9A84C;color:#111;}
-body.staff-mode .nb.ns:hover{background:#E8C96A;}
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(0);background:#1f2937;color:white;padding:12px 24px;border-radius:99px;font-size:13px;font-weight:500;z-index:9999;opacity:0;pointer-events:none;white-space:nowrap;transition:opacity .3s,transform .3s;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* CONFETTI / POINT ANIMATION */
+.pts-anim{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:8888;pointer-events:none;text-align:center;animation:ptsIn .5s ease forwards;}
+@keyframes ptsIn{0%{opacity:0;transform:translate(-50%,-50%) scale(.5);}60%{transform:translate(-50%,-50%) scale(1.1);}100%{opacity:1;transform:translate(-50%,-50%) scale(1);}}
+.pts-anim-out{animation:ptsOut .4s ease forwards;}
+@keyframes ptsOut{to{opacity:0;transform:translate(-50%,-60%) scale(.8);}}
+
+/* STAFF DARK GOLD */
+body.staff-mode{background:var(--dark);color:#e8e8e8;}
+body.staff-mode .card{background:var(--dark2);border:1px solid rgba(201,168,76,0.15);}
+body.staff-mode .nav{border-bottom:1px solid rgba(201,168,76,0.12);}
+body.staff-mode .nb{color:#777;}
+body.staff-mode .nb:hover{background:rgba(255,255,255,0.04);color:#e8e8e8;}
+body.staff-mode .nb.active{background:rgba(201,168,76,0.12);color:var(--gold);font-weight:600;}
+body.staff-mode .nb.ns{background:var(--gold);color:#111;font-weight:700;}
+body.staff-mode .nb.ns:hover{background:var(--gold2);}
+body.staff-mode .logo span{color:var(--gold);}
 body.staff-mode .logo{color:#e8e8e8;}
-body.staff-mode .logo span{color:#C9A84C;}
-body.staff-mode label{color:#888;}
+body.staff-mode label{color:#666;}
 body.staff-mode input,body.staff-mode select{background:#2a2a2a;border:1px solid rgba(255,255,255,0.1);color:#e8e8e8;}
-body.staff-mode input::placeholder{color:#555;}
-body.staff-mode input:focus,body.staff-mode select:focus{border-color:#C9A84C;box-shadow:0 0 0 3px rgba(201,168,76,0.12);}
-body.staff-mode .btn{background:#222;border:1px solid rgba(255,255,255,0.1);color:#e8e8e8;}
+body.staff-mode input::placeholder{color:#444;}
+body.staff-mode input:focus,body.staff-mode select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.12);}
+body.staff-mode .btn{background:var(--dark3);border:1px solid rgba(255,255,255,0.1);color:#e8e8e8;}
 body.staff-mode .btn:hover{background:#2a2a2a;}
-body.staff-mode .bp{background:#C9A84C;border-color:#C9A84C;color:#111;font-weight:700;}
-body.staff-mode .bp:hover{background:#E8C96A;border-color:#E8C96A;}
+body.staff-mode .bp{background:var(--gold);border-color:var(--gold);color:#111;font-weight:700;}
+body.staff-mode .bp:hover{background:var(--gold2);border-color:var(--gold2);}
 body.staff-mode .bd2{background:rgba(185,28,28,0.15);border-color:rgba(239,68,68,0.2);color:#f87171;}
-body.staff-mode th{color:#666;border-bottom:1px solid rgba(255,255,255,0.06);}
+body.staff-mode th{color:#555;border-bottom:1px solid rgba(255,255,255,0.05);}
 body.staff-mode td{border-bottom:1px solid rgba(255,255,255,0.04);}
 body.staff-mode tr:hover td{background:rgba(255,255,255,0.02);}
-body.staff-mode .st{color:#666;}
-body.staff-mode .pts{color:#C9A84C;}
+body.staff-mode .st{color:#555;}
+body.staff-mode .pts{color:var(--gold);}
 body.staff-mode .pw{background:#2a2a2a;}
-body.staff-mode .pf{background:#C9A84C;}
-body.staff-mode .rr{background:#1e1e1e;border:1px solid rgba(201,168,76,0.12);}
+body.staff-mode .pf{background:var(--gold);}
+body.staff-mode .rr{background:#1e1e1e;border:1px solid rgba(201,168,76,0.1);}
 body.staff-mode .rr.ul{background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.3);}
-body.staff-mode .ri{background:#2a2a2a;border:1px solid rgba(255,255,255,0.08);}
-body.staff-mode .ba{background:rgba(201,168,76,0.15);color:#C9A84C;}
-body.staff-mode .if2{background:#1e1e1e;border:1px solid rgba(201,168,76,0.15);}
-body.staff-mode .dg{border-bottom:1px solid rgba(255,255,255,0.06);color:#666;}
+body.staff-mode .ri{background:#2a2a2a;border:1px solid rgba(255,255,255,0.06);}
+body.staff-mode .ba{background:rgba(201,168,76,0.15);color:var(--gold);}
+body.staff-mode .if2{background:#1e1e1e;border:1px solid rgba(201,168,76,0.12);}
+body.staff-mode .dg{border-bottom:1px solid rgba(255,255,255,0.05);color:#555;}
 body.staff-mode .hr2{border-bottom:1px solid rgba(255,255,255,0.04);}
 body.staff-mode .div{background:rgba(255,255,255,0.06);}
-body.staff-mode .sb2{background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);}
-body.staff-mode .sn{color:#C9A84C;}
-body.staff-mode .sl{color:#666;}
-body.staff-mode .mo .mb{background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);}
+body.staff-mode .sb2{background:var(--dark2);border:1px solid rgba(201,168,76,0.12);}
+body.staff-mode .sn{color:var(--gold);}
+body.staff-mode .sl{color:#555;}
+body.staff-mode .if2{background:#1a1a1a;}
+body.staff-mode #toast{background:var(--gold);color:#111;font-weight:700;}
+body.staff-mode .mo .mb{background:var(--dark2);border:1px solid rgba(201,168,76,0.15);}
 body.staff-mode .mo .mh h3{color:#e8e8e8;}
-body.staff-mode .mo label{color:#888;}
+body.staff-mode .mo label{color:#666;}
 body.staff-mode .mo input{background:#2a2a2a;border:1px solid rgba(255,255,255,0.1);color:#e8e8e8;}
-body.staff-mode .mo .si:hover{background:rgba(255,255,255,0.04);}
-body.staff-mode #toast{background:#C9A84C;color:#111;font-weight:700;}
+body.staff-mode .mo .si:hover{background:rgba(255,255,255,0.03);}
+body.staff-mode .si-name{color:#e8e8e8;}
+body.staff-mode .si-sub{color:#666;}
+
+/* STAT CARDS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.stat-c{border-radius:var(--rs);padding:12px;text-align:center;}
+.stat-c .sn{font-size:20px;}
+
+/* PROGRESS RING */
+.ring-wrap{position:relative;width:120px;height:120px;margin:0 auto 1rem;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke-width:8;}
+.ring-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .6s ease;}
+.ring-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;line-height:1.2;}
+.ring-pts{font-size:22px;font-weight:800;}
+.ring-sub{font-size:10px;color:#6b7280;}
+
+/* VIP BADGE */
+.vip-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#111;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px;letter-spacing:.05em;}
+
+/* NEXT REWARD */
+.next-reward{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.05));border:1px solid rgba(201,168,76,0.2);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px;font-size:13px;}
 
 /* LOGIN */
 .lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;background:#0d0d0d;position:relative;overflow:hidden;}
@@ -129,7 +165,8 @@ body.staff-mode #toast{background:#C9A84C;color:#111;font-weight:700;}
 .lg2{display:inline-flex;align-items:center;gap:6px;background:rgba(216,90,48,0.12);border:1px solid rgba(216,90,48,0.3);color:#D85A30;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:99px;margin:10px 0 1.75rem;}
 .lc{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.75rem;backdrop-filter:blur(20px);}
 .lt{display:flex;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-bottom:1.25rem;}
-.lta{flex:1;height:38px;border:none;background:transparent;font-size:12px;font-weight:600;cursor:pointer;color:rgba(255,255,255,0.4);}
+.lta{flex:1;height:38px;border:none;background:transparent;font-size:12px;font-weight:600;cursor:pointer;color:rgba(255,255,255,0.4);transition:all .2s;}
+.lta:hover{color:rgba(255,255,255,0.7);}
 .lta.active{background:var(--brand);color:white;border-radius:8px;}
 .lc label{color:rgba(255,255,255,0.5);}
 .lc input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:white;}
@@ -137,7 +174,7 @@ body.staff-mode #toast{background:#C9A84C;color:#111;font-weight:700;}
 .lc input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(216,90,48,0.15);}
 .lc p{color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:14px;}
 .lc .ae{background:rgba(185,28,28,0.2);border-color:rgba(239,68,68,0.3);color:#fca5a5;}
-.lc .as{background:rgba(22,101,52,0.2);border-color:rgba(134,239,172,0.3);color:#86efac;}
+.lc .as2{background:rgba(22,101,52,0.2);border-color:rgba(134,239,172,0.3);color:#86efac;}
 .lc .ai{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);}
 
 /* MODAL */
@@ -147,66 +184,63 @@ body.staff-mode #toast{background:#C9A84C;color:#111;font-weight:700;}
 .mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .mh h3{font-size:17px;font-weight:700;}
 .mc{background:none;border:none;font-size:22px;cursor:pointer;color:#9ca3af;}
-.si{display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--rs);cursor:pointer;margin-bottom:4px;border:1px solid transparent;}
+.si{display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--rs);cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all .15s;}
 .si:hover{background:#f9fafb;border-color:#f3f4f6;}
+.si-name{font-weight:600;font-size:14px;color:#111;}
+.si-sub{font-size:12px;color:#9ca3af;}
 
-@media(max-width:500px){.g2{grid-template-columns:1fr;}.sg{grid-template-columns:1fr 1fr;}.nb{padding:0 8px;font-size:12px;}}
+@media(max-width:500px){
+  .g2{grid-template-columns:1fr;}
+  .sg,.stat-row{grid-template-columns:1fr 1fr;}
+  .nb{padding:0 8px;font-size:12px;}
+  .stat-row .stat-c:last-child{grid-column:span 2;}
+}
 </style>
 <script src="./index_files/supabase.min.js.téléchargement"></script><script src="./index_files/supabase.js.téléchargement"></script></head>
 <body>
-
 <div id="root">
-  <div class="lw">
-    <div class="lh">
-      <div class="lr"><div style="width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;">U</div></div>
-      <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
-      <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
-      <div class="lc">
-        <div class="lt">
-          <button class="lta active" id="tab-s" onclick="switchTab(&#39;s&#39;)">Staff</button>
-          <button class="lta" id="tab-c" onclick="switchTab(&#39;c&#39;)">Client</button>
-          <button class="lta" id="tab-r" onclick="switchTab(&#39;r&#39;)">Créer un compte</button>
-        </div>
-        <div id="lbody"><div id="la"></div>
+  <div class="lw"><div class="lh">
+    <div class="lr"><div style="width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;">U</div></div>
+    <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
+    <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
+    <div class="lc">
+      <div class="lt">
+        <button class="lta active" id="tab-s" onclick="window.switchTab(&#39;s&#39;)">Staff</button>
+        <button class="lta" id="tab-c" onclick="window.switchTab(&#39;c&#39;)">Client</button>
+        <button class="lta" id="tab-r" onclick="window.switchTab(&#39;r&#39;)">Créer un compte</button>
+      </div>
+      <div id="lbody"><div id="la"></div>
     <div class="field"><label>Identifiant</label><input id="li" autocorrect="off" autocapitalize="off" placeholder="admin"></div>
     <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••"></div>
-    <button class="btn bp bf" onclick="doLS()">Se connecter</button></div>
-      </div>
+    <button class="btn bp bf" onclick="window.doLS()">Se connecter</button></div>
     </div>
-  </div></div>
-<div id="toast" style="opacity:0;"></div>
+  </div></div></div>
+<div id="toast"></div>
 <div class="mo" id="sm">
   <div class="mb">
-    <div class="mh">
-      <h3>🔍 Recherche client</h3>
-      <button class="mc" id="btn-close-search">✕</button>
-    </div>
+    <div class="mh"><h3>🔍 Recherche client</h3><button class="mc" id="btn-close-sm">✕</button></div>
     <div class="field">
-      <label>Nom, prénom, téléphone ou numéro de carte</label>
-      <input type="text" id="search-input" placeholder="Ex: Jean, UP-001, 06 12..." autocomplete="off" autocorrect="off" autocapitalize="off">
+      <label>Nom, prénom, téléphone ou numéro</label>
+      <input type="text" id="sm-input" placeholder="Ex: Jean, 2820, 06 12..." autocomplete="off" autocorrect="off" autocapitalize="off">
     </div>
-    <div id="search-results"></div>
+    <div id="sm-results"></div>
     <div style="margin-top:14px;padding-top:14px;border-top:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
       <span style="font-size:13px;color:#9ca3af;">Nouveau client ?</span>
-      <button class="btn bp bs" id="btn-create-from-search">+ Créer un client</button>
+      <button class="btn bp bs" id="btn-new-client">+ Créer un client</button>
     </div>
   </div>
 </div>
 
+<script src="./index_files/supabase.min.js.téléchargement"></script>
 <script>
 (function(){
-  var cdns = [
-    'https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.3/umd/supabase.min.js',
-    'https://unpkg.com/@supabase/supabase-js@2.39.3/dist/umd/supabase.js',
-    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js'
-  ];
-  var i = 0;
+  var cdns=['https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.3/umd/supabase.min.js','https://unpkg.com/@supabase/supabase-js@2.39.3/dist/umd/supabase.js'];
+  var i=0;
   function tryLoad(){
-    if(i >= cdns.length){ document.getElementById('root').innerHTML='<div style="padding:3rem;text-align:center;color:#666;">Vérifiez votre connexion internet et rechargez la page.</div>'; return; }
-    var s = document.createElement('script');
-    s.src = cdns[i++];
-    s.onload = function(){ initApp(); };
-    s.onerror = function(){ tryLoad(); };
+    if(typeof supabase!=='undefined'){initApp();return;}
+    if(i>=cdns.length){document.getElementById('root').innerHTML='<div style="padding:3rem;text-align:center;color:#666;">Vérifiez votre connexion internet et rechargez la page.</div>';return;}
+    var s=document.createElement('script');s.src=cdns[i++];
+    s.onload=function(){initApp();};s.onerror=function(){tryLoad();};
     document.head.appendChild(s);
   }
   tryLoad();
@@ -214,106 +248,116 @@ body.staff-mode #toast{background:#C9A84C;color:#111;font-weight:700;}
 
 function initApp(){
 
+const SURL='https://wbdnfjwpcimkjygokkzc.supabase.co';
+const SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZG5mandwY2lta2p5Z29ra3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1OTg3MzYsImV4cCI6MjA5MTE3NDczNn0.d6_A3R_ko3nfzkvJbSyMS1zi8YQmkkrL4HpbXEiI_d4';
+const sb=supabase.createClient(SURL,SKEY);
 
-
-const SURL = 'https://wbdnfjwpcimkjygokkzc.supabase.co';
-const SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndiZG5mandwY2lta2p5Z29ra3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1OTg3MzYsImV4cCI6MjA5MTE3NDczNn0.d6_A3R_ko3nfzkvJbSyMS1zi8YQmkkrL4HpbXEiI_d4';
-const sb = supabase.createClient(SURL, SKEY);
-
-let session = null, view = 'clients', selId = null, showCC = false, showCM = false;
-let hf = {cid:'', df:'', dt:'', type:''};
-let clients = [];
+let session=null,view='clients',selId=null,showCC=false,showCM=false;
+let hf={cid:'',df:'',dt:'',type:''};
+let clients=[];
+let txPage=10;
 
 // UTILS
-function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=m;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',d);}
+function toast(m,dur=2800){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
 function ini(p,n){return((p||'')[0]||'').toUpperCase()+((n||'')[0]||'').toUpperCase()||'?';}
 function fmtL(d){return new Date(d).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
 function fmtT(d){return new Date(d).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+function fmtDateOnly(d){return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});}
 function avS(r){if(r==='admin')return'background:#FAECE7;color:#993C1D;';if(r==='moderateur')return'background:#eff6ff;color:#1d4ed8;';return'background:#f0fdf4;color:#166534;';}
-function nxt(cl){const ns=cl.map(c=>parseInt((c.num_carte||'UP-000').split('-')[1]||0));return'UP-'+((ns.length?Math.max(...ns):0)+1).toString().padStart(3,'0');}
 function grp(txs){const g={};(txs||[]).forEach(t=>{const k=t.created_at.split('T')[0];if(!g[k])g[k]=[];g[k].push(t);});return g;}
 function isOpen(){const n=new Date(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60;const s={0:[[11,14],[18,22.5]],1:null,2:[[11,14],[18,22]],3:[[11,14],[18,22]],4:[[11,14],[18,22]],5:[[11,14],[18,22.5]],6:[[11,14],[18,22.5]]};const p=s[d];if(!p)return false;return p.some(([a,b])=>h>=a&&h<b);}
 function render(h){document.getElementById('root').innerHTML=h;}
+function maskPhone(p){if(!p||p.length<4)return p;const d=p.replace(/ /g,'');if(d.length>=10)return d.slice(0,2)+'** *** **'+d.slice(-2);return p.slice(0,2)+'***'+p.slice(-2);}
+function extractCity(a){if(!a)return'';const parts=a.split(',');const last=parts[parts.length-1].trim();return last.replace(/^\d{5}\s*/,'');}
+function monthsAgo(d){const diff=new Date()-new Date(d);return Math.floor(diff/(1000*60*60*24*30));}
+function showPtsAnim(pts,name){
+  const el=document.createElement('div');
+  el.className='pts-anim';
+  el.innerHTML=`<div style="background:var(--gold);color:#111;border-radius:20px;padding:20px 32px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+    <div style="font-size:36px;font-weight:900;">+${pts} pts</div>
+    <div style="font-size:14px;font-weight:600;margin-top:4px;">${name}</div>
+  </div>`;
+  document.body.appendChild(el);
+  setTimeout(()=>{el.classList.add('pts-anim-out');setTimeout(()=>el.remove(),400);},2000);
+}
 async function loadCl(){const{data}=await sb.from('users').select('*').eq('role','client').order('nom');clients=data||[];}
 
-// AUTO LOGOUT
+// AUTO LOGOUT 1H
 const TM=60*60*1000;let lt,wt;
-function resetT(){if(!session)return;clearTimeout(lt);clearTimeout(wt);wt=setTimeout(()=>{if(session)toast('⚠️ Déconnexion dans 5 min...',6000);},TM-300000);lt=setTimeout(()=>{if(session){session=null;stopT();showLogin();setTimeout(()=>toast('🔒 Déconnecté après 30 min.'),300);}},TM);}
+function resetT(){if(!session)return;clearTimeout(lt);clearTimeout(wt);wt=setTimeout(()=>{if(session)toast('⚠️ Déconnexion dans 5 min...',6000);},TM-300000);lt=setTimeout(()=>{if(session){session=null;stopT();showLogin();setTimeout(()=>toast('🔒 Déconnecté après 1h.'),300);}},TM);}
 function stopT(){clearTimeout(lt);clearTimeout(wt);}
 ['click','keydown','touchstart','scroll'].forEach(e=>document.addEventListener(e,()=>{if(session)resetT();},{passive:true}));
 
-// SEARCH MODAL — event listeners après chargement DOM
-document.getElementById('btn-close-search').onclick = () => closeSM();
-document.getElementById('btn-create-from-search').onclick = () => { closeSM(); showCC=true; view='clients'; showStaff(); };
-document.getElementById('search-input').oninput = function(){ doSearch(this.value); };
+// SEARCH MODAL
+document.getElementById('btn-close-sm').onclick=()=>closeSM();
+document.getElementById('btn-new-client').onclick=()=>{closeSM();showCC=true;view='clients';showStaff();};
+document.getElementById('sm-input').oninput=function(){doSearch(this.value);};
 
 function openSM(){
   document.getElementById('sm').classList.add('open');
-  const inp = document.getElementById('search-input');
-  inp.value = '';
-  doSearch('');
-  setTimeout(()=>inp.focus(), 150);
+  const inp=document.getElementById('sm-input');
+  inp.value='';doSearch('');
+  setTimeout(()=>inp.focus(),150);
 }
-function closeSM(){ document.getElementById('sm').classList.remove('open'); }
-
-async function doSearch(q){
-  const query = q.toLowerCase().trim();
-  const res = query ? clients.filter(c=>(c.prenom+' '+c.nom+' '+(c.num_carte||'')+' '+(c.telephone||'')).toLowerCase().includes(query)) : clients.slice(0,8);
-  const cont = document.getElementById('search-results');
-  if(!cont) return;
+function closeSM(){document.getElementById('sm').classList.remove('open');}
+function doSearch(q){
+  const query=q.toLowerCase().trim();
+  const res=query?clients.filter(c=>(c.prenom+' '+c.nom+' '+(c.num_carte||'')+' '+(c.telephone||'')).toLowerCase().includes(query)):clients.slice(0,8);
+  const cont=document.getElementById('sm-results');if(!cont)return;
   if(res.length===0){cont.innerHTML=`<div style="text-align:center;padding:1.5rem;color:#9ca3af;font-size:13px;">Aucun client trouvé.</div>`;return;}
-  cont.innerHTML = res.map(c=>`
-    <div class="si" onclick="pickClient('${c.id}')">
+  cont.innerHTML=res.map(c=>`
+    <div class="si" onclick="window.pickClient('${c.id}')">
       <div class="av" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
       <div style="flex:1;">
-        <div style="font-weight:600;font-size:14px;">${c.prenom} ${c.nom}</div>
-        <div style="font-size:12px;color:#9ca3af;">${c.num_carte||'—'} · ${c.telephone||'—'} · <b style="color:var(--brand);">${c.points} pts</b></div>
+        <div class="si-name">${c.prenom} ${c.nom} ${c.points>=250?'<span class="vip-badge">⭐ VIP</span>':''}</div>
+        <div class="si-sub">${c.num_carte||'—'} · ${c.telephone||'—'} · <b style="color:var(--gold);">${c.points} pts</b></div>
       </div>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
     </div>`).join('');
 }
-
-async function pickClient(id){ closeSM(); selId=id; view='clients'; await showStaff(); }
+async function pickClient(id){closeSM();selId=id;view='clients';await showStaff();}
 
 // LOGIN
 function showLogin(){
-  document.body.classList.remove("staff-mode");
-  stopT(); session=null; selId=null; showCC=false; showCM=false;
+  stopT();session=null;selId=null;showCC=false;showCM=false;
+  document.body.classList.remove('staff-mode');
   render(`
-  <div class="lw">
-    <div class="lh">
-      <div class="lr"><img src="logo.jpg" alt="Uno Pizza" onerror="this.parentElement.innerHTML='<div style=&quot;width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;&quot;>U</div>'"></div>
-      <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
-      <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
-      <div class="lc">
-        <div class="lt">
-          <button class="lta active" id="tab-s" onclick="switchTab('s')">Staff</button>
-          <button class="lta" id="tab-c" onclick="switchTab('c')">Client</button>
-          <button class="lta" id="tab-r" onclick="switchTab('r')">Créer un compte</button>
-        </div>
-        <div id="lbody"></div>
+  <div class="lw"><div class="lh">
+    <div class="lr"><img src="logo.jpg" alt="Uno Pizza" onerror="this.parentElement.innerHTML='<div style=&quot;width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;&quot;>U</div>'"></div>
+    <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
+    <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
+    <div class="lc">
+      <div class="lt">
+        <button class="lta active" id="tab-s" onclick="window.switchTab('s')">Staff</button>
+        <button class="lta" id="tab-c" onclick="window.switchTab('c')">Client</button>
+        <button class="lta" id="tab-r" onclick="window.switchTab('r')">Créer un compte</button>
       </div>
+      <div id="lbody"></div>
     </div>
-  </div>`);
+  </div></div>`);
   switchTab('s');
 }
 
 function switchTab(tab){
   document.querySelectorAll('.lta').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+tab).classList.add('active');
-  const b = document.getElementById('lbody');
+  const el=document.getElementById('tab-'+tab);if(el)el.classList.add('active');
+  const b=document.getElementById('lbody');
   if(tab==='s'){
     b.innerHTML=`<div id="la"></div>
     <div class="field"><label>Identifiant</label><input id="li" autocorrect="off" autocapitalize="off" placeholder="admin"/></div>
     <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••"/></div>
-    <button class="btn bp bf" onclick="doLS()">Se connecter</button>`;
+    <button class="btn bp bf" onclick="window.doLS()">Se connecter</button>`;
     document.getElementById('li').addEventListener('keydown',e=>{if(e.key==='Enter')doLS();});
     document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLS();});
   } else if(tab==='c'){
     b.innerHTML=`<div id="la"></div>
     <div class="field"><label>Numéro de carte</label><input id="li" type="number" placeholder="Ex: 2820" autocorrect="off"/></div>
     <div class="field"><label>Mot de passe</label><input id="lp" type="password" placeholder="••••••"/></div>
-    <button class="btn bp bf" onclick="doLC()">Se connecter</button>`;
+    <button class="btn bp bf" onclick="window.doLC()">Se connecter</button>`;
     document.getElementById('li').addEventListener('keydown',e=>{if(e.key==='Enter')doLC();});
     document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLC();});
   } else {
@@ -325,18 +369,15 @@ function switchTab(tab){
     </div>
     <div class="field"><label>Téléphone</label><input id="rt" placeholder="06 12 34 56 78"/></div>
     <div class="field"><label>Adresse</label><input id="ra"/></div>
-    <div class="field"><label>Numéro de carte (chiffres uniquement)</label>
-      <div style="display:flex;">
-        <input id="rc" type="number" min="1" placeholder="Ex: 2820"/>
-      </div>
+    <div class="field"><label>Numéro de carte</label><input id="rc" type="number" min="1" placeholder="Ex: 2820"/>
+      <div style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:6px;">⚠️ Ce numéro sera aussi votre mot de passe.</div>
     </div>
-    <button class="btn bp bf" onclick="doReg()">Créer mon compte</button>`;
+    <button class="btn bp bf" onclick="window.doReg()">Créer mon compte</button>`;
   }
 }
 
 async function doLS(){
-  const l=document.getElementById('li').value.trim();
-  const p=document.getElementById('lp').value.trim();
+  const l=document.getElementById('li').value.trim(),p=document.getElementById('lp').value.trim();
   const al=document.getElementById('la');
   if(!l||!p){al.innerHTML=`<div class="al ae">Veuillez remplir tous les champs.</div>`;return;}
   al.innerHTML=`<div class="al ai">⏳ Connexion en cours...</div>`;
@@ -346,39 +387,29 @@ async function doLS(){
     if(!data||data.length===0){al.innerHTML=`<div class="al ae">❌ Identifiant introuvable.</div>`;return;}
     const user=data.find(u=>u.password===p);
     if(!user){al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;return;}
-    session=user; resetT(); document.body.classList.add("staff-mode"); await loadCl(); showStaff(); openSM();
+    session=user;resetT();document.body.classList.add('staff-mode');await loadCl();showStaff();openSM();
   }catch(e){al.innerHTML=`<div class="al ae">❌ Erreur : ${e.message}</div>`;}
 }
 
 async function doLC(){
-  const raw=document.getElementById('li').value.trim();
-  const p=document.getElementById('lp').value.trim();
+  const raw=document.getElementById('li').value.trim(),p=document.getElementById('lp').value.trim();
   const al=document.getElementById('la');
   if(!raw||!p){al.innerHTML=`<div class="al ae">Veuillez remplir tous les champs.</div>`;return;}
   al.innerHTML=`<div class="al ai">⏳ Connexion en cours...</div>`;
   try{
-    // Chercher par num_carte en essayant tous les formats possibles
-    const formats = [
-      raw,                                          // ex: 2820
-      'UP-'+raw,                                    // ex: UP-2820
-      'UP-'+String(parseInt(raw)).padStart(3,'0'),  // ex: UP-001
-      parseInt(raw).toString()                       // ex: 4 → 4
-    ];
-    let user = null;
-    for(const fmt of formats){
+    const fmts=[raw,'UP-'+raw,'UP-'+String(parseInt(raw)).padStart(3,'0'),parseInt(raw).toString()];
+    let user=null;
+    for(const fmt of fmts){
       const{data}=await sb.from('users').select('*').eq('num_carte',fmt).eq('role','client');
       if(data&&data.length>0){
-        // Tester le mdp dans tous les formats aussi
-        const pwFormats = [p, 'UP-'+p, 'UP-'+String(parseInt(p)).padStart(3,'0'), parseInt(p).toString(), fmt];
-        user = data.find(u=>pwFormats.includes(u.password));
-        if(user) break;
-        // Numéro trouvé mais mdp incorrect
-        al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;
-        return;
+        const pwFmts=[p,'UP-'+p,'UP-'+String(parseInt(p)).padStart(3,'0'),parseInt(p).toString(),fmt];
+        user=data.find(u=>pwFmts.includes(u.password));
+        if(user)break;
+        al.innerHTML=`<div class="al ae">❌ Mot de passe incorrect.</div>`;return;
       }
     }
     if(!user){al.innerHTML=`<div class="al ae">❌ Numéro de carte introuvable.</div>`;return;}
-    session=user; resetT(); document.body.classList.remove("staff-mode"); showCS();
+    session=user;resetT();document.body.classList.remove('staff-mode');showCS();
   }catch(e){al.innerHTML=`<div class="al ae">❌ Erreur : ${e.message}</div>`;}
 }
 
@@ -391,10 +422,9 @@ async function doReg(){
   const nc=parseInt(cv).toString();
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',nc).maybeSingle();
   if(ex){al.innerHTML=`<div class="al ae">Ce numéro de carte est déjà utilisé.</div>`;return;}
-  const finalPw=cv; // mdp = numéro de carte
-  const{error}=await sb.from('users').insert({role:'client',login:nc,password:finalPw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:nc,points:0});
+  const{error}=await sb.from('users').insert({role:'client',login:nc,password:nc,prenom:p,nom:n,telephone:t,adresse:a,num_carte:nc,points:0,reward1_used:false,reward2_used:false});
   if(error){al.innerHTML=`<div class="al ae">Erreur : ${error.message}</div>`;return;}
-  al.innerHTML=`<div class="al as">✅ Compte créé ! Connectez-vous avec votre numéro de carte.</div>`;
+  al.innerHTML=`<div class="al as2">✅ Compte créé ! Connectez-vous avec votre numéro de carte.</div>`;
   setTimeout(()=>switchTab('c'),2000);
 }
 
@@ -407,32 +437,90 @@ async function showStaff(){
   if(view==='clients')content=await rCl(isA);
   else if(view==='mods')content=await rMods();
   else if(view==='hist')content=await rHist();
+  else if(view==='dashboard')content=await rDash();
   render(`
   <div class="app">
     <div class="topbar">
       <div class="logo">Uno <span>Pizza</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span class="badge ${isA?'ba':'bm'}">${isA?'Admin':'Modérateur'}</span>
-        <span style="font-size:13px;color:#6b7280;">${session.prenom} ${session.nom}</span>
+        <span style="font-size:13px;color:#777;">${session.prenom} ${session.nom}</span>
       </div>
     </div>
     <div class="nav">
-      <button class="nb ns" onclick="openSM()">🔍 Recherche client</button>
-      <button class="nb${view==='clients'?' active':''}" onclick="setV('clients')">Tous les clients</button>
-      ${isA?`<button class="nb${view==='mods'?' active':''}" onclick="setV('mods')">Modérateurs</button><button class="nb${view==='hist'?' active':''}" onclick="setV('hist')">Historique</button>`:''}
-      <button class="nb nl" onclick="showLogin()">Déconnexion</button>
+      <button class="nb ns" onclick="window.openSM()">🔍 Recherche</button>
+      ${isA?`<button class="nb${view==='dashboard'?' active':''}" onclick="window.setV('dashboard')">📊 Dashboard</button>`:''}
+      <button class="nb${view==='clients'?' active':''}" onclick="window.setV('clients')">Clients</button>
+      ${isA?`<button class="nb${view==='mods'?' active':''}" onclick="window.setV('mods')">Modérateurs</button>
+      <button class="nb${view==='hist'?' active':''}" onclick="window.setV('hist')">Historique</button>`:''}
+      <button class="nb nl" onclick="window.showLogin()">Déconnexion</button>
     </div>
     ${content}
   </div>`);
 }
 
-async function setV(v){view=v;selId=null;showCC=false;showCM=false;showStaff();}
+async function setV(v){view=v;selId=null;showCC=false;showCM=false;txPage=10;showStaff();}
+
+// DASHBOARD
+async function rDash(){
+  const today=new Date().toISOString().split('T')[0];
+  const{data:txToday}=await sb.from('transactions').select('*').gte('created_at',today+'T00:00:00');
+  const{data:txWeek}=await sb.from('transactions').select('*').gte('created_at',new Date(Date.now()-7*24*60*60*1000).toISOString());
+  const{data:newClients}=await sb.from('users').select('*').eq('role','client').gte('created_at',new Date(Date.now()-7*24*60*60*1000).toISOString());
+  const ptsToday=(txToday||[]).filter(t=>t.points>0).reduce((s,t)=>s+t.points,0);
+  const ptsWeek=(txWeek||[]).filter(t=>t.points>0).reduce((s,t)=>s+t.points,0);
+  const rewardsWeek=(txWeek||[]).filter(t=>t.points<0).length;
+  const topClients=[...clients].sort((a,b)=>b.points-a.points).slice(0,5);
+
+  return `
+  <div class="card">
+    <div class="st">Aujourd'hui</div>
+    <div class="stat-row">
+      <div class="stat-c card" style="margin:0;">
+        <div class="sn">${(txToday||[]).filter(t=>t.points>0).length}</div>
+        <div class="sl">Transactions</div>
+      </div>
+      <div class="stat-c card" style="margin:0;">
+        <div class="sn">${ptsToday}</div>
+        <div class="sl">Points distribués</div>
+      </div>
+      <div class="stat-c card" style="margin:0;">
+        <div class="sn">${(txToday||[]).filter(t=>t.points<0).length}</div>
+        <div class="sl">Récompenses</div>
+      </div>
+      <div class="stat-c card" style="margin:0;">
+        <div class="sn">${clients.length}</div>
+        <div class="sl">Clients total</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="st">Cette semaine</div>
+    <div class="sg">
+      <div class="sb2"><div class="sn">${ptsWeek}</div><div class="sl">Points distribués</div></div>
+      <div class="sb2"><div class="sn">${rewardsWeek}</div><div class="sl">Récompenses utilisées</div></div>
+      <div class="sb2"><div class="sn">${(newClients||[]).length}</div><div class="sl">Nouveaux clients</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="st">🏆 Top 5 clients</div>
+    <table><tr><th>Client</th><th>Points</th><th>Statut</th></tr>
+    ${topClients.map((c,i)=>`<tr>
+      <td><div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:16px;">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]}</span>
+        <div class="av" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
+        ${c.prenom} ${c.nom}
+      </div></td>
+      <td><b style="color:var(--gold);">${c.points} pts</b></td>
+      <td>${c.points>=250?'<span class="vip-badge">⭐ VIP</span>':c.points>=125?'<span class="badge ba">Actif</span>':'<span style="color:#666;font-size:12px;">En cours</span>'}</td>
+    </tr>`).join('')}
+    </table>
+  </div>`;
+}
 
 // CLIENTS LIST
 async function rCl(isA){
-  // Si un client est sélectionné, afficher UNIQUEMENT sa fiche
-  if(selId) return await rDet(isA);
-
+  if(selId)return await rDet(isA);
   let fH='';
   if(showCC){
     fH=`<div class="if2">
@@ -442,39 +530,38 @@ async function rCl(isA){
         <div class="field"><label>Nom</label><input id="acn"/></div>
         <div class="field"><label>Téléphone</label><input id="act"/></div>
         <div class="field"><label>Adresse</label><input id="aca"/></div>
-        <div class="field"><label>N° carte (libre)</label>
-          <div style="display:flex;">
-            <input id="acnum" type="number" min="1" placeholder="Ex: 2820"/>
-          </div>
+        <div class="field"><label>N° carte (libre)</label><input id="acnum" type="number" min="1" placeholder="Ex: 2820"/>
+          <div style="font-size:11px;color:#666;margin-top:4px;">Le numéro sera aussi le mot de passe du client.</div>
         </div>
       </div>
       <div style="display:flex;gap:8px;">
-        <button class="btn bp bs" onclick="createCl()">Créer</button>
-        <button class="btn bs" onclick="cancelCC()">Annuler</button>
+        <button class="btn bp bs" onclick="window.createCl()">Créer</button>
+        <button class="btn bs" onclick="window.cancelCC()">Annuler</button>
       </div>
     </div>`;
   }
   const rows=clients.map(c=>`
     <tr>
-      <td style="font-weight:700;color:var(--brand);">${c.num_carte||'—'}</td>
-      <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>${c.prenom} ${c.nom}</div></td>
-      <td style="color:#6b7280;">${c.telephone||'—'}</td>
-      <td><b>${c.points}</b> pts</td>
-      <td><div style="display:flex;gap:6px;">
-        <button class="btn bs" onclick="setSelId('${c.id}')">Voir</button>
-        ${isA?`<button class="btn bs bd2" onclick="delCl('${c.id}')">Suppr.</button>`:''}
+      <td style="font-weight:700;color:var(--gold);">${c.num_carte||'—'}</td>
+      <td><div style="display:flex;align-items:center;gap:8px;">
+        <div class="av" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
+        <div><div>${c.prenom} ${c.nom} ${c.points>=250?'<span class="vip-badge">⭐</span>':''}</div>
+        <div style="font-size:11px;color:#666;">${c.telephone||'—'}</div></div>
       </div></td>
+      <td><b>${c.points}</b> pts</td>
+      <td><button class="btn bs" onclick="window.setSelId('${c.id}')">Voir</button>
+      ${isA?`<button class="btn bs bd2" onclick="window.delCl('${c.id}')">Suppr.</button>`:''}</td>
     </tr>`).join('');
   return `
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <div class="st" style="margin:0;">${clients.length} client(s)</div>
-      ${isA?`<button class="btn bp bs" onclick="toggleCC()">+ Ajouter</button>`:''}
+      ${isA?`<button class="btn bp bs" onclick="window.toggleCC()">+ Ajouter</button>`:''}
     </div>
     ${fH}
     <div class="tw"><table>
-      <tr><th>N° carte</th><th>Client</th><th>Téléphone</th><th>Points</th><th></th></tr>
-      ${rows||'<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:1.5rem;">Aucun client</td></tr>'}
+      <tr><th>N°</th><th>Client</th><th>Points</th><th></th></tr>
+      ${rows||'<tr><td colspan="4" style="text-align:center;color:#6b7280;padding:1.5rem;">Aucun client</td></tr>'}
     </table></div>
   </div>`;
 }
@@ -483,9 +570,26 @@ async function rCl(isA){
 async function rDet(isA){
   const{data:c}=await sb.from('users').select('*').eq('id',selId).single();
   if(!c)return'';
-  const{data:txs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom,role)').eq('client_id',selId).order('created_at',{ascending:false});
+  const{data:allTxs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom,role)').eq('client_id',selId).order('created_at',{ascending:false});
+  const txs=(allTxs||[]).slice(0,txPage);
+  const hasMore=(allTxs||[]).length>txPage;
   const p1=Math.min(c.points,125),p2=Math.min(c.points,250);
-  const gd=grp(txs||[]);
+  const gd=grp(txs);
+  const mois=monthsAgo(c.created_at||new Date().toISOString());
+  const isVip=c.points>=250||(allTxs||[]).filter(t=>t.points<0).length>=2;
+
+  // Next reward
+  let nextReward='';
+  if(!c.reward1_used&&c.points<125){
+    const diff=125-c.points;
+    nextReward=`<div class="next-reward">🍾 Plus que <b style="color:var(--gold);">${diff} pts</b> pour la bouteille 1.5L offerte !</div>`;
+  } else if(!c.reward2_used&&c.points<250){
+    const diff=250-c.points;
+    nextReward=`<div class="next-reward">🍕 Plus que <b style="color:var(--gold);">${diff} pts</b> pour la pizza Junior offerte !</div>`;
+  } else if(c.reward1_used&&c.reward2_used){
+    nextReward=`<div class="next-reward" style="background:rgba(22,101,52,0.1);border-color:rgba(134,239,172,0.2);">🎉 Toutes les récompenses ont été utilisées ! Les points repartent à zéro.</div>`;
+  }
+
   let hH='';
   Object.keys(gd).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
     const rows=gd[date],dp=rows.filter(r=>r.points>0).reduce((s,r)=>s+r.points,0);
@@ -496,113 +600,135 @@ async function rDet(isA){
       const ia=h.points>0;
       hH+=`<div class="hr2">
         <div style="flex:1;">
-          <div style="font-size:13px;font-weight:500;">${ia?`<b style="color:#166534;">+${h.points} pts</b> — commande de ${h.points}€`:`Récompense : <b style="color:var(--brand);">${h.label}</b> (${Math.abs(h.points)} pts)`}</div>
-          <div style="font-size:11px;color:#9ca3af;margin-top:2px;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div>
+          <div style="font-size:13px;font-weight:500;">${ia?`<b style="color:#16a34a;">+${h.points} pts</b> — commande de ${h.points}€`:`Récompense : <b style="color:var(--brand);">${h.label}</b>`}</div>
+          <div style="font-size:11px;color:#888;margin-top:2px;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div>
         </div>
-        <span class="${ia?'pp':'pn'}" style="font-size:15px;font-weight:700;">${ia?'+':''}${h.points}</span>
+        <span class="${ia?'pp':'pn'}" style="font-size:14px;font-weight:700;">${ia?'+':''}${h.points}</span>
       </div>`;
     });
   });
-  if(!hH)hH=`<p style="font-size:13px;color:#6b7280;padding:8px 0;">Aucune transaction.</p>`;
+  if(!hH)hH=`<p style="font-size:13px;color:#888;padding:8px 0;">Aucune transaction.</p>`;
+  if(hasMore)hH+=`<button class="btn bs" style="margin-top:10px;width:100%;" onclick="window.loadMoreTx()">Voir plus...</button>`;
+
   return `
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div class="av avl" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
-        <div>
-          <div style="font-size:17px;font-weight:700;">${c.prenom} ${c.nom}</div>
-          <div style="font-size:12px;color:#6b7280;">Carte <b style="color:var(--brand);">${c.num_carte}</b> · ${c.telephone||'—'}</div>
-          <div style="font-size:12px;color:#6b7280;">${c.adresse||'—'}</div>
-        </div>
-      </div>
+      <button class="btn bs" onclick="window.goBack()">← Retour</button>
       <div style="display:flex;gap:6px;">
-        ${isA?`<button class="btn bs" onclick="toggleEdit('${c.id}')">✏️ Modifier</button>`:''}
-        <button class="btn bs" onclick="selId=null;showStaff()">✕</button>
+        ${isA?`<button class="btn bs" onclick="window.toggleEdit('${c.id}')">✏️ Modifier</button>`:''}
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+      <div class="av avl" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
+      <div>
+        <div style="font-size:18px;font-weight:700;">${c.prenom} ${c.nom} ${isVip?'<span class="vip-badge">⭐ VIP</span>':''}</div>
+        <div style="font-size:12px;color:#888;">N° <b style="color:var(--gold);">${c.num_carte}</b> · Client depuis ${mois} mois</div>
+        <div style="font-size:12px;color:#888;">${maskPhone(c.telephone||'')} · ${extractCity(c.adresse||'')}</div>
       </div>
     </div>
 
     <div id="edit-${c.id}" style="display:none;">
-      <div class="if2">
+      <div class="if2" style="margin-bottom:14px;">
         <div style="font-weight:700;margin-bottom:12px;">✏️ Modifier</div>
         <div class="g2">
           <div class="field"><label>Prénom</label><input id="ep" value="${c.prenom||''}"/></div>
           <div class="field"><label>Nom</label><input id="en" value="${c.nom||''}"/></div>
           <div class="field"><label>Téléphone</label><input id="et" value="${c.telephone||''}"/></div>
           <div class="field"><label>Adresse</label><input id="ea" value="${c.adresse||''}"/></div>
-          <div class="field"><label>N° carte (chiffres)</label>
-            <div style="display:flex;">
-              <input id="enum" type="number" placeholder="Ex: 2820" value="${(c.num_carte||'')}"/>
-            </div>
-          </div>
-          <div class="field"><label>Nouveau mot de passe</label><input id="epw" type="password" placeholder="Laisser vide = inchangé"/></div>
+          <div class="field"><label>N° carte</label><input id="enum" type="number" value="${c.num_carte||''}"/></div>
         </div>
         <div style="display:flex;gap:8px;">
-          <button class="btn bp bs" onclick="saveCl('${c.id}')">💾 Enregistrer</button>
-          <button class="btn bs" onclick="toggleEdit('${c.id}')">Annuler</button>
+          <button class="btn bp bs" onclick="window.saveCl('${c.id}')">💾 Enregistrer</button>
+          <button class="btn bs" onclick="window.toggleEdit('${c.id}')">Annuler</button>
         </div>
       </div>
     </div>
 
     <div class="div"></div>
-    <div style="text-align:center;padding:1rem 0 1.25rem;">
-      <div class="pts">${c.points}</div>
-      <div style="font-size:13px;color:#6b7280;margin-top:4px;">points cumulés</div>
+
+    <!-- PROGRESS RINGS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+      <div style="text-align:center;padding:16px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:var(--rs);">
+        <div class="ring-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52" stroke="rgba(201,168,76,0.15)"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward1_used?'#16a34a':'var(--gold)'}"
+              stroke-dasharray="${2*Math.PI*52}"
+              stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/125))}"/>
+          </svg>
+          <div class="ring-label">
+            <div class="ring-pts" style="color:${c.reward1_used?'#16a34a':'var(--gold)'};">${c.reward1_used?'✅':p1}</div>
+            <div class="ring-sub">${c.reward1_used?'Utilisée':'/125 pts'}</div>
+          </div>
+        </div>
+        <div style="font-size:13px;font-weight:600;">🍾 Bouteille 1.5L</div>
+      </div>
+      <div style="text-align:center;padding:16px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:var(--rs);">
+        <div class="ring-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52" stroke="rgba(201,168,76,0.15)"/>
+            <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward2_used?'#16a34a':'var(--gold)'}"
+              stroke-dasharray="${2*Math.PI*52}"
+              stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/250))}"/>
+          </svg>
+          <div class="ring-label">
+            <div class="ring-pts" style="color:${c.reward2_used?'#16a34a':'var(--gold)'};">${c.reward2_used?'✅':p2}</div>
+            <div class="ring-sub">${c.reward2_used?'Utilisée':'/250 pts'}</div>
+          </div>
+        </div>
+        <div style="font-size:13px;font-weight:600;">🍕 Pizza Junior</div>
+      </div>
     </div>
+
+    ${nextReward}
+
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
       <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
-      <button class="btn bp" onclick="addPts('${c.id}')">+ Points</button>
-      ${isA?`<button class="btn bs bd2" ${c.points<125||c.reward1_used?'disabled':''} onclick="redeem('${c.id}',125,'Bouteille 1.5L offerte')">${c.reward1_used?'🍾 Utilisée':'🍾 −125'}</button><button class="btn bs bd2" ${c.points<250||c.reward2_used?'disabled':''} onclick="redeem('${c.id}',250,'Pizza Junior offerte')">${c.reward2_used?'🍕 Utilisée':'🍕 −250'}</button>`:''}
+      <button class="btn bp" onclick="window.addPts('${c.id}')">+ Points</button>
+      ${isA?`<button class="btn bs bd2" ${c.points<125||c.reward1_used?'disabled':''} onclick="window.redeem('${c.id}',125,'Bouteille 1.5L offerte')">${c.reward1_used?'🍾 Utilisée':'🍾 −125'}</button>
+      <button class="btn bs bd2" ${c.points<250||c.reward2_used?'disabled':''} onclick="window.redeem('${c.id}',250,'Pizza Junior offerte')">${c.reward2_used?'🍕 Utilisée':'🍕 −250'}</button>`:''}
     </div>
-    <div class="st">Récompenses</div>
-    <div class="rr${c.points>=125?' ul':''}">
-      <div class="ri">🍾</div>
-      <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Bouteille 1.5L offerte</div>
-      <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
-      <div style="font-size:11px;color:#6b7280;">${p1}/125 pts</div></div>
-      ${c.reward1_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Utilisée</span>`:c.points>=125?`<span class="badge ba">Débloqué !</span>`:''}
-    </div>
-    <div class="rr${c.points>=250?' ul':''}">
-      <div class="ri">🍕</div>
-      <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Pizza Junior au choix offerte</div>
-      <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
-      <div style="font-size:11px;color:#6b7280;">${p2}/250 pts</div></div>
-      ${c.reward2_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Utilisée</span>`:c.points>=250?`<span class="badge ba">Débloqué !</span>`:''}
-    </div>
+
     <div class="div"></div>
-    <div class="st">Historique de ${c.prenom} ${c.nom}</div>
+    <div class="st">Historique de ${c.prenom} ${c.nom} (${(allTxs||[]).length} transactions)</div>
     ${hH}
   </div>`;
 }
 
+function goBack(){selId=null;txPage=10;showStaff();}
+function loadMoreTx(){txPage+=10;showStaff();}
 function toggleEdit(id){const f=document.getElementById('edit-'+id);if(f)f.style.display=f.style.display==='none'?'block':'none';}
 
 // MODERATORS
 async function rMods(){
   const{data:mods}=await sb.from('users').select('*').eq('role','moderateur').order('created_at',{ascending:false});
   let fH='';
-  if(showCM){fH=`<div class="if2">
-    <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Nouveau modérateur</div>
-    <div class="g2">
-      <div class="field"><label>Prénom</label><input id="amp"/></div>
-      <div class="field"><label>Nom</label><input id="amn"/></div>
-      <div class="field"><label>Identifiant</label><input id="aml"/></div>
-      <div class="field"><label>Mot de passe</label><input id="ampw"/></div>
-    </div>
-    <div style="display:flex;gap:8px;">
-      <button class="btn bp bs" onclick="createMod()">Créer</button>
-      <button class="btn bs" onclick="cancelCM()">Annuler</button>
-    </div>
-  </div>`;}
+  if(showCM){
+    fH=`<div class="if2">
+      <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Nouveau modérateur</div>
+      <div class="g2">
+        <div class="field"><label>Prénom</label><input id="amp"/></div>
+        <div class="field"><label>Nom</label><input id="amn"/></div>
+        <div class="field"><label>Identifiant</label><input id="aml"/></div>
+        <div class="field"><label>Mot de passe</label><input id="ampw"/></div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn bp bs" onclick="window.createMod()">Créer</button>
+        <button class="btn bs" onclick="window.cancelCM()">Annuler</button>
+      </div>
+    </div>`;
+  }
   const rows=(mods||[]).map(m=>`<tr>
     <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="${avS('moderateur')}">${ini(m.prenom,m.nom)}</div>${m.prenom} ${m.nom}</div></td>
     <td style="font-family:monospace;">${m.login}</td>
     <td style="font-family:monospace;">${m.password}</td>
-    <td><button class="btn bs bd2" onclick="delMod('${m.id}')">Supprimer</button></td>
+    <td><button class="btn bs bd2" onclick="window.delMod('${m.id}')">Supprimer</button></td>
   </tr>`).join('');
   return `<div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <div class="st" style="margin:0;">${(mods||[]).length} modérateur(s)</div>
-      <button class="btn bp bs" onclick="toggleCM()">+ Ajouter</button>
+      <button class="btn bp bs" onclick="window.toggleCM()">+ Ajouter</button>
     </div>
     ${fH}
     <div class="tw"><table>
@@ -622,41 +748,68 @@ async function rHist(){
   if(hf.type==='add')q=q.gt('points',0);
   if(hf.type==='redeem')q=q.lt('points',0);
   const{data:txs}=await q;
-  const all=txs||[],tp=all.filter(t=>t.points>0).reduce((s,t)=>s+t.points,0),tr=all.filter(t=>t.points<0).length;
-  const gd=grp(all),hasF=hf.cid||hf.df||hf.dt||hf.type;
+  const all=txs||[];
+  const tp=all.filter(t=>t.points>0).reduce((s,t)=>s+t.points,0);
+  const tr2=all.filter(t=>t.points<0).length;
+  const hasF=hf.cid||hf.df||hf.dt||hf.type;
   let cO=`<option value="">Tous les clients</option>`;
   (cl2||[]).forEach(c=>cO+=`<option value="${c.id}" ${hf.cid===c.id?'selected':''}>${c.prenom} ${c.nom} (${c.num_carte})</option>`);
+  const gd=grp(all);
   let hH='';
   Object.keys(gd).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
     const rows=gd[date],dp=rows.filter(r=>r.points>0).reduce((s,r)=>s+r.points,0);
     hH+=`<div class="dg"><span>${fmtL(date)}</span><span style="font-size:11px;font-weight:400;">${rows.length} tx${dp?' · +'+dp+' pts':''}</span></div>`;
     rows.forEach(h=>{
-      const cn=h.client?`${h.client.prenom} ${h.client.nom}`:'—',cnum=h.client?.num_carte||'—';
+      const cn=h.client?`${h.client.prenom} ${h.client.nom}`:'—';
+      const cnum=h.client?.num_carte||'—';
       const by=h.by?`${h.by.prenom||''} ${h.by.nom||''}`.trim():'—';
       const rl=h.by?.role==='admin'?' (Admin)':h.by?.role==='moderateur'?' (Modérateur)':'';
       const ia=h.points>0;
       hH+=`<div class="hr2">
-        ${!hf.cid?`<span style="font-weight:700;color:var(--brand);min-width:65px;font-size:12px;">${cnum}</span><div style="flex:1;"><span style="font-weight:500;">${cn}</span> — ${h.label}<div style="font-size:11px;color:#9ca3af;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div></div>`:`<div style="flex:1;">${h.label}<div style="font-size:11px;color:#9ca3af;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div></div>`}
+        ${!hf.cid?`<span style="font-weight:700;color:var(--gold);min-width:55px;font-size:12px;">${cnum}</span>
+        <div style="flex:1;"><span style="font-weight:500;">${cn}</span> — ${h.label}
+        <div style="font-size:11px;color:#888;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div></div>`
+        :`<div style="flex:1;">${h.label}<div style="font-size:11px;color:#888;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div></div>`}
         <span class="${ia?'pp':'pn'}" style="font-weight:700;">${ia?'+':''}${h.points}</span>
       </div>`;
     });
   });
-  if(!hH)hH=`<div style="text-align:center;padding:2rem;font-size:13px;color:#6b7280;">Aucune transaction.</div>`;
+  if(!hH)hH=`<div style="text-align:center;padding:2rem;font-size:13px;color:#888;">Aucune transaction.</div>`;
+
+  // Export CSV
+  const csvRows=['Date,Client,N°,Description,Points,Par'];
+  all.forEach(h=>{
+    const cn=h.client?`${h.client.prenom} ${h.client.nom}`:'—';
+    const cnum=h.client?.num_carte||'—';
+    const by=h.by?`${h.by.prenom||''} ${h.by.nom||''}`.trim():'—';
+    csvRows.push(`${fmtDateOnly(h.created_at)},${cn},${cnum},${h.label},${h.points},${by}`);
+  });
+  const csvData=encodeURIComponent(csvRows.join('\n'));
+
   return `
   <div class="sg">
     <div class="sb2"><div class="sn">${(cl2||[]).length}</div><div class="sl">Clients</div></div>
     <div class="sb2"><div class="sn">${tp}</div><div class="sl">Points${hasF?' (filtrés)':''}</div></div>
-    <div class="sb2"><div class="sn">${tr}</div><div class="sl">Récompenses</div></div>
+    <div class="sb2"><div class="sn">${tr2}</div><div class="sl">Récompenses</div></div>
   </div>
   <div class="card">
-    <div class="st">Filtres</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-      <div class="field" style="margin:0;"><label>Client</label><select onchange="hf.cid=this.value;showStaff()">${cO}</select></div>
-      <div class="field" style="margin:0;"><label>Type</label><select onchange="hf.type=this.value;showStaff()"><option value="" ${!hf.type?'selected':''}>Tous</option><option value="add" ${hf.type==='add'?'selected':''}>Points ajoutés</option><option value="redeem" ${hf.type==='redeem'?'selected':''}>Récompenses</option></select></div>
-      <div class="field" style="margin:0;"><label>Du</label><input type="date" value="${hf.df}" onchange="hf.df=this.value;showStaff()"/></div>
-      <div class="field" style="margin:0;"><label>Au</label><input type="date" value="${hf.dt}" onchange="hf.dt=this.value;showStaff()"/></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div class="st" style="margin:0;">Filtres</div>
+      <a href="data:text/csv;charset=utf-8,${csvData}" download="historique-uno-pizza.csv" class="btn bs">📥 Export CSV</a>
     </div>
-    ${hasF?`<button class="btn bs" onclick="hf={cid:'',df:'',dt:'',type:''};showStaff()">✕ Réinitialiser</button>`:''}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div class="field" style="margin:0;"><label>Client</label><select onchange="hf.cid=this.value;window.showStaff()">${cO}</select></div>
+      <div class="field" style="margin:0;"><label>Type</label>
+        <select onchange="hf.type=this.value;window.showStaff()">
+          <option value="" ${!hf.type?'selected':''}>Tous</option>
+          <option value="add" ${hf.type==='add'?'selected':''}>Points ajoutés</option>
+          <option value="redeem" ${hf.type==='redeem'?'selected':''}>Récompenses</option>
+        </select>
+      </div>
+      <div class="field" style="margin:0;"><label>Du</label><input type="date" value="${hf.df}" onchange="hf.df=this.value;window.showStaff()"/></div>
+      <div class="field" style="margin:0;"><label>Au</label><input type="date" value="${hf.dt}" onchange="hf.dt=this.value;window.showStaff()"/></div>
+    </div>
+    ${hasF?`<button class="btn bs" onclick="hf={cid:'',df:'',dt:'',type:''};window.showStaff()">✕ Réinitialiser</button>`:''}
   </div>
   <div class="card"><div class="st">${all.length} transaction(s)</div>${hH}</div>`;
 }
@@ -664,11 +817,18 @@ async function rHist(){
 // CLIENT SPACE
 async function showCS(){
   render(`<div class="ld">Chargement...</div>`);
-  const{data:c}=await sb.from('users').select('*,reward1_used,reward2_used').eq('id',session.id).single();
-  const{data:txs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom)').eq('client_id',session.id).order('created_at',{ascending:false});
+  const{data:c}=await sb.from('users').select('*').eq('id',session.id).single();
+  const{data:allTxs}=await sb.from('transactions').select('*,by:by_user_id(prenom,nom)').eq('client_id',session.id).order('created_at',{ascending:false});
   session=c;
   const p1=Math.min(c.points,125),p2=Math.min(c.points,250);
-  const gd=grp(txs||[]);
+  const mois=monthsAgo(c.created_at||new Date().toISOString());
+  const txs=(allTxs||[]).slice(0,10);
+  const gd=grp(txs);
+
+  let nextPts='';
+  if(!c.reward1_used&&c.points<125) nextPts=`<div class="next-reward">🍾 Plus que <b>${125-c.points} pts</b> pour la bouteille offerte !</div>`;
+  else if(!c.reward2_used&&c.points<250) nextPts=`<div class="next-reward">🍕 Plus que <b>${250-c.points} pts</b> pour la pizza Junior offerte !</div>`;
+
   let hH='';
   Object.keys(gd).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
     hH+=`<div class="dg"><span>${fmtL(date)}</span></div>`;
@@ -677,52 +837,79 @@ async function showCS(){
       const ia=h.points>0;
       hH+=`<div class="hr2">
         <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${h.label}</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">${fmtT(h.created_at)} · par <b>${by}</b></div></div>
-        <span class="${ia?'pp':'pn'}" style="font-size:15px;font-weight:700;">${ia?'+':''}${h.points} pts</span>
+        <div style="font-size:11px;color:#888;margin-top:2px;">${fmtT(h.created_at)} · ${by}</div></div>
+        <span class="${ia?'pp':'pn'}" style="font-size:14px;font-weight:700;">${ia?'+':''}${h.points} pts</span>
       </div>`;
     });
   });
-  if(!hH)hH=`<p style="font-size:13px;color:#6b7280;padding:8px 0;">Aucune transaction pour le moment.</p>`;
+  if(!hH)hH=`<p style="font-size:13px;color:#888;padding:8px 0;">Aucune transaction pour le moment.</p>`;
+
   render(`
   <div class="app">
     <div class="topbar">
       <div class="logo">Uno <span>Pizza</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <span class="badge bc">Client</span>
-        <button class="btn bs" onclick="showLogin()">Déconnexion</button>
+        <button class="btn bs" onclick="window.showLogin()">Déconnexion</button>
       </div>
     </div>
-    <div class="card" style="text-align:center;padding:2rem;">
-      <div style="display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:1.5rem;">
+
+    <div class="card" style="text-align:center;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:1rem;">
         <div class="av avl" style="${avS('client')}">${ini(c.prenom,c.nom)}</div>
         <div style="text-align:left;">
           <div style="font-size:18px;font-weight:700;">${c.prenom} ${c.nom}</div>
-          <div style="font-size:13px;color:#6b7280;">Carte <b style="color:var(--brand);">${c.num_carte}</b></div>
-          <div style="font-size:12px;color:#6b7280;">${maskPhone(c.telephone||'')}</div>
-          <div style="font-size:12px;color:#6b7280;">${extractCity(c.adresse||'')}</div>
+          <div style="font-size:12px;color:#888;">Carte <b style="color:var(--brand);">${c.num_carte}</b></div>
+          <div style="font-size:12px;color:#888;">${maskPhone(c.telephone||'')} · ${extractCity(c.adresse||'')}</div>
+          <div style="font-size:11px;color:#aaa;margin-top:2px;">Client depuis ${mois} mois</div>
         </div>
       </div>
+
+      <!-- PROGRESS RINGS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <div class="ring-wrap">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52" stroke="#f3f4f6"/>
+              <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward1_used?'#16a34a':'var(--brand)'}"
+                stroke-dasharray="${2*Math.PI*52}"
+                stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/125))}"/>
+            </svg>
+            <div class="ring-label">
+              <div class="ring-pts" style="color:${c.reward1_used?'#16a34a':'var(--brand)'};">${c.reward1_used?'✅':p1}</div>
+              <div class="ring-sub">${c.reward1_used?'Utilisée':'/125 pts'}</div>
+            </div>
+          </div>
+          <div style="font-size:12px;font-weight:600;">🍾 Bouteille 1.5L</div>
+        </div>
+        <div>
+          <div class="ring-wrap">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52" stroke="#f3f4f6"/>
+              <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward2_used?'#16a34a':'var(--brand)'}"
+                stroke-dasharray="${2*Math.PI*52}"
+                stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/250))}"/>
+            </svg>
+            <div class="ring-label">
+              <div class="ring-pts" style="color:${c.reward2_used?'#16a34a':'var(--brand)'};">${c.reward2_used?'✅':p2}</div>
+              <div class="ring-sub">${c.reward2_used?'Utilisée':'/250 pts'}</div>
+            </div>
+          </div>
+          <div style="font-size:12px;font-weight:600;">🍕 Pizza Junior</div>
+        </div>
+      </div>
+
       <div class="pts">${c.points}</div>
-      <div style="font-size:14px;color:#6b7280;margin-top:6px;">points cumulés · 1€ = 1 point</div>
+      <div style="font-size:13px;color:#888;margin-top:4px;">points cumulés · 1€ = 1 point</div>
     </div>
+
+    ${nextPts}
+
     <div class="card">
-      <div class="st">Mes récompenses</div>
-      <div class="rr${c.points>=125?' ul':''}">
-        <div class="ri">🍾</div>
-        <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Bouteille 1.5L offerte</div>
-        <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/125)*100)}%"></div></div>
-        <div style="font-size:12px;color:#6b7280;">${p1}/125 pts</div></div>
-        ${c.reward1_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Réclamée</span>`:c.points>=125?`<span class="badge ba">Disponible !</span>`:''}
-      </div>
-      <div class="rr${c.points>=250?' ul':''}">
-        <div class="ri">🍕</div>
-        <div style="flex:1;"><div style="font-weight:600;font-size:14px;">Pizza Junior au choix offerte</div>
-        <div class="pw"><div class="pf" style="width:${Math.min(100,(c.points/250)*100)}%"></div></div>
-        <div style="font-size:12px;color:#6b7280;">${p2}/250 pts</div></div>
-        ${c.reward2_used?`<span class="badge" style="background:#f0fdf4;color:#166534;">✅ Réclamée</span>`:c.points>=250?`<span class="badge ba">Disponible !</span>`:''}
-      </div>
+      <div class="st">Mon historique</div>
+      ${hH}
+      ${(allTxs||[]).length>10?`<p style="font-size:12px;color:#aaa;text-align:center;margin-top:8px;">Affichage des 10 dernières transactions.</p>`:''}
     </div>
-    <div class="card"><div class="st">Mon historique</div>${hH}</div>
   </div>`);
 }
 
@@ -730,14 +917,13 @@ async function showCS(){
 async function createCl(){
   const p=document.getElementById('acp').value.trim(),n=document.getElementById('acn').value.trim();
   const t=document.getElementById('act').value.trim(),a=document.getElementById('aca').value.trim();
-  const numVal=document.getElementById('acnum').value.trim();
+  const nv=document.getElementById('acnum').value.trim();
   if(!p||!n){toast('Prénom et nom requis');return;}
-  if(!numVal){toast('Numéro de carte requis');return;}
-  const num=parseInt(numVal).toString();
+  if(!nv){toast('Numéro de carte requis');return;}
+  const num=parseInt(nv).toString();
   const{data:ex}=await sb.from('users').select('id').eq('num_carte',num).maybeSingle();
-  if(ex){toast('❌ Ce numéro de carte existe déjà !');return;}
-  const finalPw=numVal; // mdp = toujours le numéro entré, non modifiable
-  const{error}=await sb.from('users').insert({role:'client',login:num,password:finalPw,prenom:p,nom:n,telephone:t,adresse:a,num_carte:num,points:0});
+  if(ex){toast('❌ Ce numéro existe déjà !');return;}
+  const{error}=await sb.from('users').insert({role:'client',login:num,password:num,prenom:p,nom:n,telephone:t,adresse:a,num_carte:num,points:0,reward1_used:false,reward2_used:false});
   if(error){toast('Erreur : '+error.message);return;}
   toast('✅ '+p+' '+n+' créé — carte '+num);showCC=false;await loadCl();showStaff();
 }
@@ -754,48 +940,38 @@ async function addPts(cid){
   const val=parseInt(document.getElementById('pts-in').value);
   if(!val||val<1){toast('Montant invalide');return;}
   if(session.role==='moderateur'&&!isOpen()){toast('❌ Restaurant fermé — ajout impossible.',4000);return;}
-  const{data:c}=await sb.from('users').select('points').eq('id',cid).single();
+  const{data:c}=await sb.from('users').select('points,prenom,nom').eq('id',cid).single();
   await sb.from('users').update({points:(c.points||0)+val}).eq('id',cid);
   await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:'Commande '+val+'€',points:val});
-  toast('+'+val+' points ajoutés !');await loadCl();showStaff();
+  showPtsAnim(val,c.prenom+' '+c.nom);
+  await loadCl();showStaff();
 }
 
 async function redeem(cid,cost,label){
-  if(!confirm('Utiliser "'+label+'" ?'))return;
+  if(!confirm('Utiliser "'+label+'" pour ce client ?'))return;
   const{data:c}=await sb.from('users').select('points,reward1_used,reward2_used').eq('id',cid).single();
-  
-  // Vérifier quelle récompense on utilise
-  const isReward1 = cost === 125;
-  const isReward2 = cost === 250;
-  
-  if(isReward1 && c.reward1_used){ toast('🍾 Bouteille déjà utilisée !'); return; }
-  if(isReward2 && c.reward2_used){ toast('🍕 Pizza déjà utilisée !'); return; }
-  if(c.points < cost){ toast('Points insuffisants'); return; }
-  
-  // Marquer la récompense comme utilisée sans déduire les points
-  const upd = isReward1 ? {reward1_used: true} : {reward2_used: true};
-  
-  // Si les deux récompenses sont utilisées → reset à zéro
-  const bothUsed = (isReward1 && c.reward2_used) || (isReward2 && c.reward1_used);
-  if(bothUsed){ upd.points = 0; upd.reward1_used = false; upd.reward2_used = false; }
-  
+  const isR1=cost===125,isR2=cost===250;
+  if(isR1&&c.reward1_used){toast('🍾 Bouteille déjà utilisée !');return;}
+  if(isR2&&c.reward2_used){toast('🍕 Pizza déjà utilisée !');return;}
+  if(c.points<cost){toast('Points insuffisants');return;}
+  const upd=isR1?{reward1_used:true}:{reward2_used:true};
+  const bothUsed=(isR1&&c.reward2_used)||(isR2&&c.reward1_used);
+  if(bothUsed){upd.points=0;upd.reward1_used=false;upd.reward2_used=false;}
   await sb.from('users').update(upd).eq('id',cid);
-  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points: bothUsed ? -(cost) : 0});
-  
-  if(bothUsed){ toast('🎉 Les deux récompenses utilisées ! Points remis à zéro.', 4000); }
-  else { toast(label+' utilisé !'); }
-  await loadCl(); showStaff();
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:0});
+  if(bothUsed)toast('🎉 Les deux récompenses utilisées ! Points remis à zéro.',4000);
+  else toast(label+' utilisé !');
+  await loadCl();showStaff();
 }
 
 async function saveCl(id){
   const p=document.getElementById('ep').value.trim(),n=document.getElementById('en').value.trim();
   const t=document.getElementById('et').value.trim(),a=document.getElementById('ea').value.trim();
-  const nv=document.getElementById('enum').value.trim(),pw=document.getElementById('epw').value.trim();
+  const nv=document.getElementById('enum').value.trim();
   if(!p||!n){toast('Prénom et nom requis');return;}
-  const nc=nv?parseInt(nv).toString():null;
+  const num=nv?parseInt(nv).toString():null;
   const upd={prenom:p,nom:n,telephone:t,adresse:a};
-  if(nc){upd.num_carte=nc;upd.login=nc;}
-  if(pw)upd.password=pw;
+  if(num){upd.num_carte=num;upd.login=num;}
   const{error}=await sb.from('users').update(upd).eq('id',id);
   if(error){toast('Erreur : '+error.message);return;}
   toast('✅ Client mis à jour !');await loadCl();showStaff();
@@ -816,81 +992,23 @@ async function delMod(id){
   toast('Modérateur supprimé');showStaff();
 }
 
+// GLOBAL FUNCTIONS
+function toggleCC(){showCC=!showCC;showStaff();}
+function toggleCM(){showCM=!showCM;showStaff();}
+function cancelCC(){showCC=false;showStaff();}
+function cancelCM(){showCM=false;showStaff();}
+function setSelId(id){selId=id;view='clients';showStaff();}
+
+// EXPOSE TO WINDOW
+const fns=['toast','showLogin','switchTab','doLS','doLC','doReg','showStaff','setV','openSM','closeSM','doSearch','pickClient','rCl','rDet','goBack','loadMoreTx','toggleEdit','rMods','rHist','rDash','showCS','createCl','delCl','addPts','redeem','saveCl','createMod','delMod','toggleCC','toggleCM','cancelCC','cancelCM','setSelId'];
+fns.forEach(f=>{if(typeof eval(f)==='function')window[f]=eval(f);});
+
 // INIT
 showLogin();
-
-// Masquer téléphone et extraire ville
-function maskPhone(p){
-  if(!p||p.length<6) return p;
-  const d=p.replace(/ /g,'');
-  if(d.length>=10) return d.slice(0,2)+'** *** **'+d.slice(-2);
-  return p.slice(0,2)+'***'+p.slice(-2);
-}
-function extractCity(adr){
-  if(!adr) return '';
-  // Prendre le dernier segment après la virgule ou le dernier mot
-  const parts = adr.split(',');
-  const last = parts[parts.length-1].trim();
-  // Enlever le code postal (5 chiffres au début)
-  return last.replace(/^\d{5}\s*/,'');
-}
-
-// Toggle functions pour les boutons HTML
-function toggleCC(){ showCC=!showCC; showStaff(); }
-function toggleCM(){ showCM=!showCM; showStaff(); }
-function cancelCC(){ showCC=false; showStaff(); }
-function cancelCM(){ showCM=false; showStaff(); }
-function setSelId(id){ selId=id; view='clients'; showStaff(); }
-
-// Expose all functions globally
-window.maskPhone = maskPhone;
-window.extractCity = extractCity;
-window.toggleCC = toggleCC;
-window.toggleCM = toggleCM;
-window.cancelCC = cancelCC;
-window.cancelCM = cancelCM;
-window.setSelId = setSelId;
-window.toast = toast;
-window.ini = ini;
-window.fmtL = fmtL;
-window.fmtT = fmtT;
-window.avS = avS;
-window.nxt = nxt;
-window.grp = grp;
-window.isOpen = isOpen;
-window.render = render;
-window.loadCl = loadCl;
-window.resetT = resetT;
-window.stopT = stopT;
-window.openSM = openSM;
-window.closeSM = closeSM;
-window.doSearch = doSearch;
-window.pickClient = pickClient;
-window.showLogin = showLogin;
-window.switchTab = switchTab;
-window.doLS = doLS;
-window.doLC = doLC;
-window.doReg = doReg;
-window.showStaff = showStaff;
-window.setV = setV;
-window.rCl = rCl;
-window.rDet = rDet;
-window.toggleEdit = toggleEdit;
-window.rMods = rMods;
-window.rHist = rHist;
-window.showCS = showCS;
-window.createCl = createCl;
-window.delCl = delCl;
-window.addPts = addPts;
-window.redeem = redeem;
-window.saveCl = saveCl;
-window.createMod = createMod;
-window.delMod = delMod;
-
-// Service worker désactivé pour éviter les problèmes de cache
 if('serviceWorker' in navigator){
   navigator.serviceWorker.getRegistrations().then(regs=>regs.forEach(r=>r.unregister()));
 }
+
 } // end initApp
 </script>
 
