@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_44.html -->
+<!-- saved from url=(0049)file:///C:/Users/kurti/Downloads/fidelite_45.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -207,7 +207,6 @@ body.staff-mode .si-sub{color:#666;}
       <div class="lt">
         <button class="lta active" id="tab-s" onclick="window.switchTab(&#39;s&#39;)">Staff</button>
         <button class="lta" id="tab-c" onclick="window.switchTab(&#39;c&#39;)">Client</button>
-        <button class="lta" id="tab-r" onclick="window.switchTab(&#39;r&#39;)">Créer un compte</button>
       </div>
       <div id="lbody"><div id="la"></div>
     <div class="field"><label>Identifiant</label><input id="li" autocorrect="off" autocapitalize="off" placeholder="admin"></div>
@@ -348,7 +347,6 @@ function showLogin(){
       <div class="lt">
         <button class="lta active" id="tab-s" onclick="window.switchTab('s')">Staff</button>
         <button class="lta" id="tab-c" onclick="window.switchTab('c')">Client</button>
-        <button class="lta" id="tab-r" onclick="window.switchTab('r')">Créer un compte</button>
       </div>
       <div id="lbody"></div>
     </div>
@@ -920,6 +918,22 @@ async function showCS(){
     ${nextPts}
 
     <div class="card">
+      <div class="st">Mon compte</div>
+      <div id="pwd-section">
+        <button class="btn bs" onclick="window.togglePwd()" style="margin-bottom:8px;">🔑 Changer mon mot de passe</button>
+      </div>
+      <div id="pwd-form" style="display:none;">
+        <div class="field"><label>Nouveau mot de passe</label><input id="new-pwd" type="password" placeholder="Nouveau mot de passe"/></div>
+        <div class="field"><label>Confirmer</label><input id="confirm-pwd" type="password" placeholder="Confirmer le mot de passe"/></div>
+        <div id="pwd-alert"></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn bp bs" onclick="window.changePwd()">Enregistrer</button>
+          <button class="btn bs" onclick="window.togglePwd()">Annuler</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="st">Mon historique</div>
       ${hH}
       ${(allTxs||[]).length>10?`<p style="font-size:12px;color:#aaa;text-align:center;margin-top:8px;">Affichage des 10 dernières transactions.</p>`:''}
@@ -1006,6 +1020,28 @@ async function delMod(id){
   toast('Modérateur supprimé');showStaff();
 }
 
+// CHANGE PASSWORD (client)
+function togglePwd(){
+  const f=document.getElementById('pwd-form');
+  if(f)f.style.display=f.style.display==='none'?'block':'none';
+}
+
+async function changePwd(){
+  const np=document.getElementById('new-pwd').value.trim();
+  const cp=document.getElementById('confirm-pwd').value.trim();
+  const al=document.getElementById('pwd-alert');
+  if(!np||!cp){al.innerHTML=`<div class="al ae">Veuillez remplir les deux champs.</div>`;return;}
+  if(np.length<3){al.innerHTML=`<div class="al ae">Mot de passe trop court (3 caractères minimum).</div>`;return;}
+  if(np!==cp){al.innerHTML=`<div class="al ae">Les mots de passe ne correspondent pas.</div>`;return;}
+  const{error}=await sb.from('users').update({password:np}).eq('id',session.id);
+  if(error){al.innerHTML=`<div class="al ae">Erreur : ${error.message}</div>`;return;}
+  session.password=np;
+  al.innerHTML=`<div class="al as2">✅ Mot de passe modifié avec succès !</div>`;
+  document.getElementById('new-pwd').value='';
+  document.getElementById('confirm-pwd').value='';
+  setTimeout(()=>{togglePwd();al.innerHTML='';},2000);
+}
+
 // GLOBAL FUNCTIONS
 function toggleCC(){showCC=!showCC;showStaff();}
 function toggleCM(){showCM=!showCM;showStaff();}
@@ -1015,6 +1051,7 @@ function setSelId(id){selId=id;view='clients';showStaff();}
 
 // EXPOSE TO WINDOW
 const fns=['toast','showLogin','switchTab','doLS','doLC','doReg','showStaff','setV','openSM','closeSM','doSearch','pickClient','rCl','rDet','goBack','loadMoreTx','toggleEdit','rMods','rHist','rDash','showCS','createCl','delCl','addPts','redeem','saveCl','createMod','delMod','toggleCC','toggleCM','cancelCC','cancelCM','setSelId'];
+['togglePwd','changePwd'].forEach(f=>{window[f]=eval(f);});
 fns.forEach(f=>{if(typeof eval(f)==='function')window[f]=eval(f);});
 
 // INIT
