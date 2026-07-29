@@ -132,6 +132,11 @@ body.staff-mode .mo .si:hover{background:rgba(255,255,255,0.03);}
 body.staff-mode .si-name{color:#e8e8e8;}
 body.staff-mode .si-sub{color:#666;}
 
+/* REMOVE POINTS FORM — dark mode */
+body.staff-mode #remove-pts-form{background:#1e1a00!important;border-color:rgba(253,224,71,0.3)!important;}
+body.staff-mode #remove-pts-form input{background:#2a2a2a!important;border-color:rgba(253,224,71,0.3)!important;color:#e8e8e8!important;}
+body.staff-mode #remove-pts-form span{color:#fde047!important;}
+
 /* STAT CARDS */
 .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
 .stat-c{border-radius:var(--rs);padding:12px;text-align:center;}
@@ -283,9 +288,14 @@ function toast(m,dur=2800){
   setTimeout(()=>t.classList.remove('show'),dur);
 }
 function ini(p,n){return((p||'')[0]||'').toUpperCase()+((n||'')[0]||'').toUpperCase()||'?';}
-function fmtL(d){return new Date(d).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
-function fmtT(d){return new Date(d).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
-function fmtDateOnly(d){return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});}
+
+// ============================================================
+// FIX 1 : Formatage avec fuseau horaire Europe/Paris
+// ============================================================
+function fmtL(d){return new Date(d).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Paris'});}
+function fmtT(d){return new Date(d).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Paris'});}
+function fmtDateOnly(d){return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'Europe/Paris'});}
+
 function avS(r){if(r==='admin')return'background:#FAECE7;color:#993C1D;';if(r==='moderateur')return'background:#eff6ff;color:#1d4ed8;';return'background:#f0fdf4;color:#166534;';}
 function grp(txs){const g={};(txs||[]).forEach(t=>{const k=t.created_at.split('T')[0];if(!g[k])g[k]=[];g[k].push(t);});return g;}
 function isOpen(){const n=new Date(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60;const s={0:[[11,14],[18,22.5]],1:null,2:[[11,14],[18,22]],3:[[11,14],[18,22]],4:[[11,14],[18,22]],5:[[11,14],[18,22.5]],6:[[11,14],[18,22.5]]};const p=s[d];if(!p)return false;return p.some(([a,b])=>h>=a&&h<b);}
@@ -293,16 +303,13 @@ function render(h){document.getElementById('root').innerHTML=h;}
 function maskPhone(p){if(!p||p.length<4)return p;const d=p.replace(/ /g,'');if(d.length>=10)return d.slice(0,2)+'** *** **'+d.slice(-2);return p.slice(0,2)+'***'+p.slice(-2);}
 function maskAddress(a){
   if(!a)return'';
-  // Garde le numéro de rue masqué + ville seulement
   const parts=a.split(',');
   if(parts.length>=2){
     const street=parts[0].trim();
     const city=parts[parts.length-1].trim().replace(/^\d{5}\s*/,'');
-    // Masque le nom de la rue, garde juste les premiers caractères
     const streetMasked=street.slice(0,3)+'*** '+street.split(' ').slice(-1)[0];
     return streetMasked+' · '+city;
   }
-  // Pas de virgule : masque le milieu
   return a.slice(0,4)+'***'+' '+a.split(' ').slice(-1)[0];
 }
 function extractCity(a){if(!a)return'';const parts=a.split(',');const last=parts[parts.length-1].trim();return last.replace(/^\d{5}\s*/,'');}
@@ -650,10 +657,10 @@ async function rDet(isA){
       const ia=h.points>0;
       hH+=`<div class="hr2">
         <div style="flex:1;">
-          <div style="font-size:13px;font-weight:500;">${ia?`<b style="color:#16a34a;">+${h.points} pts</b> — commande de ${h.points}€`:`Récompense : <b style="color:var(--brand);">${h.label}</b>`}</div>
+          <div style="font-size:13px;font-weight:500;">${ia?`<b style="color:#16a34a;">+${h.points} pts</b> — commande de ${h.points}€`:`<b style="color:${h.points===0?'var(--gold)':'var(--brand)'};">${h.label}</b>`}</div>
           <div style="font-size:11px;color:#888;margin-top:2px;">${fmtT(h.created_at)} · par <b>${by}</b>${rl}</div>
         </div>
-        <span class="${ia?'pp':'pn'}" style="font-size:14px;font-weight:700;">${ia?'+':''}${h.points}</span>
+        <span class="${ia?'pp':h.points===0?'':'pn'}" style="font-size:14px;font-weight:700;">${ia?'+':''}${h.points===0?'🎁':h.points}</span>
       </div>`;
     });
   });
@@ -734,11 +741,17 @@ async function rDet(isA){
 
     ${nextReward}
 
-    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+    <!-- ============================================================
+         ZONE D'ACTIONS : + Points | Récompenses (admin+modo) | − Points
+         ============================================================ -->
+    <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;" id="action-row-${c.id}">
       <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
       <button class="btn bp" onclick="window.addPts('${c.id}')">+ Points</button>
-      ${isA?`<button class="btn bs bd2" ${c.points<125||c.reward1_used?'disabled':''} onclick="window.redeem('${c.id}',125,'Bouteille 1.5L offerte')">${c.reward1_used?'🍾 Utilisée':'🍾 −125'}</button>
-      <button class="btn bs bd2" ${c.points<250||c.reward2_used?'disabled':''} onclick="window.redeem('${c.id}',250,'Pizza Junior offerte')">${c.reward2_used?'🍕 Utilisée':'🍕 −250'}</button>`:''}
+      <!-- FIX 2 : boutons récompenses accessibles admin ET modérateur -->
+      <button class="btn bs bd2" ${c.points<125||c.reward1_used?'disabled':''} onclick="window.redeem('${c.id}',125,'Bouteille 1.5L offerte')">${c.reward1_used?'🍾 Utilisée':'🍾 −125'}</button>
+      <button class="btn bs bd2" ${c.points<250||c.reward2_used?'disabled':''} onclick="window.redeem('${c.id}',250,'Pizza Junior offerte')">${c.reward2_used?'🍕 Utilisée':'🍕 −250'}</button>
+      <!-- FIX 3 : bouton retrait de points (admin + modérateur) -->
+      <button class="btn bs" style="background:#fefce8;border-color:#fde047;color:#854d0e;font-weight:600;" onclick="window.showRemovePoints('${c.id}')">✏️ − Points</button>
     </div>
 
     <div class="div"></div>
@@ -980,7 +993,10 @@ async function showCS(){
   </div>`);
 }
 
+// ============================================================
 // ACTIONS
+// ============================================================
+
 async function createCl(){
   const p=document.getElementById('acp').value.trim(),n=document.getElementById('acn').value.trim();
   const t=document.getElementById('act').value.trim(),a=document.getElementById('aca').value.trim();
@@ -1005,6 +1021,7 @@ async function delCl(id){
   toast('Client supprimé');await loadCl();showStaff();
 }
 
+// FIX 1 : addPts enregistre avec l'heure correcte (Supabase gère le timestamp côté serveur)
 async function addPts(cid){
   const val=parseInt(document.getElementById('pts-in').value);
   if(!val||val<1){toast('Montant invalide');return;}
@@ -1016,6 +1033,42 @@ async function addPts(cid){
   await loadCl();showStaff();
 }
 
+// FIX 3 : Affiche le formulaire de retrait de points inline
+function showRemovePoints(cid){
+  const existing=document.getElementById('remove-pts-form');
+  if(existing){existing.remove();return;}
+  const actionRow=document.getElementById('action-row-'+cid);
+  if(!actionRow)return;
+  const div=document.createElement('div');
+  div.id='remove-pts-form';
+  div.style='margin-top:8px;background:#fefce8;border:1px solid #fde047;border-radius:8px;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;';
+  div.innerHTML=`
+    <span style="font-size:13px;font-weight:600;color:#854d0e;width:100%;">✏️ Retirer des points (correction d'erreur)</span>
+    <input id="remove-pts-val" type="number" min="1" placeholder="Nb de points à retirer" style="flex:1;min-width:140px;height:38px;border:1px solid #fde047;border-radius:6px;padding:0 10px;font-size:14px;font-weight:600;background:white;color:#111;"/>
+    <input id="remove-pts-reason" type="text" placeholder="Raison (ex : erreur de saisie)" style="flex:2;min-width:180px;height:38px;border:1px solid #fde047;border-radius:6px;padding:0 10px;font-size:13px;background:white;color:#111;"/>
+    <button class="btn bs" style="background:#ef4444;border-color:#ef4444;color:white;font-weight:600;" onclick="window.removePoints('`+cid+`')">✓ Retirer</button>
+    <button class="btn bs" onclick="document.getElementById('remove-pts-form').remove()">Annuler</button>
+  `;
+  actionRow.insertAdjacentElement('afterend',div);
+  document.getElementById('remove-pts-val').focus();
+}
+
+// FIX 3 : Retire des points avec confirmation et trace dans l'historique
+async function removePoints(cid){
+  const val=parseInt(document.getElementById('remove-pts-val').value);
+  const reason=(document.getElementById('remove-pts-reason')||{}).value||'';
+  const label=reason.trim()||'Correction manuelle';
+  if(!val||val<1){toast('⚠️ Nombre de points invalide');return;}
+  const{data:c}=await sb.from('users').select('points,prenom,nom').eq('id',cid).single();
+  if(val>(c.points||0)){toast('❌ Solde insuffisant : '+c.points+' pts disponibles');return;}
+  if(!confirm('Retirer '+val+' pt(s) à '+c.prenom+' '+c.nom+' ?\nRaison : '+label))return;
+  await sb.from('users').update({points:(c.points||0)-val}).eq('id',cid);
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:'Correction : -'+val+' pts ('+label+')',points:-val});
+  toast('✅ −'+val+' pts retirés à '+c.prenom+' '+c.nom);
+  await loadCl();showStaff();
+}
+
+// FIX 2 : redeem accessible à admin ET modérateur (la condition isA a été retirée des boutons)
 async function redeem(cid,cost,label){
   if(!confirm('Utiliser "'+label+'" pour ce client ?'))return;
   const{data:c}=await sb.from('users').select('points,reward1_used,reward2_used').eq('id',cid).single();
@@ -1093,7 +1146,7 @@ function cancelCM(){showCM=false;showStaff();}
 function setSelId(id){selId=id;view='clients';showStaff();}
 
 // EXPOSE TO WINDOW
-const fns=['toast','showLogin','switchTab','doLS','doLC','doReg','showStaff','setV','openSM','closeSM','doSearch','pickClient','rCl','rDet','goBack','loadMoreTx','toggleEdit','rMods','rHist','rDash','showCS','createCl','delCl','addPts','redeem','saveCl','createMod','delMod','toggleCC','toggleCM','cancelCC','cancelCM','setSelId'];
+const fns=['toast','showLogin','switchTab','doLS','doLC','doReg','showStaff','setV','openSM','closeSM','doSearch','pickClient','rCl','rDet','goBack','loadMoreTx','toggleEdit','rMods','rHist','rDash','showCS','createCl','delCl','addPts','redeem','saveCl','createMod','delMod','toggleCC','toggleCM','cancelCC','cancelCM','setSelId','showRemovePoints','removePoints'];
 ['togglePwd','changePwd'].forEach(f=>{window[f]=eval(f);});
 fns.forEach(f=>{if(typeof eval(f)==='function')window[f]=eval(f);});
 
