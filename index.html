@@ -297,7 +297,8 @@ function fmtT(d){return new Date(d).toLocaleTimeString('fr-FR',{hour:'2-digit',m
 function fmtDateOnly(d){return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'Europe/Paris'});}
 
 function avS(r){if(r==='admin')return'background:#FAECE7;color:#993C1D;';if(r==='moderateur')return'background:#eff6ff;color:#1d4ed8;';return'background:#f0fdf4;color:#166534;';}
-function grp(txs){const g={};(txs||[]).forEach(t=>{const k=t.created_at.split('T')[0];if(!g[k])g[k]=[];g[k].push(t);});return g;}
+function dateParis(d){return new Date(d).toLocaleDateString('fr-FR',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).split('/').reverse().join('-');}
+function grp(txs){const g={};(txs||[]).forEach(t=>{const k=dateParis(t.created_at);if(!g[k])g[k]=[];g[k].push(t);});return g;}
 function isOpen(){const n=new Date(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60;const s={0:[[11,14],[18,22.5]],1:null,2:[[11,14],[18,22]],3:[[11,14],[18,22]],4:[[11,14],[18,22]],5:[[11,14],[18,22.5]],6:[[11,14],[18,22.5]]};const p=s[d];if(!p)return false;return p.some(([a,b])=>h>=a&&h<b);}
 function render(h){document.getElementById('root').innerHTML=h;}
 function maskPhone(p){if(!p||p.length<4)return p;const d=p.replace(/ /g,'');if(d.length>=10)return d.slice(0,2)+'** *** **'+d.slice(-2);return p.slice(0,2)+'***'+p.slice(-2);}
