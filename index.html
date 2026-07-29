@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)file:///C:/Users/utilisateur/Downloads/index_14.html -->
+<!-- saved from url=(0052)file:///C:/Users/utilisateur/Downloads/index_16.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -290,14 +290,31 @@ function toast(m,dur=2800){
 function ini(p,n){return((p||'')[0]||'').toUpperCase()+((n||'')[0]||'').toUpperCase()||'?';}
 
 // ============================================================
-// FIX 1 : Formatage avec fuseau horaire Europe/Paris
+// CORRECTION DÉFINITIVE HEURE
+// parseTS : force l'UTC si le timestamp Supabase n'a pas de marqueur de fuseau
+// (sinon un navigateur FR l'interprète comme heure locale → décalage de 2h)
 // ============================================================
-function fmtL(d){return new Date(d).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Paris'});}
-function fmtT(d){return new Date(d).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Paris'});}
-function fmtDateOnly(d){return new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'Europe/Paris'});}
+function parseTS(s){
+  if(s instanceof Date) return s;
+  if(!s) return new Date();
+  if(typeof s!=='string') return new Date(s);
+  let str=s.trim().replace(' ','T');
+  // Normalise un offset court type +00 → +00:00
+  str=str.replace(/([+-]\d{2})$/,'$1:00');
+  // Si aucun marqueur de fuseau, on considère l'heure comme UTC
+  if(!/([Zz]|[+-]\d{2}:\d{2})$/.test(str)) str+='Z';
+  return new Date(str);
+}
+
+// ============================================================
+// FIX 1 : Formatage avec fuseau horaire Europe/Paris (via parseTS)
+// ============================================================
+function fmtL(d){return parseTS(d).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Paris'});}
+function fmtT(d){return parseTS(d).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Paris'});}
+function fmtDateOnly(d){return parseTS(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'Europe/Paris'});}
 
 function avS(r){if(r==='admin')return'background:#FAECE7;color:#993C1D;';if(r==='moderateur')return'background:#eff6ff;color:#1d4ed8;';return'background:#f0fdf4;color:#166534;';}
-function dateParis(d){return new Date(d).toLocaleDateString('fr-FR',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).split('/').reverse().join('-');}
+function dateParis(d){return parseTS(d).toLocaleDateString('fr-FR',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).split('/').reverse().join('-');}
 function grp(txs){const g={};(txs||[]).forEach(t=>{const k=dateParis(t.created_at);if(!g[k])g[k]=[];g[k].push(t);});return g;}
 function isOpen(){
   // Force l'heure et le jour en fuseau Europe/Paris (évite le bug sur appareils en UTC)
@@ -528,8 +545,18 @@ async function setV(v){view=v;selId=null;showCC=false;showCM=false;txPage=10;sho
 
 // DASHBOARD
 async function rDash(){
-  const today=new Date().toISOString().split('T')[0];
-  const{data:txToday}=await sb.from('transactions').select('*').gte('created_at',today+'T00:00:00');
+  // Début de journée en heure Paris, converti en instant UTC pour la requête
+  function debutJourParisISO(){
+    const p=new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Paris'}));
+    p.setHours(0,0,0,0);
+    // p est en heure locale machine mais représente minuit Paris ; on récupère l'instant réel
+    const parisMidnight=new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Paris'}));
+    parisMidnight.setHours(0,0,0,0);
+    const diff=new Date().getTime()-new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Paris'})).getTime();
+    return new Date(parisMidnight.getTime()+diff).toISOString();
+  }
+  const todayStartISO=debutJourParisISO();
+  const{data:txToday}=await sb.from('transactions').select('*').gte('created_at',todayStartISO);
   const{data:txWeek}=await sb.from('transactions').select('*').gte('created_at',new Date(Date.now()-7*24*60*60*1000).toISOString());
   const{data:newClients}=await sb.from('users').select('*').eq('role','client').gte('created_at',new Date(Date.now()-7*24*60*60*1000).toISOString());
   const ptsToday=(txToday||[]).filter(t=>t.points>0).reduce((s,t)=>s+t.points,0);
@@ -1036,7 +1063,7 @@ async function addPts(cid){
   if(session.role==='moderateur'&&!isOpen()){toast('❌ Restaurant fermé — ajout impossible.',4000);return;}
   const{data:c}=await sb.from('users').select('points,prenom,nom').eq('id',cid).single();
   await sb.from('users').update({points:(c.points||0)+val}).eq('id',cid);
-  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:'Commande '+val+'€',points:val});
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:'Commande '+val+'€',points:val,created_at:new Date().toISOString()});
   showPtsAnim(val,c.prenom+' '+c.nom);
   await loadCl();showStaff();
 }
@@ -1071,7 +1098,7 @@ async function removePoints(cid){
   if(val>(c.points||0)){toast('❌ Solde insuffisant : '+c.points+' pts disponibles');return;}
   if(!confirm('Retirer '+val+' pt(s) à '+c.prenom+' '+c.nom+' ?\nRaison : '+label))return;
   await sb.from('users').update({points:(c.points||0)-val}).eq('id',cid);
-  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:'Correction : -'+val+' pts ('+label+')',points:-val});
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:'Correction : -'+val+' pts ('+label+')',points:-val,created_at:new Date().toISOString()});
   toast('✅ −'+val+' pts retirés à '+c.prenom+' '+c.nom);
   await loadCl();showStaff();
 }
@@ -1088,7 +1115,7 @@ async function redeem(cid,cost,label){
   const bothUsed=(isR1&&c.reward2_used)||(isR2&&c.reward1_used);
   if(bothUsed){upd.points=0;upd.reward1_used=false;upd.reward2_used=false;}
   await sb.from('users').update(upd).eq('id',cid);
-  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:0});
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:0,created_at:new Date().toISOString()});
   if(bothUsed)toast('🎉 Les deux récompenses utilisées ! Points remis à zéro.',4000);
   else toast(label+' utilisé !');
   await loadCl();showStaff();
