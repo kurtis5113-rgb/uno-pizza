@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)file:///C:/Users/utilisateur/Downloads/index_16.html -->
+<!-- saved from url=(0060)file:///C:/Users/kurti/Downloads/index-appli-fidelite_1.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -201,18 +201,18 @@ body.staff-mode #remove-pts-form span{color:#fde047!important;}
   .stat-row .stat-c:last-child{grid-column:span 2;}
 }
 </style>
-<script src="file:///C:/Users/utilisateur/Downloads/index_files/supabase.min.js.t%C3%A9l%C3%A9chargement"></script><script src="file:///C:/Users/utilisateur/Downloads/index_files/supabase.js.t%C3%A9l%C3%A9chargement"></script><script src="./Uno Pizza — Fidélité_files/supabase.min.js.téléchargement"></script><script src="./Uno Pizza — Fidélité_files/supabase.js.téléchargement"></script></head>
+<script src="file:///C:/Users/utilisateur/Downloads/index_files/supabase.min.js.t%C3%A9l%C3%A9chargement"></script><script src="file:///C:/Users/utilisateur/Downloads/index_files/supabase.js.t%C3%A9l%C3%A9chargement"></script><script src="file:///C:/Users/kurti/Downloads/Uno%20Pizza%20%E2%80%94%20Fid%C3%A9lit%C3%A9_files/supabase.min.js.t%C3%A9l%C3%A9chargement"></script><script src="file:///C:/Users/kurti/Downloads/Uno%20Pizza%20%E2%80%94%20Fid%C3%A9lit%C3%A9_files/supabase.js.t%C3%A9l%C3%A9chargement"></script><script src="./Uno Pizza — Fidélité 1_files/supabase.min.js.téléchargement"></script><script src="./Uno Pizza — Fidélité 1_files/supabase.js.téléchargement"></script></head>
 <body>
 <div id="root">
   <div class="lw"><div class="lh">
-    <div class="lr"><div style="width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;">U</div></div>
+    <div class="lr"><img src="./Uno Pizza — Fidélité 1_files/logo.jpg" alt="Uno Pizza" onerror="this.parentElement.innerHTML='&lt;div style=&quot;width:100%;height:100%;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;&quot;&gt;U&lt;/div&gt;'"></div>
     <div class="lb"><h1><span class="u">Uno</span> <span class="p">Pizza</span></h1></div>
     <div class="lg2">★ Programme de fidélité · Depuis 2017</div>
 
     <div class="lc">
       <div class="lt">
-        <button class="lta active" id="tab-s" onclick="window.switchTab(&#39;s&#39;)">Staff</button>
-        <button class="lta" id="tab-c" onclick="window.switchTab(&#39;c&#39;)">Client</button>
+        <button class="lta active" id="tab-s" onclick="window.switchTab('s')">Staff</button>
+        <button class="lta" id="tab-c" onclick="window.switchTab('c')">Client</button>
       </div>
       <div id="lbody"><div id="la"></div>
     <div class="field"><label>Identifiant</label><input id="li" autocorrect="off" autocapitalize="off" placeholder="admin"></div>
@@ -298,11 +298,13 @@ function parseTS(s){
   if(s instanceof Date) return s;
   if(!s) return new Date();
   if(typeof s!=='string') return new Date(s);
-  let str=s.trim().replace(' ','T');
-  // Normalise un offset court type +00 → +00:00
-  str=str.replace(/([+-]\d{2})$/,'$1:00');
-  // Si aucun marqueur de fuseau, on considère l'heure comme UTC
-  if(!/([Zz]|[+-]\d{2}:\d{2})$/.test(str)) str+='Z';
+  var str=s.trim().replace(' ','T');
+  // On ne traite le fuseau QUE s'il y a une heure (un 'T').
+  // Une date seule "2025-07-28" reste intacte (sinon le -28 est pris pour un fuseau → Invalid Date).
+  if(str.indexOf('T')!==-1){
+    str=str.replace(/([+-]\d{2})$/,'$1:00');        // +00 -> +00:00
+    if(!/([Zz]|[+-]\d{2}:\d{2})$/.test(str)) str+='Z';
+  }
   return new Date(str);
 }
 
@@ -1193,6 +1195,7 @@ if('serviceWorker' in navigator){
 
 } // end initApp
 </script>
+
 
 
 
