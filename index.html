@@ -674,14 +674,12 @@ async function rDet(isA){
 
   // Next reward
   let nextReward='';
-  if(!c.reward1_used&&c.points<125){
-    const diff=125-c.points;
-    nextReward=`<div class="next-reward">🍾 Plus que <b style="color:var(--gold);">${diff} pts</b> pour la bouteille 1.5L offerte !</div>`;
-  } else if(!c.reward2_used&&c.points<250){
-    const diff=250-c.points;
-    nextReward=`<div class="next-reward">🍕 Plus que <b style="color:var(--gold);">${diff} pts</b> pour la pizza Junior offerte !</div>`;
-  } else if(c.reward1_used&&c.reward2_used){
-    nextReward=`<div class="next-reward" style="background:rgba(22,101,52,0.1);border-color:rgba(134,239,172,0.2);">🎉 Toutes les récompenses ont été utilisées ! Les points repartent à zéro.</div>`;
+  if(c.points<125){
+    nextReward=`<div class="next-reward">🍾 Plus que <b style="color:var(--gold);">${125-c.points} pts</b> pour la bouteille 1.5L (125 pts) !</div>`;
+  } else if(c.points<250){
+    nextReward=`<div class="next-reward">🍾 Bouteille disponible ! Plus que <b style="color:var(--gold);">${250-c.points} pts</b> pour la pizza Junior (250 pts).</div>`;
+  } else {
+    nextReward=`<div class="next-reward" style="background:rgba(22,101,52,0.1);border-color:rgba(134,239,172,0.2);">🎉 Solde suffisant pour la bouteille 🍾 et la pizza 🍕 !</div>`;
   }
 
   let hH='';
@@ -748,13 +746,13 @@ async function rDet(isA){
         <div class="ring-wrap">
           <svg width="120" height="120" viewBox="0 0 120 120">
             <circle class="ring-bg" cx="60" cy="60" r="52" stroke="rgba(201,168,76,0.15)"/>
-            <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward1_used?'#16a34a':'var(--gold)'}"
+            <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.points>=125?'#16a34a':'var(--gold)'}"
               stroke-dasharray="${2*Math.PI*52}"
               stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/125))}"/>
           </svg>
           <div class="ring-label">
-            <div class="ring-pts" style="color:${c.reward1_used?'#16a34a':'var(--gold)'};">${c.reward1_used?'✅':p1}</div>
-            <div class="ring-sub">${c.reward1_used?'Utilisée':'/125 pts'}</div>
+            <div class="ring-pts" style="color:${c.points>=125?'#16a34a':'var(--gold)'};">${c.points>=125?'✓':p1}</div>
+            <div class="ring-sub">${c.points>=125?'Disponible':'/125 pts'}</div>
           </div>
         </div>
         <div style="font-size:13px;font-weight:600;">🍾 Bouteille 1.5L</div>
@@ -763,13 +761,13 @@ async function rDet(isA){
         <div class="ring-wrap">
           <svg width="120" height="120" viewBox="0 0 120 120">
             <circle class="ring-bg" cx="60" cy="60" r="52" stroke="rgba(201,168,76,0.15)"/>
-            <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward2_used?'#16a34a':'var(--gold)'}"
+            <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.points>=250?'#16a34a':'var(--gold)'}"
               stroke-dasharray="${2*Math.PI*52}"
               stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/250))}"/>
           </svg>
           <div class="ring-label">
-            <div class="ring-pts" style="color:${c.reward2_used?'#16a34a':'var(--gold)'};">${c.reward2_used?'✅':p2}</div>
-            <div class="ring-sub">${c.reward2_used?'Utilisée':'/250 pts'}</div>
+            <div class="ring-pts" style="color:${c.points>=250?'#16a34a':'var(--gold)'};">${c.points>=250?'✓':p2}</div>
+            <div class="ring-sub">${c.points>=250?'Disponible':'/250 pts'}</div>
           </div>
         </div>
         <div style="font-size:13px;font-weight:600;">🍕 Pizza Junior</div>
@@ -785,8 +783,8 @@ async function rDet(isA){
       <input id="pts-in" type="number" placeholder="Montant commande (€)" style="flex:1;min-width:120px;height:52px;font-size:22px;font-weight:700;text-align:center;"/>
       <button class="btn bp" onclick="window.addPts('${c.id}')">+ Points</button>
       <!-- FIX 2 : boutons récompenses accessibles admin ET modérateur -->
-      <button class="btn bs bd2" ${c.points<125||c.reward1_used?'disabled':''} onclick="window.redeem('${c.id}',125,'Bouteille 1.5L offerte')">${c.reward1_used?'🍾 Utilisée':'🍾 −125'}</button>
-      <button class="btn bs bd2" ${c.points<250||c.reward2_used?'disabled':''} onclick="window.redeem('${c.id}',250,'Pizza Junior offerte')">${c.reward2_used?'🍕 Utilisée':'🍕 −250'}</button>
+      <button class="btn bs bd2" ${c.points<125?'disabled':''} onclick="window.redeem('${c.id}',125,'Bouteille 1.5L offerte')">🍾 −125</button>
+      <button class="btn bs bd2" ${c.points<250?'disabled':''} onclick="window.redeem('${c.id}',250,'Pizza Junior offerte')">🍕 −250</button>
       <!-- FIX 3 : bouton retrait de points (admin + modérateur) -->
       <button class="btn bs" style="background:#fefce8;border-color:#fde047;color:#854d0e;font-weight:600;" onclick="window.showRemovePoints('${c.id}')">✏️ − Points</button>
     </div>
@@ -927,8 +925,9 @@ async function showCS(){
   const gd=grp(txs);
 
   let nextPts='';
-  if(!c.reward1_used&&c.points<125) nextPts=`<div class="next-reward">🍾 Plus que <b>${125-c.points} pts</b> pour la bouteille offerte !</div>`;
-  else if(!c.reward2_used&&c.points<250) nextPts=`<div class="next-reward">🍕 Plus que <b>${250-c.points} pts</b> pour la pizza Junior offerte !</div>`;
+  if(c.points<125) nextPts=`<div class="next-reward">🍾 Plus que <b>${125-c.points} pts</b> pour la bouteille offerte !</div>`;
+  else if(c.points<250) nextPts=`<div class="next-reward">🍾 Bouteille dispo ! Plus que <b>${250-c.points} pts</b> pour la pizza Junior.</div>`;
+  else nextPts=`<div class="next-reward">🎉 Profitez de la bouteille 🍾 et de la pizza 🍕 !</div>`;
 
   let hH='';
   Object.keys(gd).sort((a,b)=>b.localeCompare(a)).forEach(date=>{
@@ -972,13 +971,13 @@ async function showCS(){
           <div class="ring-wrap">
             <svg width="120" height="120" viewBox="0 0 120 120">
               <circle class="ring-bg" cx="60" cy="60" r="52" stroke="#f3f4f6"/>
-              <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward1_used?'#16a34a':'var(--brand)'}"
+              <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.points>=125?'#16a34a':'var(--brand)'}"
                 stroke-dasharray="${2*Math.PI*52}"
                 stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/125))}"/>
             </svg>
             <div class="ring-label">
-              <div class="ring-pts" style="color:${c.reward1_used?'#16a34a':'var(--brand)'};">${c.reward1_used?'✅':p1}</div>
-              <div class="ring-sub">${c.reward1_used?'Utilisée':'/125 pts'}</div>
+              <div class="ring-pts" style="color:${c.points>=125?'#16a34a':'var(--brand)'};">${c.points>=125?'✓':p1}</div>
+              <div class="ring-sub">${c.points>=125?'Disponible':'/125 pts'}</div>
             </div>
           </div>
           <div style="font-size:12px;font-weight:600;">🍾 Bouteille 1.5L</div>
@@ -987,13 +986,13 @@ async function showCS(){
           <div class="ring-wrap">
             <svg width="120" height="120" viewBox="0 0 120 120">
               <circle class="ring-bg" cx="60" cy="60" r="52" stroke="#f3f4f6"/>
-              <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.reward2_used?'#16a34a':'var(--brand)'}"
+              <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${c.points>=250?'#16a34a':'var(--brand)'}"
                 stroke-dasharray="${2*Math.PI*52}"
                 stroke-dashoffset="${2*Math.PI*52*(1-Math.min(1,c.points/250))}"/>
             </svg>
             <div class="ring-label">
-              <div class="ring-pts" style="color:${c.reward2_used?'#16a34a':'var(--brand)'};">${c.reward2_used?'✅':p2}</div>
-              <div class="ring-sub">${c.reward2_used?'Utilisée':'/250 pts'}</div>
+              <div class="ring-pts" style="color:${c.points>=250?'#16a34a':'var(--brand)'};">${c.points>=250?'✓':p2}</div>
+              <div class="ring-sub">${c.points>=250?'Disponible':'/250 pts'}</div>
             </div>
           </div>
           <div style="font-size:12px;font-weight:600;">🍕 Pizza Junior</div>
@@ -1107,19 +1106,15 @@ async function removePoints(cid){
 
 // FIX 2 : redeem accessible à admin ET modérateur (la condition isA a été retirée des boutons)
 async function redeem(cid,cost,label){
-  if(!confirm('Utiliser "'+label+'" pour ce client ?'))return;
-  const{data:c}=await sb.from('users').select('points,reward1_used,reward2_used').eq('id',cid).single();
-  const isR1=cost===125,isR2=cost===250;
-  if(isR1&&c.reward1_used){toast('🍾 Bouteille déjà utilisée !');return;}
-  if(isR2&&c.reward2_used){toast('🍕 Pizza déjà utilisée !');return;}
-  if(c.points<cost){toast('Points insuffisants');return;}
-  const upd=isR1?{reward1_used:true}:{reward2_used:true};
-  const bothUsed=(isR1&&c.reward2_used)||(isR2&&c.reward1_used);
-  if(bothUsed){upd.points=0;upd.reward1_used=false;upd.reward2_used=false;}
-  await sb.from('users').update(upd).eq('id',cid);
-  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:0,created_at:new Date().toISOString()});
-  if(bothUsed)toast('🎉 Les deux récompenses utilisées ! Points remis à zéro.',4000);
-  else toast(label+' utilisé !');
+  // Solde déductible : la récompense déduit son coût du solde. Répétable à volonté.
+  const{data:c}=await sb.from('users').select('points,prenom,nom').eq('id',cid).single();
+  const solde=c.points||0;
+  if(solde<cost){toast('❌ Solde insuffisant : '+solde+' / '+cost+' pts');return;}
+  if(!confirm('Utiliser « '+label+' » ?\nCela déduit '+cost+' pts du solde de '+c.prenom+' '+c.nom+' ('+solde+' → '+(solde-cost)+' pts).'))return;
+  const newPts=solde-cost;
+  await sb.from('users').update({points:newPts}).eq('id',cid);
+  await sb.from('transactions').insert({client_id:cid,by_user_id:session.id,label:label,points:-cost,created_at:new Date().toISOString()});
+  toast('✅ '+label+' — '+cost+' pts déduits · solde : '+newPts+' pts',4000);
   await loadCl();showStaff();
 }
 
